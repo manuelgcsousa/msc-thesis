@@ -1,0 +1,73 @@
+STRUCTURE:
+	part(
+		Sujeito, 
+		attributes{tipo}, 
+		subparts[
+			(Determinante)?, 
+			(Nome)
+		]
+	)
+	part(
+		Predicado, 
+		attributes{tipoVerb, tipoComplDir, tipoComplInd}, 
+		subparts[
+			(Verbo),
+			(Complemento_Direto, subparts[(Determinante)?, (Nome)]),
+			(Complemento_Indireto, subparts[(Preposição), (Quantificador)?, (Nome)])?
+		]
+	)
+	
+ERRORS:
+	Predicado->tipoVerb = "sujAnimado" AND Sujeito->tipo = "inanimado";
+	Predicado->tipoVerb = "complAnimado" AND Predicado->tipoComplDir = "inanimado";
+	Predicado->tipoVerb = "sujInanimado" AND Sujeito->tipo = "animado";
+	Predicado->tipoVerb = "tempo" AND Predicado->tipoComplDir != "tempo" AND Predicado->tipoComplDir != "null";
+	Predicado->tipoVerb = "tempo" AND Predicado->tipoComplInd != "tempo" AND Predicado->tipoComplInd != "null";
+
+
+/***************************************************************************/
+
+
+STRUCTURE:
+	part(
+		Sujeito,
+		attributes{tipo},
+		subparts[(Determinante), (Nome)]
+	)
+	part(
+		Predicado,
+		attributes{tipoVerb},
+		subparts[
+			(Verbo),
+			(Complemento_Indireto, subparts[(Contração), (Nome)])
+		]
+	)
+
+ERRORS:
+	Sujeito->tipo != "animado" AND Predicado->tipoVerb != "sujAnimado";
+
+
+/***************************************************************************/
+
+
+STRUCTURE:
+	part(
+		Frase,
+		attributes{x},
+		subparts[
+			(Determinante),
+			(Nome),
+			(Preposicao),
+			(Nome),
+			(Nome)?,
+			(Adjetivo)
+		]
+	)
+
+ERRORS:
+	Frase->x != "null";
+
+
+/***************************************************************************/
+
+

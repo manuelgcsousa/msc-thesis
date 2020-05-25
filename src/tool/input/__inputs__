@@ -1,0 +1,54 @@
+INPUT:
+	- (Sujeito: "O Carlos" [tipo = "animado"]
+		(Determinante: "O", Nome: "Carlos"))
+	- (Predicado: "teme a sinceridade" [tipoVerb = "sujAnimado", tipoComplDir = "tempo", tipoComplInd = "null"] 
+		(Verbo: "teme", Complemento_Direto: "a sinceridade" (Determinante: "a", Nome: "sinceridade")))
+
+INPUT: /* ERRADA */
+	- (Sujeito: "A sinceridade" [tipo = "inanimado"]
+		(Determinante: "A", Nome: "sinceridade"))
+	- (Predicado: "teme o Carlos" [tipoVerb = "sujAnimado", tipoComplDir = "tempo", tipoComplInd = "null"] 
+		(Verbo: "teme", Complemento_Direto: "o Carlos" (Determinante: "o", Nome: "Carlos")))
+
+INPUT:
+	- (Sujeito: "A sinceridade" [tipo = "inanimado"]
+		(Determinante: "A", Nome: "sinceridade"))
+	- (Predicado: "assusta o Carlos" [tipoVerb = "undefined", tipoComplDir = "null", tipoComplInd = "null"]
+		(Verbo: "assusta", Complemento_Direto: "o Carlos" (Determinante: "o", Nome: "Carlos")))
+
+INPUT:
+	- (Sujeito: "O Carlos" [tipo = "animado"]
+		(Determinante: "O", Nome: "Carlos"))
+	- (Predicado: "ofereceu o ramo à Margarida" [tipoVerb = "sujAnimado", tipoComplDir = "null", tipoComplInd = "null"]
+		(Verbo: "ofereceu", 
+		 Complemento_Direto: "o ramo" (Determinante: "o", Nome: "ramo"), 
+		 Complemento_Indireto: "à Margarida" (Preposição: "à", Nome: "Margarida")))
+
+
+/***************************************************************************/
+
+
+INPUT:
+	- (Sujeito: "O João Pedro" [tipo = "animado"]
+		(Determinante: "O", Nome: "João Pedro"))
+	- (Predicado: "ligou ao Diogo" [tipoVerb = "sujAnimado"]
+		(Verbo: "ligou", 
+		 Complemento_Indireto: "ao Diogo" (Contração: "ao", Nome: "Diogo")))
+
+
+/***************************************************************************/
+
+	
+INPUT:
+	- (Frase: "Um especialista em fibras óticas ótimas" [x = "x"]
+		(Determinante: "Um", 
+		 Nome: "especialista", 
+		 Preposicao: "em", 
+		 Nome: "fibras", 
+		 Nome: "óticas", 
+		 Adjetivo: "ótimas"))
+
+
+/***************************************************************************/
+
+

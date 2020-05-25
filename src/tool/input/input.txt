@@ -1,0 +1,8 @@
+INPUT:
+	- (Frase: "Um especialista em fibras óticas ótimas" [x = "null"]
+		(Determinante: "Um", 
+		 Nome: "especialista" [y = "y"], 
+		 Preposicao: "em", 
+		 Nome: "fibras" [z = "z"], 
+		 Nome: "óticas", 
+		 Adjetivo: "ótimas"))

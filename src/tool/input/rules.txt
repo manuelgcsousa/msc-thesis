@@ -1,0 +1,17 @@
+STRUCTURE:
+	part(
+		Frase,
+		attributes{x},
+		subparts[
+			(Determinante),
+			(Nome, attributes{y}),
+			(Preposicao),
+			(Nome, attributes{z}),
+			(Nome)?,
+			(Adjetivo)
+		]
+	)
+
+ERRORS:
+	Frase->x != "null";
+
