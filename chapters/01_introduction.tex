@@ -1,0 +1,36 @@
+\chapter{Introduction} \label{introduction}
+	
+\section{Context}
+Attribute Grammars are a way of specifying syntax and semantics to describe formal languages \cite{hafiz_2011} and were first developed by the computer scientist Donald Knuth in order to formalize the semantics of a context-free language \cite{slonneger_1995}. They were created and are still used for language developing, compiler generation, algorithm design, etc \cite{thirunarayan_2009}. One other application would be the teaching of linguistic rules through the usage of formalisms presented in attribute grammars \cite{horakova_2014}. Using attribute grammars, it is possible to specify the way sentences are correctly written. By making use of ``synthesized attributes'', it would be possible to represent the gender of an adjective, while ``inherited attributes'' would be translated into the meaning of a preposition, depending on the context of the sentence \cite{donald_1990}.
+There are an array of linguistic rules to be represented within an attribute grammar, and when a sentence is provided, it is possible to validate the syntax, adverting for any errors that may be encountered \cite{barros_2017}.
+
+Applying attribute grammars to model all the different syntax and semantic behaviour of natural languages is a technique that has already been practiced, but it demands knowledge in programming syntax in order to translate natural languages rules to attribute grammar rules \cite{hafiz_2011}. In spite of the existing tools, they are not so easily available and straightforward for those who do not have programming and computation proficiency - in this specific case, linguists. There are tools available that use languages which closely resembles logic, and use logic components, but it is easier to rapidly grasp the concepts of a domain specific language, that only does a list of tasks, than to use a language that is not created with a main purpose.
+    
+So, the main proposal is to define a new \textsc{DSL} (Domain Specific Language) with a much simpler notation, making it easy to learn and to rapidly understand. The main focus is to keep the syntax as close as possible to a natural language, avoiding common programming languages elements (such as semicolons, curly brackets, etc.). This allows the specification of rules to be done in a much natural manner. Also, it is desired to create a visually appealing user interface, granting the user the possibility of analysing the generated syntax-tree.
+
+	
+\section{Objective}
+The main objective of this master thesis is to produce a pedagogical tool to support teaching linguistics. The detailed objetives are the following:
+
+\begin{itemize}
+    \item Definition of simple and concise \textsc{DSL}, suitable for common users, to specify linguistic rules based in an attribute grammar.
+    \item Construction of that pedagogical tool, with a friendly user interface, based on the reffered attribute grammar using \textsc{ANTLR} (ANother Tool for Language Recognition).
+\end{itemize}
+    
+\section{Methodology}
+The research work will be performed at different stages. The methodology that will be followed to achieve this master project will focus on literature revision, solution proposal, implementation and testing. The following steps realise this methodology:
+
+\begin{itemize}
+    \item Do a comprehensive research about attribute grammars in linguistics: what has been done, how has it been done, and ways to improve the previous work.
+    \item Research the principles of linguistic rules in different languages.
+    \item Design a \textsc{DSL} that allows a straightforward specification of an array of rules.
+    \item Develop a language translator that can translate programs written in the new language to \textsc{ANTLR}.
+    \item Create an user interface that allows for a visual analysis of the generated syntax-tree.
+    \item Experiment with some case studies, and test the tool with real linguistic students.
+\end{itemize}
+    
+\section{Document Structure}
+The document starts by introducing the problem, and in \textbf{Chapter 1} a context, objectives and methodology are presented.
+On \textbf{Chapter 2} the main concepts are briefly explained, followed by the presentation and explanation of current existing solutions that may help solving the current problem.
+\textbf{Chapter 3} consists on explaining the proposal for solving the stated problem, documenting the system architecture, giving some examples and then using the tool produced.
+\textbf{Chapter 4} intends to close the document with summary of the work that was done, opinions on what was done, and explains what are the next steps to take in order to achieve the main objective.
