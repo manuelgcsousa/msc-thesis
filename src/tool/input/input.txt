@@ -5,4 +5,4 @@ INPUT:
 		 Preposicao: "em", 
 		 Nome: "fibras" [z = "z"], 
 		 Nome: "óticas", 
-		 Adjetivo: "ótimas"))
+		 Adjetivo: "ótimas" [y = "cenas"]))

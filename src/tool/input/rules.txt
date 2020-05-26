@@ -8,7 +8,7 @@ STRUCTURE:
 			(Preposicao),
 			(Nome, attributes{z}),
 			(Nome)?,
-			(Adjetivo)
+			(Adjetivo, attributes{y})
 		]
 	)
 

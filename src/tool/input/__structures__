@@ -1,0 +1,94 @@
+// Frase simples
+STRUCTURE:
+    part(
+		Sujeito, 
+		attributes{}, 
+		subparts[
+			(Determinante)?, 
+			(Nome)
+		]
+	)
+	
+    part(
+		Predicado, 
+		attributes{}, 
+		subparts[
+			(Verbo),
+			(Complemento_Direto, subparts[(Determinante)?, (Nome)]),
+		]
+	)
+
+/************************************************************************/
+
+
+// Frase composta
+STRUCTURE:
+    part(
+		Sujeito, 
+		attributes{}, 
+		subparts[
+			(Determinante)?, 
+			(Nome)
+		]
+	)
+	
+    part(
+		Predicado, 
+		attributes{}, 
+		subparts[
+			(Verbo),
+			(Complemento_Direto, subparts[(Determinante)?, (Nome)]),
+            (Complemento_Indireto, subparts[(Contração), (Nome)])
+		]
+	)
+
+
+/************************************************************************/
+
+
+// Frase com atributo género
+STRUCTURE:
+    part(
+        Frase
+        attributes{},
+        subparts[
+            (Determinante, attributes{genero}),
+            (Nome, attributes{genero}),
+            (Verbo)
+        ]
+    )
+
+ERRORS:
+    Frase.Determinante->genero == "masculino" AND Frase.Nome->genero == "feminino";
+    Frase.Determinante->genero == "feminino" AND Frase.Nome->genero == "masculino";
+    
+    Frase.Determinante->genero != "masculino" OR Frase.Determinante->genero != "feminino";
+    Frase.Nome->genero != "masculino" OR Frase.Nome->genero != "feminino";
+
+
+/************************************************************************/
+
+
+// Nomes animados e verbos que pedem sujeitos animados.
+STRUCTURE:
+    part(
+        Frase
+        attributes{},
+        subparts[
+            (Determinante),
+            (Nome, attributes{tipo}),
+            (Verbo, attributes{tipo})
+        ]
+    )
+
+ERRORS:
+    Frase.Nome->tipo == "animado" AND Frase.Verbo->tipo == "inanimado";
+    Frase.Nome->tipo == "inanimado" AND Frase.Verbo->tipo == "animado";
+
+    Frase.Nome->tipo != "animado" OR Frase.Nome->tipo != "inanimado";
+    Frase.Verbo->tipo != "animado" OR Frase.Verbo->tipo != "inanimado";
+
+
+/************************************************************************/
+
+

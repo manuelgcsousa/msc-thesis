@@ -1,0 +1,46 @@
+INPUT:
+    - (Sujeito: "O Carlos" (Determinante: "O", Nome: "Carlos"))
+    - (Predicado: "lavou o carro" 
+        (Verbo: "lavou", Complemento_Direto: "o carro" (Determinante: "o", Nome: "carro")))
+
+INPUT:
+    - (Sujeito: "A Ana" (Determinante: "A", Nome: "Ana"))
+    - (Predicado: "comeu o bolo" 
+        (Verbo: "comeu", Complemento_Direto: "o bolo" (Determinante: "o", Nome: "bolo")))
+
+INPUT:
+    - (Sujeito: "O Miguel" (Determinante: "O", Nome: "Miguel"))
+    - (Predicado: "comeu o bolo" 
+        (Verbo: "comeu", Complemento_Direto: "o bolo" (Determinante: "o", Nome: "bolo")))
+
+
+/*********************************************************************************************/
+
+
+INPUT:
+    - (Sujeito: "O João" (Determinante: "O", Nome: "João"))
+    - (Predicado: "ofereceu o ramo à Margarida" 
+        (Verbo: "ofereceu",
+         Complemento_Direto: "o ramo" (Determinante: "o", Nome: "ramo"),
+         Complemento_Indireto: "à Margarida" (Contração: "à", Nome: "Margarida")))
+
+INPUT: 
+    - (Sujeito: "O Manuel" (Determinante: "O", Nome: "Manuel"))
+    - (Predicado: "deu o recado ao pai" 
+        (Verbo: "deu",
+         Complemento_Direto: "o recado" (Determinante: "o", Nome: "recado"),
+         Complemento_Indireto: "ao pai" (Contração: "ao", Nome: "pai")))
+
+INPUT:
+    - (Sujeito: "A professora" (Determinante: "A", Nome: "professora"))
+    - (Predicado: "transmitiu a informação aos alunos" 
+        (Verbo: "transmitiu",
+         Complemento_Direto: "a informação" (Determinante: "a", Nome: "informação"),
+         Complemento_Indireto: "aos alunos" (Contração: "aos", Nome: "alunos")))
+
+
+/*********************************************************************************************/
+
+
+INPUT:
+    

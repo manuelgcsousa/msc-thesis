@@ -1,0 +1,22 @@
+- Frase simples:
+    O Carlos lavou o carro.
+    A Ana comeu o bolo.
+    O Miguel joga futebol.
+
+- Frase composta:
+    O João ofereceu o ramo à Margarida.
+    O Manuel deu o recado ao pai.
+    A professora transmitiu a informação aos alunos.
+
+- Frase com atributo 'género':
+    O Nuno corre.
+    A Mariana dorme.
+    A Beatriz pinta.
+    
+    -> ERRO: A Vitor lê. 
+
+- Frase com sujeitos (nomes) animados e verbos que requerem sujeitos animados.
+    A Inês joga.
+    O pensamento cansa.
+    
+    -> ERRO: A preocupação come.
