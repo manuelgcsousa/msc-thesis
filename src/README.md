@@ -10,9 +10,9 @@ The main purpose of this tool is to generate ANTLR instructions based on a previ
 
 Input files must be inside the **input/** directory. Both files (teacher and student) must have specific names:
 
-- **Teacher**: "rules.txt"
+- **Teacher**: "rules"
 
-- **Student**: "input.txt"
+- **Student**: "input"
 
 **These names can be changed within the Makefile (variables)**.
 
