@@ -15,7 +15,7 @@
     
     -> ERRO: A Vitor lê. 
 
-- Frase com sujeitos (nomes) animados e verbos que requerem sujeitos animados.
+- Frase com sujeitos (nomes) animados e verbos que requerem sujeitos animados:
     A Inês joga.
     O pensamento cansa.
     

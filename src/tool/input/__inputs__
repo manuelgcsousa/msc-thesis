@@ -1,54 +1,109 @@
+/* TESTE */
 INPUT:
-	- (Sujeito: "O Carlos" [tipo = "animado"]
-		(Determinante: "O", Nome: "Carlos"))
-	- (Predicado: "teme a sinceridade" [tipoVerb = "sujAnimado", tipoComplDir = "tempo", tipoComplInd = "null"] 
-		(Verbo: "teme", Complemento_Direto: "a sinceridade" (Determinante: "a", Nome: "sinceridade")))
-
-INPUT: /* ERRADA */
-	- (Sujeito: "A sinceridade" [tipo = "inanimado"]
-		(Determinante: "A", Nome: "sinceridade"))
-	- (Predicado: "teme o Carlos" [tipoVerb = "sujAnimado", tipoComplDir = "tempo", tipoComplInd = "null"] 
-		(Verbo: "teme", Complemento_Direto: "o Carlos" (Determinante: "o", Nome: "Carlos")))
-
-INPUT:
-	- (Sujeito: "A sinceridade" [tipo = "inanimado"]
-		(Determinante: "A", Nome: "sinceridade"))
-	- (Predicado: "assusta o Carlos" [tipoVerb = "undefined", tipoComplDir = "null", tipoComplInd = "null"]
-		(Verbo: "assusta", Complemento_Direto: "o Carlos" (Determinante: "o", Nome: "Carlos")))
-
-INPUT:
-	- (Sujeito: "O Carlos" [tipo = "animado"]
-		(Determinante: "O", Nome: "Carlos"))
-	- (Predicado: "ofereceu o ramo à Margarida" [tipoVerb = "sujAnimado", tipoComplDir = "null", tipoComplInd = "null"]
-		(Verbo: "ofereceu", 
-		 Complemento_Direto: "o ramo" (Determinante: "o", Nome: "ramo"), 
-		 Complemento_Indireto: "à Margarida" (Preposição: "à", Nome: "Margarida")))
-
-
-/***************************************************************************/
-
-
-INPUT:
-	- (Sujeito: "O João Pedro" [tipo = "animado"]
-		(Determinante: "O", Nome: "João Pedro"))
-	- (Predicado: "ligou ao Diogo" [tipoVerb = "sujAnimado"]
-		(Verbo: "ligou", 
-		 Complemento_Indireto: "ao Diogo" (Contração: "ao", Nome: "Diogo")))
-
-
-/***************************************************************************/
-
-	
-INPUT:
-	- (Frase: "Um especialista em fibras óticas ótimas" [x = "x"]
+	- (Frase: "Um especialista em fibras óticas ótimas" [x = "null"]
 		(Determinante: "Um", 
-		 Nome: "especialista", 
+		 Nome: "especialista" [y = "y"], 
 		 Preposicao: "em", 
-		 Nome: "fibras", 
+		 Nome: "fibras" [z = "z"], 
 		 Nome: "óticas", 
-		 Adjetivo: "ótimas"))
+		 Adjetivo: "ótimas" [y = "teste"]))
 
 
-/***************************************************************************/
+
+/*********************************************************************************************/
 
 
+INPUT: 
+    - (Sujeito: "O Carlos" (Determinante: "O", Nome: "Carlos"))
+    - (Predicado: "lavou o carro" 
+        (Verbo: "lavou", Complemento_Direto: "o carro" (Determinante: "o", Nome: "carro")))
+
+INPUT:
+    - (Sujeito: "A Ana" (Determinante: "A", Nome: "Ana"))
+    - (Predicado: "comeu o bolo" 
+        (Verbo: "comeu", Complemento_Direto: "o bolo" (Determinante: "o", Nome: "bolo")))
+
+INPUT:
+    - (Sujeito: "O Miguel" (Determinante: "O", Nome: "Miguel"))
+    - (Predicado: "joga futebol" 
+        (Verbo: "joga", Complemento_Direto: "futebol" (Nome: "futebol")))
+
+
+/*********************************************************************************************/
+
+
+INPUT:
+    - (Sujeito: "O João" (Determinante: "O", Nome: "João"))
+    - (Predicado: "ofereceu o ramo à Margarida" 
+        (Verbo: "ofereceu",
+         Complemento_Direto: "o ramo" (Determinante: "o", Nome: "ramo"),
+         Complemento_Indireto: "à Margarida" (Contração: "à", Nome: "Margarida")))
+
+INPUT: 
+    - (Sujeito: "O Manuel" (Determinante: "O", Nome: "Manuel"))
+    - (Predicado: "deu o recado ao pai" 
+        (Verbo: "deu",
+         Complemento_Direto: "o recado" (Determinante: "o", Nome: "recado"),
+         Complemento_Indireto: "ao pai" (Contração: "ao", Nome: "pai")))
+
+INPUT:
+    - (Sujeito: "A professora" (Determinante: "A", Nome: "professora"))
+    - (Predicado: "transmitiu a informação aos alunos" 
+        (Verbo: "transmitiu",
+         Complemento_Direto: "a informação" (Determinante: "a", Nome: "informação"),
+         Complemento_Indireto: "aos alunos" (Contração: "aos", Nome: "alunos")))
+
+
+/*********************************************************************************************/
+
+
+INPUT:
+    - (Frase: "O Nuno corre"
+        (Determinante: "O" [genero = "masculino"], 
+         Nome: "Nuno" [genero = "masculino"],
+         Verbo: "corre"))
+
+INPUT:
+    - (Frase: "A Mariana dorme"
+        (Determinante: "A" [genero = "feminino"], 
+         Nome: "Mariana" [genero = "feminino"],
+         Verbo: "dorme"))
+
+INPUT:
+    - (Frase: "A Beatriz pinta"
+        (Determinante: "A" [genero = "feminino"], 
+         Nome: "Beatriz" [genero = "feminino"],
+         Verbo: "pinta"))
+
+// ERRO:
+INPUT:
+    - (Frase: "O Olinda lê"
+        (Determinante: "O" [genero = "masculino"], 
+         Nome: "Olinda" [genero = "feminino"],
+         Verbo: "lê"))
+
+
+/*********************************************************************************************/
+
+
+INPUT:
+    - (Frase: "A Inês joga"
+        (Determinante: "A", 
+         Nome: "Inês" [tipo = "animado"],
+         Verbo: "joga" [tipo = "animado"]))
+
+INPUT:
+    - (Frase: "O pensamento cansa"
+        (Determinante: "O",
+         Nome: "pensamento" [tipo = "inanimado"],
+         Verbo: "cansa" [tipo = "inanimado"]))
+
+// ERRO:
+INPUT:
+    - (Frase: "A preocupação come"
+        (Determinante: "A",
+         Nome: "preocupação" [tipo = "inanimado"],
+         Verbo: "come" [tipo = "animado"]))
+
+
+/*********************************************************************************************/

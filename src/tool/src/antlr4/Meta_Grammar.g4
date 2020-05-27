@@ -183,7 +183,7 @@ subparts[String parent_comp, String path, List<RoseTree> children]
 /* ******************************************************** */
 
 errors[List<RoseTree> struct]
-	: 'ERRORS:' ( e=expression[struct] { grammar_error_conditions.add($e.logical_expression); } ';' )+
+	: ( 'ERRORS:' ( e=expression[struct] { grammar_error_conditions.add($e.logical_expression); } ';' )+ )?
 ;
 
 expression[List<RoseTree> struct]

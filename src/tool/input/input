@@ -1,0 +1,16 @@
+INPUT:
+    - (Frase: "O pensamento cansa"
+        (Determinante: "O",
+         Nome: "pensamento" [tipo = "inanimado"],
+         Verbo: "cansa" [tipo = "inanimado"]))
+
+/*
+
+// ERRO:
+INPUT:
+    - (Frase: "A preocupação come"
+        (Determinante: "A",
+         Nome: "preocupação" [tipo = "inanimado"],
+         Verbo: "come" [tipo = "animado"]))
+
+*/

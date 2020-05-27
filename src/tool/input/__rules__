@@ -1,66 +1,15 @@
-STRUCTURE:
-	part(
-		Sujeito, 
-		attributes{tipo}, 
-		subparts[
-			(Determinante)?, 
-			(Nome)
-		]
-	)
-	part(
-		Predicado, 
-		attributes{tipoVerb, tipoComplDir, tipoComplInd}, 
-		subparts[
-			(Verbo),
-			(Complemento_Direto, subparts[(Determinante)?, (Nome)]),
-			(Complemento_Indireto, subparts[(Preposição), (Quantificador)?, (Nome)])?
-		]
-	)
-	
-ERRORS:
-	Predicado->tipoVerb = "sujAnimado" AND Sujeito->tipo = "inanimado";
-	Predicado->tipoVerb = "complAnimado" AND Predicado->tipoComplDir = "inanimado";
-	Predicado->tipoVerb = "sujInanimado" AND Sujeito->tipo = "animado";
-	Predicado->tipoVerb = "tempo" AND Predicado->tipoComplDir != "tempo" AND Predicado->tipoComplDir != "null";
-	Predicado->tipoVerb = "tempo" AND Predicado->tipoComplInd != "tempo" AND Predicado->tipoComplInd != "null";
-
-
-/***************************************************************************/
-
-
-STRUCTURE:
-	part(
-		Sujeito,
-		attributes{tipo},
-		subparts[(Determinante), (Nome)]
-	)
-	part(
-		Predicado,
-		attributes{tipoVerb},
-		subparts[
-			(Verbo),
-			(Complemento_Indireto, subparts[(Contração), (Nome)])
-		]
-	)
-
-ERRORS:
-	Sujeito->tipo != "animado" AND Predicado->tipoVerb != "sujAnimado";
-
-
-/***************************************************************************/
-
-
+/* TESTE */
 STRUCTURE:
 	part(
 		Frase,
 		attributes{x},
 		subparts[
 			(Determinante),
-			(Nome),
+			(Nome, attributes{y}),
 			(Preposicao),
-			(Nome),
+			(Nome, attributes{z}),
 			(Nome)?,
-			(Adjetivo)
+			(Adjetivo, attributes{y})
 		]
 	)
 
@@ -68,6 +17,93 @@ ERRORS:
 	Frase->x != "null";
 
 
-/***************************************************************************/
+
+/************************************************************************/
 
 
+// Frase simples
+STRUCTURE:
+    part(
+		Sujeito, 
+		subparts[
+			(Determinante)?, 
+			(Nome)
+		]
+	)
+	
+    part(
+		Predicado, 
+		subparts[
+			(Verbo),
+			(Complemento_Direto, subparts[(Determinante)?, (Nome)])
+		]
+	)
+
+/************************************************************************/
+
+
+// Frase composta
+STRUCTURE:
+    part(
+		Sujeito, 
+		subparts[
+			(Determinante)?, 
+			(Nome)
+		]
+	)
+	
+    part(
+		Predicado, 
+		subparts[
+			(Verbo),
+			(Complemento_Direto, subparts[(Determinante)?, (Nome)]),
+            (Complemento_Indireto, subparts[(Contração), (Nome)])
+		]
+	)
+
+
+/************************************************************************/
+
+
+// Frase com atributo género
+STRUCTURE:
+    part(
+        Frase,
+        subparts[
+            (Determinante, attributes{genero}),
+            (Nome, attributes{genero}),
+            (Verbo)
+        ]
+    )
+
+ERRORS:
+    Frase.Determinante->genero = "masculino" AND Frase.Nome->genero = "feminino";
+    Frase.Determinante->genero = "feminino" AND Frase.Nome->genero = "masculino";
+    
+    Frase.Determinante->genero != "masculino" AND Frase.Determinante->genero != "feminino";
+    Frase.Nome->genero != "masculino" AND Frase.Nome->genero != "feminino";
+
+
+/************************************************************************/
+
+
+// Nomes animados e verbos que pedem sujeitos animados.
+STRUCTURE:
+    part(
+        Frase,
+        subparts[
+            (Determinante),
+            (Nome, attributes{tipo}),
+            (Verbo, attributes{tipo})
+        ]
+    )
+
+ERRORS:
+    Frase.Nome->tipo = "animado" AND Frase.Verbo->tipo = "inanimado";
+    Frase.Nome->tipo = "inanimado" AND Frase.Verbo->tipo = "animado";
+
+    Frase.Nome->tipo != "animado" AND Frase.Nome->tipo != "inanimado";
+    Frase.Verbo->tipo != "animado" AND Frase.Verbo->tipo != "inanimado";
+
+
+/************************************************************************/

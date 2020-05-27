@@ -1,0 +1,17 @@
+// Nomes animados e verbos que pedem sujeitos animados.
+STRUCTURE:
+    part(
+        Frase,
+        subparts[
+            (Determinante),
+            (Nome, attributes{tipo}),
+            (Verbo, attributes{tipo})
+        ]
+    )
+
+ERRORS:
+    Frase.Nome->tipo = "animado" AND Frase.Verbo->tipo = "inanimado";
+    Frase.Nome->tipo = "inanimado" AND Frase.Verbo->tipo = "animado";
+
+    Frase.Nome->tipo != "animado" AND Frase.Nome->tipo != "inanimado";
+    Frase.Verbo->tipo != "animado" AND Frase.Verbo->tipo != "inanimado";

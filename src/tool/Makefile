@@ -1,8 +1,8 @@
 .PHONY : default meta compile run
 
 # Variables
-RULES = "rules.txt"
-INPUT = "input.txt"
+RULES = "rules"
+INPUT = "input"
 
 META_GRAMMAR = "Meta_Grammar"
 META_RULE = "processor"
