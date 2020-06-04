@@ -155,12 +155,13 @@ As shown in the excerpt below, and based on different set of attributes and rule
 \end{figure}
 
 To conclude, if we use as an input a sentence like
-\begin{description}
-    O Carlos teme a sinceridade.
-\end{description}
-the sentence is accepted because, firstly, the structure is correct, and every component is in the right place, and secondly, all the attributes obey to the rules. As another example, if we use as an input other sentence for example \begin{description}
-    O acidente teme a sinceridade.
-\end{description}
+% \begin{description}
+%    O Carlos teme a sinceridade.
+% \end{description}
+the sentence is accepted because, firstly, the structure is correct, and every component is in the right place, and secondly, all the attributes obey to the rules. As another example, if we use as an input other sentence for example 
+%\begin{description}
+%    O acidente teme a sinceridade.
+%\end{description}
 we get an error which indicates that the verb ``teme" requires an animated subject, and ``acidente'' belongs to the subject that has an inanimated property.
 
 % Exemplo de um erro na dsl de teste.
@@ -201,9 +202,9 @@ Within the \textbf{sujeito} production, we can perform these two evaluations, an
 \end{figure}
 
 To conclude this case study, if we use a similar input, but with an error
-\begin{description}
-    A Carlos teme a sinceridade.
-\end{description}
+%\begin{description}
+%    A Carlos teme a sinceridade.
+%\end{description}
 we get a message indicating that the determinant and noun have a different gender.
 
 % erro gender dsl excerpt
@@ -215,9 +216,9 @@ we get a message indicating that the determinant and noun have a different gende
 \end{figure}
 
 \noindent Using another input, for example
-\begin{description}
-    Os Carlos teme a sinceridade.
-\end{description}
+%\begin{description}
+%    Os Carlos teme a sinceridade.
+%\end{description}
 we can see that the gender matches, but the number in incorrect. Likewise, we get an error.
 
 % erro number dsl excerpt
