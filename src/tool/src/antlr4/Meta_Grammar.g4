@@ -19,81 +19,6 @@ grammar Meta_Grammar;
 }
 
 @members {
-	// Colors to print errors and warnings.
-	public static final String ANSI_RED = "\u001B[31m";
-	public static final String ANSI_YELLOW = "\u001B[33m";
-	public static final String ANSI_RESET = "\u001B[0m";
-	
-	// Method that prints error/warning messages with custom colors.
-	public void print_msg(int type, String block, String msg) {
-		/*
-		   (type = 0) -> ERROR
-		   (type = 1) -> WARNING
-		*/
-
-		switch (type) {
-			case 0:
-				System.out.println(ANSI_RED + "\nERROR: (" + block + ")" + ANSI_RESET);
-				System.out.println(msg);
-				System.exit(0); // exists program after printing error message.
-				break;
-
-			case 1:
-				System.out.println(ANSI_YELLOW + "\nWARNING: (" + block + ")" + ANSI_RESET);
-				System.out.println(msg);
-				break;
-		}
-	}
-
-    public String convertLogical(List<String> components, String attribute) {
-        String logical_condition = "";
-        String comp = "";
-
-        for (String c : components)
-            logical_condition += (c + "__");
-        
-        logical_condition += (attribute.toUpperCase());
-
-        return logical_condition;
-    }
-
-	// Method that verifies the existence of a value within a list of a RoseTree.
-	public RoseTree containsValue(List<RoseTree> children, String value, Boolean visitedState) {
-		RoseTree child = null;
-		boolean flag = false;
-
-		for (int i = 0; i < children.size() && flag != true; i++) {
-			RoseTree tree = children.get(i);
-			
-			if (!tree.getVisitedState() && tree.getValue().equals(value)) {
-				child = tree;
-				
-				if (visitedState != null)
-					tree.setVisitedState(visitedState);
-		
-				flag = true;
-			}
-		}
-
-		return child;
-	}
-	
-	// Method that verifies which components have mandatory declaration.
-	public void getRequiredComponents(List<RoseTree> struct) {
-		for (int i = 0; i < struct.size(); i++) {
-			RoseTree parent = struct.get(i);
-
-			if (parent.getRequiredState()) {
-				required_components.put(parent.getValue(), 1);
-
-				List<RoseTree> children = parent.getChildren();
-				
-				// Executes method for all children.
-				getRequiredComponents(children);
-			}
-		}
-	}
-	
 	/* Data structures that support the grammar creation. */
 	Set<String> grammar_members;
 	List<String> grammar_error_conditions;
@@ -117,7 +42,7 @@ processor
 	  errors[struct] 
 	  input[struct] 
 	{
-		/* Class that handles the generation of the specific grammar. */
+        /* Class that handles the generation of the specific grammar. */
 		Generator.generateGrammar(
 			struct,
 			grammar_error_conditions
@@ -132,7 +57,7 @@ processor
 /* *********************************************************** */
 
 structure[List<RoseTree> struct]
-	: 'STRUCTURE:' ( part[struct] )+ { getRequiredComponents(struct); }
+	: 'STRUCTURE:' ( part[struct] )+ { Utils.getRequiredComponents(struct, required_components); }
 ;
 
 part[List<RoseTree> struct]
@@ -221,8 +146,8 @@ assignment[List<RoseTree> struct]
 returns[String logical_expression]
     : exp1=expression[struct] op=('='|'!=') exp2=expression[struct]
     {
-        String exp1_var = convertLogical($exp1.components, $exp1.attribute);
-        String exp2_var = convertLogical($exp2.components, $exp2.attribute);
+        String exp1_var = Utils.convertLogical($exp1.components, $exp1.attribute);
+        String exp2_var = Utils.convertLogical($exp2.components, $exp2.attribute);
         
         if ($op.text.equals("!="))
             $logical_expression = ("!" + exp1_var);
@@ -231,7 +156,7 @@ returns[String logical_expression]
     }
     | exp=expression[struct] op=('='|'!=') '"' val=WORD '"'
     {
-        $logical_expression = convertLogical($exp.components, $exp.attribute);
+        $logical_expression = Utils.convertLogical($exp.components, $exp.attribute);
 
         if ($op.text.equals("!="))
             $logical_expression = ("!" + $logical_expression);
@@ -258,7 +183,7 @@ returns[List<String> components, String attribute]
 		for (int i = 0; i < $components.size() && path != false; i++) {
 			last_eval_comp = $components.get(i);
 
-			aux_node = containsValue(aux_children, last_eval_comp, null);
+			aux_node = Utils.containsValue(aux_children, last_eval_comp, null);
 
 			if (aux_node != null) {
 				aux_children = aux_node.getChildren();
@@ -280,7 +205,7 @@ returns[List<String> components, String attribute]
 						last_eval_comp
 					);
 				
-				print_msg(0, "STRUCTURE", err);
+				Utils.print_msg(0, "STRUCTURE", err);
 			}
 		} else {
 			String err = String
@@ -289,7 +214,7 @@ returns[List<String> components, String attribute]
 					$components
 				);
 			
-			print_msg(0, "STRUCTURE", err);
+			Utils.print_msg(0, "STRUCTURE", err);
 		}
 	}
 ;
@@ -413,7 +338,7 @@ phrase[List<RoseTree> struct]
 						"- Existem componentes obrigatórios que não foram definidos.\n"
 					);
 					
-				print_msg(0, "INPUT", err);
+				Utils.print_msg(0, "INPUT", err);
 			}
 		}
 		
@@ -431,7 +356,7 @@ block[String path, List<RoseTree> struct]
 	RoseTree child;
 }
 	: c=WORD {
-		child = containsValue($struct, $c.text, true);
+		child = Utils.containsValue($struct, $c.text, true);
 
 		if (child == null) {
 			String err = String
@@ -440,7 +365,7 @@ block[String path, List<RoseTree> struct]
 					$c.text
 				);
 			
-			print_msg(0, "INPUT", err);
+			Utils.print_msg(0, "INPUT", err);
 		} else {
 			// If the element is mandatory \
 			// then remove the first occurence of the component in the global list.
@@ -469,7 +394,7 @@ content[String parent_comp, String path, RoseTree node]
 						node.getValue()
 					);
 				
-				print_msg(0, "INPUT", err);
+				Utils.print_msg(0, "INPUT", err);
 			}
 		}
 
@@ -512,7 +437,7 @@ attrs[String parent_comp, String path, RoseTree node]
 						value
 					);
 				
-				print_msg(0, "INPUT", err);
+				Utils.print_msg(0, "INPUT", err);
 			}
 		}
 	}		
@@ -535,7 +460,7 @@ returns[Map<String, String> attr_value]
 					value
 				);
 			
-			print_msg(0, "INPUT", err);
+			Utils.print_msg(0, "INPUT", err);
 		}
 
 		if ( $attr_value.containsKey($e1.attribute) ) {
@@ -545,7 +470,7 @@ returns[Map<String, String> attr_value]
 					$e1.attribute
 				);
 			
-			print_msg(1, "INPUT", warn);
+			Utils.print_msg(1, "INPUT", warn);
 		}
 		
 		$attr_value.put($e1.attribute, $e1.value);
@@ -559,7 +484,7 @@ returns[Map<String, String> attr_value]
 					value
 				);
 			
-			print_msg(0, "INPUT", err);
+			Utils.print_msg(0, "INPUT", err);
 		}
 
 		if ( $attr_value.containsKey($e2.attribute) ) {
@@ -569,7 +494,7 @@ returns[Map<String, String> attr_value]
 					$e2.attribute
 				);
 			
-			print_msg(1, "INPUT", warn);
+			Utils.print_msg(1, "INPUT", warn);
 		}
 		
 		$attr_value.put($e2.attribute, $e2.value);
