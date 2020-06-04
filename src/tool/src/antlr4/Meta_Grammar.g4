@@ -45,6 +45,18 @@ grammar Meta_Grammar;
 		}
 	}
 
+    public String convertLogical(List<String> components, String attribute) {
+        String logical_condition = "";
+        String comp = "";
+
+        for (String c : components)
+            logical_condition += (c + "__");
+        
+        logical_condition += (attribute.toUpperCase());
+
+        return logical_condition;
+    }
+
 	// Method that verifies the existence of a value within a list of a RoseTree.
 	public RoseTree containsValue(List<RoseTree> children, String value, Boolean visitedState) {
 		RoseTree child = null;
@@ -183,6 +195,108 @@ subparts[String parent_comp, String path, List<RoseTree> children]
 /* ******************************************************** */
 
 errors[List<RoseTree> struct]
+	: ( 'ERRORS:' ( c=condition[struct] { grammar_error_conditions.add($c.logical_condition); } ';' )+ )?
+;
+
+
+condition[List<RoseTree> struct]
+returns[String logical_condition]
+@init {
+    List<String> exp = new ArrayList<>();
+}
+    : a1=assignment[struct] { exp.add($a1.logical_expression); }
+    ( op=('AND'|'OR') { if ($op.text.equals("AND")) exp.add("&&"); else exp.add("||"); }
+      a2=assignment[struct] { exp.add($a2.logical_expression); } )*
+    {
+        $logical_condition = "if (";
+		
+        for (String e : exp)
+            $logical_condition += (" " + e);
+		
+        $logical_condition += " ) { System.out.println(\"ERROR!\"); }"; // Rever erro da condição!
+    }
+;
+
+assignment[List<RoseTree> struct] 
+returns[String logical_expression]
+    : exp1=expression[struct] op=('='|'!=') exp2=expression[struct]
+    {
+        String exp1_var = convertLogical($exp1.components, $exp1.attribute);
+        String exp2_var = convertLogical($exp2.components, $exp2.attribute);
+        
+        if ($op.text.equals("!="))
+            $logical_expression = ("!" + exp1_var);
+
+        $logical_expression += (".equals(" + exp2_var + ")");
+    }
+    | exp=expression[struct] op=('='|'!=') '"' val=WORD '"'
+    {
+        $logical_expression = convertLogical($exp.components, $exp.attribute);
+
+        if ($op.text.equals("!="))
+            $logical_expression = ("!" + $logical_expression);
+
+        $logical_expression += (".equals(\"" + $val.text + "\")");
+    }
+;
+
+expression[List<RoseTree> struct]
+returns[List<String> components, String attribute]
+@init {
+    $components = new ArrayList<>();
+    $attribute = "";
+}
+    : c1=WORD { $components.add($c1.text); } 
+    ( '.' c2=WORD { $components.add($c2.text); } )* '->' ( attr=WORD { $attribute = $attr.text; } ) 
+    {
+        boolean path = true;
+		String last_eval_comp = null;
+
+		List<RoseTree> aux_children = $struct;
+		RoseTree aux_node = null;
+		
+		for (int i = 0; i < $components.size() && path != false; i++) {
+			last_eval_comp = $components.get(i);
+
+			aux_node = containsValue(aux_children, last_eval_comp, null);
+
+			if (aux_node != null) {
+				aux_children = aux_node.getChildren();
+			} else {
+				path = false;
+			}
+		}
+
+		// If 'path' still has value of 'true' then the path is valid.
+		if (path) {
+			// Search within the mapping of the last node of the path and check if '$attribute' is valid.
+			String value = aux_node.hasAttribute($attribute);
+			
+			if (value == null) {
+				String err = String
+					.format(
+						"- O atributo '%s' correspondente ao componente '%s' não foi declarado em STRUCTURE.\n",
+						$attribute,
+						last_eval_comp
+					);
+				
+				print_msg(0, "STRUCTURE", err);
+			}
+		} else {
+			String err = String
+				.format(
+					"- O padrão de componentes %s não é válido.\n",
+					$components
+				);
+			
+			print_msg(0, "STRUCTURE", err);
+		}
+	}
+;
+
+
+/*
+errors[List<RoseTree> struct]
 	: ( 'ERRORS:' ( e=expression[struct] { grammar_error_conditions.add($e.logical_expression); } ';' )+ )?
 ;
 
@@ -195,7 +309,7 @@ returns[String logical_expression]
 	( op=('AND'|'OR') { if ($op.text.equals("AND")) exp.add("&&"); else exp.add("||"); } 
 	  c2=condition[struct] { exp.add($c2.logical_condition); } )* 
 	{
-		$logical_expression = "if (";
+        $logical_expression = "if (";
 
 		for (String e : exp) {
 			$logical_expression += (" " + e);
@@ -274,7 +388,7 @@ returns[String logical_condition]
 		}
 	}
 ;
-
+*/
 
 
 /* ******************************************************* */

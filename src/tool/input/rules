@@ -10,8 +10,10 @@ STRUCTURE:
     )
 
 ERRORS:
-    Frase.Nome->tipo = "animado" AND Frase.Verbo->tipo = "inanimado";
-    Frase.Nome->tipo = "inanimado" AND Frase.Verbo->tipo = "animado";
+    Frase.Nome->tipo != Frase.Verbo->tipo;
+    
+    // Frase.Nome->tipo = "animado" AND Frase.Verbo->tipo = "inanimado";
+    // Frase.Nome->tipo = "inanimado" AND Frase.Verbo->tipo = "animado";
 
     Frase.Nome->tipo != "animado" AND Frase.Nome->tipo != "inanimado";
     Frase.Verbo->tipo != "animado" AND Frase.Verbo->tipo != "inanimado";
