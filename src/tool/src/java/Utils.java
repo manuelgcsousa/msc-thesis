@@ -11,11 +11,16 @@ public class Utils
 	
 	/**
      * Method that prints error/warning messages with custom colors.
+     * There are two types of messages:
+     * - (type = 0) = ERROR
+     * - (type = 1) = WARNING
+     * In case of an error, the program exits.
+     *
+     * @param type type of message (0 or 1)
+     * @param block which block does the message come
+     * @param msg the message itself
      */
 	public static void print_msg(int type, String block, String msg) {
-		// (type = 0) -> ERROR
-	    // (type = 1) -> WARNING
-
 		switch (type) {
 			case 0:
 				System.out.println(ANSI_RED + "\nERROR: (" + block + ")" + ANSI_RESET);
@@ -32,7 +37,11 @@ public class Utils
     
     
     /**
-     * Method...
+     * convertLogical.
+     *
+     * @param components
+     * @param attribute
+     * @return the converted condition
      */
     public static String convertLogical(List<String> components, String attribute) {
         String logical_condition = "";
@@ -48,7 +57,17 @@ public class Utils
 
 
 	/** 
-     * Method that verifies the existence of a value within a list of a RoseTree.
+     * Method that verifies the existence of a value within a list of RoseTree's.
+     * If the value does not exist, a null pointer is returned, otherwise the object
+     * corresponding to the component is returned.
+     * Regarding the visitedState variable, is this variable is null, it means that the method
+     * is only being used to check if a value exists. On the other and, if the value is 'true',
+     * it ensured that said RoseTree has been visited.
+     *
+     * @param children a list of RoseTree's
+     * @param value the value (String) of a component
+     * @param visitedState to check that a certain component has been visited
+     * @return the correspondent RoseTree
      */
 	public static RoseTree containsValue(List<RoseTree> children, String value, Boolean visitedState) {
 		RoseTree child = null;
@@ -73,6 +92,12 @@ public class Utils
 
 	/**
      * Method that verifies which components have mandatory declaration.
+     * For every RoseTree within the structure, it is verified which components
+     * have a mandatory declaration. Each component is then stored within an auxiliar
+     * Map that checks if the component has been declared or not.
+     *
+     * @param struct the main structure (as a form of a list of RoseTree's)
+     * @param required_components a Map containing every required component 
      */
 	public static void getRequiredComponents(List<RoseTree> struct, Map<String, Integer> required_components) {
 		for (int i = 0; i < struct.size(); i++) {
