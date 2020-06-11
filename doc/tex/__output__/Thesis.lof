@@ -1,0 +1,28 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces VisualLISA set of icons.\relax }}{8}{figure.caption.7}% 
+\contentsline {figure}{\numberline {2.2}{\ignorespaces VisualLISA main window.\relax }}{9}{figure.caption.8}% 
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Students textual grammar.\relax }}{9}{figure.caption.9}% 
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Students graphical grammar.\relax }}{10}{figure.caption.10}% 
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces System architecture.\relax }}{13}{figure.caption.11}% 
+\contentsline {figure}{\numberline {3.2}{\ignorespaces DSL processor production.\relax }}{13}{figure.caption.12}% 
+\contentsline {figure}{\numberline {3.3}{\ignorespaces DSL structure/part/element productions.\relax }}{14}{figure.caption.13}% 
+\contentsline {figure}{\numberline {3.4}{\ignorespaces DSL attributes/subparts productions.\relax }}{14}{figure.caption.14}% 
+\contentsline {figure}{\numberline {3.5}{\ignorespaces DSL errors/expression productions.\relax }}{14}{figure.caption.15}% 
+\contentsline {figure}{\numberline {3.6}{\ignorespaces DSL condition production.\relax }}{15}{figure.caption.16}% 
+\contentsline {figure}{\numberline {3.7}{\ignorespaces DSL input production.\relax }}{15}{figure.caption.17}% 
+\contentsline {figure}{\numberline {3.8}{\ignorespaces DSL parts/component/content production.\relax }}{16}{figure.caption.18}% 
+\contentsline {figure}{\numberline {3.9}{\ignorespaces DSL slice/attrs/evaluations/eval production.\relax }}{16}{figure.caption.19}% 
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Example of a possible sentence structure.\relax }}{17}{figure.caption.20}% 
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Example of the students parsing.\relax }}{17}{figure.caption.21}% 
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Example DSL excerpt.\relax }}{20}{figure.caption.22}% 
+\contentsline {figure}{\numberline {3.13}{\ignorespaces Example DSL attribute validation.\relax }}{21}{figure.caption.23}% 
+\contentsline {figure}{\numberline {3.14}{\ignorespaces Example of an error message.\relax }}{21}{figure.caption.24}% 
+\contentsline {figure}{\numberline {3.15}{\ignorespaces Excerpt of the 'determinante' production.\relax }}{21}{figure.caption.25}% 
+\contentsline {figure}{\numberline {3.16}{\ignorespaces Excerpt of the 'nome' production.\relax }}{22}{figure.caption.26}% 
+\contentsline {figure}{\numberline {3.17}{\ignorespaces Example of gender/number validation within the 'sujeito' production.\relax }}{22}{figure.caption.27}% 
+\contentsline {figure}{\numberline {3.18}{\ignorespaces Example of a gender error message.\relax }}{22}{figure.caption.28}% 
+\contentsline {figure}{\numberline {3.19}{\ignorespaces Example of a number error message.\relax }}{23}{figure.caption.29}% 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
