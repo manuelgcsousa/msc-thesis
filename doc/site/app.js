@@ -15,6 +15,7 @@ var app = express();
 setInterval(() => {
     Dropbox.saveFeedback();
 }, 10000);
+// 60 * 60 * 1000
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
