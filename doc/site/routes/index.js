@@ -1,5 +1,6 @@
 var express    = require('express');
 var router     = express.Router();
+const path     = require('path');
 const jsonfile = require('jsonfile');
 
 const feedback = (__dirname + '/../data/feedback.json');
@@ -8,6 +9,11 @@ const feedback = (__dirname + '/../data/feedback.json');
 // home page
 router.get('/', function(req, res, next) {
     res.render('home', { title: 'Home' });
+});
+
+// download tool
+router.get('/download', function(req, res, next) {
+    res.download(path.join(__dirname, '../_download/tool.zip'));
 });
 
 // tool page
@@ -25,6 +31,7 @@ router.get('/feedback', (req, res, next) => {
     res.render('feedback', { title: 'feedback' });
 });
 
+// process new feedback
 router.post('/feedback', (req, res, next) => {
     const res_feedback = JSON.parse(JSON.stringify(req.body));
     res_feedback['data'] = new Date();
