@@ -16,13 +16,10 @@ div(id='page_content' class='content')
                 li
                     | Connect this notation with a visual component to allow the visualization of
                     | different natural language syntax trees.
-
-        br
         p
-            h3 Download
-            ul
-                li
-                    a(href="/download") Link para download... (algumas informações?)
+            form(action='/download')
+                br
+                input.w3-btn(type="submit" value="Download" style="background-color: rgb(140, 187, 251); color: white;")
 
     script.
         $('#menu_home').addClass('active');
