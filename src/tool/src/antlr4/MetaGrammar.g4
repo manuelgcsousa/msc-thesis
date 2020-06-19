@@ -1,4 +1,4 @@
-grammar Meta_Grammar;
+grammar MetaGrammar;
 
 
 @header {

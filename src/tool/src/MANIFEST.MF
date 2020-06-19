@@ -1,0 +1,2 @@
+Main-Class: MetaGrammar
+Class-Path: ../lib/antlr-4.8-complete.jar

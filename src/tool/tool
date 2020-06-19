@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Variables
-META_GRAMMAR="Meta_Grammar"
+META_GRAMMAR="MetaGrammar"
 META_RULE="processor"
 GEN_GRAMMAR="Grammar"
 
@@ -21,43 +21,27 @@ _help() {
 
     printf "${YELLOW}USAGE:${NC}\n"
     printf "    | $(basename $0) [-h | help]\n"
-    printf "    | $(basename $0) [-c | compile]\n"
-    printf "    | $(basename $0) [-r | run] <RULES> <INPUT>\n"
+    printf "    | $(basename $0) [-g | generate] <RULES> <INPUT>\n"
+    printf "    | $(basename $0) [-r | run]\n"
+    printf "    | $(basename $0) [-c | clean]\n"
 
     echo
 
     printf "${YELLOW}OPTIONS:${NC}\n"
-    printf "    ${GREEN}-h${NC}, ${GREEN}help${NC}          Help message.\n"
-    printf "    ${GREEN}-c${NC}, ${GREEN}compile${NC}       Generates and compiles the Meta-Grammar sources.\n"
-    printf "    ${GREEN}-r${NC}, ${GREEN}run${NC}           Generates the specific grammar and gives sentence as input.\n"
-
+    printf "    ${GREEN}-h${NC}, ${GREEN}help${NC}              Help message.\n"
+    printf "    ${GREEN}-c${NC}, ${GREEN}generate${NC}          Generates Grammar sources.\n"
+    printf "    ${GREEN}-r${NC}, ${GREEN}run${NC}               Compiles Grammar sources, running it given the sentence as input.\n"
+    printf "    ${GREEN}-c${NC}, ${GREEN}clean${NC}             Cleans files.\n"
+    
     echo
 
     printf "${YELLOW}ARGS:${NC}\n"
-    printf "    ${GREEN}<RULES>${NC}           Sentence rules (STRUCTURE + ERRORS blocks).\n"
-    printf "    ${GREEN}<INPUT>${NC}           Parsed input (INPUT block).\n"
+    printf "    ${GREEN}<RULES>${NC}               Sentence rules (STRUCTURE + ERRORS blocks).\n"
+    printf "    ${GREEN}<INPUT>${NC}               Parsed input (INPUT block).\n"
 }
 
-# Compiles the Meta-Grammar.
-compile() {
-    printf "${YELLOW}> compiling and running Meta-Grammar...${NC}\n"
-    echo
-    
-    # generate meta-grammar sources
-    MKDIR_SRC="mkdir -p target/generated-sources-meta"
-    GEN_SRC="java -jar ./lib/antlr-4.8-complete.jar -Xexact-output-dir -o target/generated-sources-meta ./src/antlr4/${META_GRAMMAR}.g4"
-    echo $MKDIR_SRC && $($MKDIR_SRC)
-    echo $GEN_SRC && $($GEN_SRC)
-
-    # compile meta-grammar sources
-	MKDIR_CLASS="mkdir -p target/classes-meta"
-	GEN_CLASS="javac src/java/*.java target/generated-sources-meta/*.java -d target/classes-meta"
-    echo $MKDIR_CLASS && $($MKDIR_CLASS)
-    echo $GEN_CLASS && $($GEN_CLASS)
-}
-
-# Runs the tool.
-run() {
+# Generates the grammar.
+generate() {
     # checks if arguments are empty
     if [ "$1" = "" ] || [ "$2" = "" ]; then
         exit -1
@@ -69,64 +53,62 @@ run() {
         exit -1
     fi
 
-    # checks if meta-grammar sources were compiled
-    if [ ! -d "target/classes-meta" ]; then
-        printf "${RED}ERROR:${NC} Meta-Grammar needs to be compiled first!\n"
-        exit -1
-    fi
-
     #########################################################################
-
-    printf "${YELLOW}> generating the grammar...${NC}\n"
     
-    # join the two files together
     cat $1 $2 > input/meta-lang
-    # change working directory && process meta-lang file
-    (cd target/classes-meta && java org.antlr.v4.gui.TestRig ${META_GRAMMAR} ${META_RULE} ../../input/meta-lang)
-    mv target/classes-meta/phrase.tmp input
-    mv target/classes-meta/${GEN_GRAMMAR}.g4 src/antlr4
-    
 
-    printf "${YELLOW}> compiling the grammar...${NC}\n"
-    
-    java -jar ./lib/antlr-4.8-complete.jar -Xexact-output-dir -o target/generated-sources-grammar ./src/antlr4/${GEN_GRAMMAR}.g4
-	mkdir -p target/classes-grammar
-	javac target/generated-sources-grammar/*.java -d target/classes-grammar
+    java -jar lib/MetaGrammar.jar input/meta-lang && mkdir target
+    mv phrase.tmp input/
+    mv Grammar.g4 target/
 
-    
-    printf "${YELLOW}> running the grammar...${NC}\n"
+    java -jar lib/antlr-4.8-complete.jar target/Grammar.g4
+}
 
-    (cd target/classes-grammar && java org.antlr.v4.gui.TestRig ${GEN_GRAMMAR} main ../../input/phrase.tmp -gui)
+# Runs the grammar with phrase as input.
+run() {
+    javac target/*.java
+    (cd target/ && java -cp "../lib/antlr-4.8-complete.jar:$CLASSPATH" org.antlr.v4.gui.TestRig ${GEN_GRAMMAR} main ../input/phrase.tmp -gui)  
+}
 
-    # clean
-    rm input/phrase.tmp
+# Clean files.
+clean() {
+    rm -rf target
+    rm -f input/meta-lang
+    rm -f input/phrase.tmp
 }
 
 
 # Main #
 while [ "$1" != "" ]; do
     case "$1" in
-        -c | compile)
-            compile
-            exit
-            ;;
-
-        -r | run)
-            run $2 $3
-            exit
-            ;;
-
         -h | help)
             _help
             exit
             ;;
+        
+        -g | generate)
+            generate $2 $3
+            exit
+            ;;
+
+        -r | run)
+            run
+            exit
+            ;;
+        
+        -c | clean)
+            clean
+            exit
+            ;;
+        
         *)
             printf "${RED}ERROR:${NC} Option '$1' is not available...\n"
             echo
             printf "USAGE:\n"
             printf "    | $(basename $0) [-h | help]\n"
-            printf "    | $(basename $0) [-c | compile]\n"
-            printf "    | $(basename $0) [-r | run] <RULES> <INPUT>\n"
+            printf "    | $(basename $0) [-g | generate] <RULES> <INPUT>\n"
+            printf "    | $(basename $0) [-r | run]\n"
+            printf "    | $(basename $0) [-c | clean]\n"
             echo
             printf "For more information try ${GREEN}-h${NC} or ${GREEN}help${NC}\n"
             exit
