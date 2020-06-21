@@ -57,7 +57,7 @@ generate() {
     
     cat $1 $2 > input/meta-lang
 
-    java -jar lib/MetaGrammar.jar input/meta-lang && mkdir target
+    java -jar lib/MetaGrammar.jar "$(cat input/meta-lang)" && mkdir target
     mv phrase.tmp input/
     mv Grammar.g4 target/
 
