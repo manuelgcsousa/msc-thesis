@@ -147,7 +147,7 @@ public class Facade
                 String err = output[1].toString().split(System.lineSeparator(), 2)[0];
                 
                 msg = (
-                    "> " + out +
+                    ( !out.isEmpty() ? ("> " + out) : "" ) +
                     ( !err.isEmpty() ? ("> " + err) : "" )
                 );
             }
