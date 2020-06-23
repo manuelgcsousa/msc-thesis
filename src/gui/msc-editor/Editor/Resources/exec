@@ -4,7 +4,7 @@ generate() {
     # Change working directory.
     cd Resources
 
-    java -jar lib/MetaGrammar.jar "$*"
+    java -jar lib/MetaGrammar.jar target/meta-lang
     mv Grammar.g4 phrase.tmp src/
 
     java -jar lib/antlr-4.8-complete.jar src/Grammar.g4

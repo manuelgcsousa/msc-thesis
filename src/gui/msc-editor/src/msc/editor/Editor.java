@@ -371,7 +371,7 @@ public class Editor extends javax.swing.JFrame
                 this.InputLabel.setText("Rules: \"" + fileName + "\"");
                 
                 this.facade
-                    .getRulesFile()
+                    .getInputFile()
                     .getContent()
                     .forEach(line -> {
                         this.InputArea.append(line + "\n");

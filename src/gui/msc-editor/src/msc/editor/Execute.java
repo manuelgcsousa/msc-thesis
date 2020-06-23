@@ -1,6 +1,7 @@
 package msc.editor;
 
 import java.io.BufferedReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -28,9 +29,16 @@ public class Execute
     public Execute() { }
     
     public static StringBuilder[] generate(String meta_lang) throws IOException {
+        FileWriter fw = new FileWriter(
+            System.getProperty("user.dir") + 
+            "/Resources/target/meta-lang"
+        );
+        fw.write(meta_lang);
+        fw.close();
+
         Process process = Runtime
             .getRuntime()
-            .exec("./exec -g " + meta_lang);
+            .exec("./Resources/exec -g Resources/target/meta-lang");
 
         StringBuilder[] output = {
             new StringBuilder(0), // input
@@ -64,7 +72,7 @@ public class Execute
         try {
             Process process = Runtime
                 .getRuntime()
-                .exec("./exec -r");
+                .exec("./Resources/exec -r");
            
             String output = null;
             
