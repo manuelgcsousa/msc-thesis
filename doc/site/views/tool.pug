@@ -10,91 +10,71 @@ div(id='page_content' class='content')
     
     div(class='w3-container')
         p
-            | The main purpose of this tool is to generate ANTLR instructions based on a previously created Domain Specific Language.
-            | By giving this DSL as input, a 
-            em Grammar.g4
-            |  is generated, to then be processed and analysed with a graphical tool.
-        p
-            | Input files must be inside the 
-            strong input/
-            |  directory. Both files (teacher and student) must have specific names:
-        ul
-            li
-                p
-                    strong Teacher
-                    | : "rules"
-            li
-                p
-                    strong Student
-                    | : "input"
-        p
-            strong These names can be changed within the Makefile (variables).
+            | The main purpose of this tool is to generate ANTLR instructions based on a previously created specification. 
+            | This specification is written in a Domain Specific Language (Meta-Grammar) that allows the definition of possible sentence structures. 
+            | When processed, a file called 
+            em Grammar.g4 
+            | is generated, which corresponds to the ANTLR instructions for the recognition of a sentence. 
+            | Then, by processing the new generated file and by giving input accordingly, a visual syntax parse tree allows for a better analysis of the input.
         br
 
-        h3(id='folder-structure') Folder Structure
+        h3(id='folder-structure') Versions
         ul
             li
                 p
-                    strong src/
-                    |  - contains the source code of the tool.
+                    strong CLI
+                    |  - command line version of the tool.
                 ul
                     li
                         p
-                            strong src/antlr4/
-                            |  - contains the meta-grammar of the DSL.
+                            | Allows for a quick and easy usage of the tool (only works on UNIX).
                     li
                         p
-                            strong src/java/
-                            |  - extra java classes used within the meta-grammar file.
+                            | Source code of the Meta-Grammar as well as a Makefile for recompilation.
             li
                 p
-                    strong lib/
-                    |  - contains the
-                    strong  antlr4 jar
-                    |  use in this project (version
-                    strong  4.8
-                    | ).
-            li
-                p
-                    strong input/
-                    |  - folder where all input files should be placed.
-    
+                    strong GUI
+                    |  - graphical user interface that acts like a wrapper.
+                ul
+                    li
+                        p
+                            | Composed of two main text areas that correspond to the Rules and Input blocks.
+                    li
+                        p
+                            | Allows for the generation of the specific grammar and analysis of the input.
+                    li
+                        p
+                            | Can be used as an editor for the specification.
     hr
     
     h2(id='usage', style='margin-top: 20px;') Usage
     div(class='w3-container')
-        p In the Makefile, there are 3 instructions that can be called to use the tool:
+        p The CLI version has an included help message to explain which options are available, and how to use them.
         
         pre.
-            $ make
-            
-            *** Usage ***
-            
-            - meta    (compile + run Meta-Grammar &amp; Generate Grammar)
-            - compile (compile Grammar)
-            - run     (run Grammar)
-            - clean   (remove target and generated grammar)
+            $ tool -h
+
+            tool
+            Linguistic rules for beginners.
+
+            USAGE:
+                | tool [-h | help]
+                | tool [-g | generate] &lt;RULES&gt; &lt;INPUT&gt;
+                | tool [-r | run]
+                | tool [-c | clean]
+
+            OPTIONS:
+                -h, help              Help message.
+                -c, generate          Generates Grammar sources.
+                -r, run               Compiles Grammar sources, running it given the sentence as input.
+                -c, clean             Cleans files.
+
+            ARGS:
+                &lt;RULES&gt;               Sentence rules (STRUCTURE + ERRORS blocks).
+                &lt;INPUT&gt;               Parsed input (INPUT block).
         
         br
-        ul
-            li
-                p
-                    strong meta
-                    |  - it will compile and run the meta-grammar for the teacher + student input, check for any syntax and logic errors, and then generate the ANTLR instructions.
-            li
-                p
-                    strong compile
-                    |  - it will compile the previously generated grammar.
-            li
-                p
-                    strong run
-                    |  - it will run the generated grammar, and create a visual tree of the syntax using the 
-                    em TestRig
-                    |  tool.
-            li
-                p
-                    strong clean
-                    |  - cleans previously created target folder and generated grammar.
+        p As for the GUI version (compiled as a JAR file), the interaction is pretty straight forward.
     
     hr
 
