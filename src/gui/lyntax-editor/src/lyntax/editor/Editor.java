@@ -1,4 +1,4 @@
-package msc.editor;
+package lyntax.editor;
 
 import java.awt.FileDialog;
 import javax.swing.event.UndoableEditEvent;
@@ -81,6 +81,7 @@ public class Editor extends javax.swing.JFrame
         Redo = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Lyntax Editor");
         setMinimumSize(new java.awt.Dimension(830, 500));
 
         RulesArea.setColumns(20);
@@ -110,7 +111,7 @@ public class Editor extends javax.swing.JFrame
 
         InputLabel.setText("Input");
 
-        runBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/msc/editor/run.png"))); // NOI18N
+        runBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lyntax/editor/run.png"))); // NOI18N
         runBtn.setText("Run");
         runBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

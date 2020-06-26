@@ -1,4 +1,4 @@
-package msc.editor;
+package lyntax.editor;
 
 /**
  * Main class.

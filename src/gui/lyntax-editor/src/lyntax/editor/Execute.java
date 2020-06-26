@@ -1,4 +1,4 @@
-package msc.editor;
+package lyntax.editor;
 
 import java.io.BufferedReader;
 import java.io.FileWriter;
