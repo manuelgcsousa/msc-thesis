@@ -11,15 +11,22 @@ div(id='page_content' class='content')
             
             ul
                 li
-                    | Build a DSL with simple notation such that any person that does not have experience
+                    | Build a DSL with a simple notation such that any person that does not have experience
                     | with common programming language elements could quickly use and grasp.
                 li
                     | Connect this notation with a visual component to allow the visualization of
                     | different natural language syntax trees.
-        p
-            form(action='/download')
-                br
-                input.w3-btn(type="submit" value="Download" style="background-color: rgb(140, 187, 251); color: white;")
+        br
+        h3 Download
 
+        ul
+            li
+                a(href="/download/cli", style="color: rgb(140, 187, 251);") Command Line Interface
+            
+            pre
+            
+            li
+                a(href="/download/gui", style="color: rgb(140, 187, 251);") Graphical User Interface
+        
     script.
         $('#menu_home').addClass('active');

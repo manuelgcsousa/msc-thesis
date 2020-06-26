@@ -12,8 +12,17 @@ router.get('/', function(req, res, next) {
 });
 
 // download tool
-router.get('/download', function(req, res, next) {
-    res.download(path.join(__dirname, '../_download/tool.zip'));
+router.get('/download/:type', function(req, res, next) {
+    const type = req.params.type;
+
+    if (type === 'cli') {
+        res.download(path.join(__dirname, '../_download/tool-cli.zip'));
+    } else if (type === 'gui') {
+        res.redirect('/');
+        // res.download(path.join(__dirname, '../_download/tool-gui.zip'));
+    } else {
+        res.redirect('/');
+    }
 });
 
 // tool page
