@@ -16,7 +16,7 @@ router.get('/download/:type', function(req, res, next) {
     const type = req.params.type;
 
     if (type === 'cli') {
-        res.download(path.join(__dirname, '../_download/tool-cli.zip'));
+        res.download(path.join(__dirname, '../_download/lyntax-cli.zip'));
     } else if (type === 'gui') {
         res.redirect('/');
         // res.download(path.join(__dirname, '../_download/tool-gui.zip'));
@@ -26,8 +26,8 @@ router.get('/download/:type', function(req, res, next) {
 });
 
 // tool page
-router.get('/tool', (req, res, next) => {
-    res.render('tool', { title: 'tool' });
+router.get('/lyntax', (req, res, next) => {
+    res.render('lyntax', { title: 'lyntax' });
 });
 
 // dsl page
