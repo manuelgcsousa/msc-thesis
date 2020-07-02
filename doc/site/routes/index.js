@@ -18,8 +18,11 @@ router.get('/download/:type', function(req, res, next) {
     if (type === 'cli') {
         res.download(path.join(__dirname, '../_download/lyntax-cli.zip'));
     } else if (type === 'gui') {
-        res.redirect('/');
-        // res.download(path.join(__dirname, '../_download/tool-gui.zip'));
+        if (req.query.os === 'linux')
+            res.download(path.join(__dirname, '../_download/lyntax-gui-linux.zip'));
+        else
+            // res.download(path.join(__dirname, '../_download/lyntax-gui-windows.zip'));
+            res.redirect('/');
     } else {
         res.redirect('/');
     }
@@ -59,6 +62,11 @@ router.post('/feedback', (req, res, next) => {
     });
     
     res.redirect('/feedback');
+});
+
+// about page
+router.get('/about', (req, res, next) => {
+    res.render('about', { title: 'about' });
 });
 
 
