@@ -8,14 +8,14 @@ generate() {
     mv Grammar.g4 phrase.tmp src/
 
     java -jar lib/antlr-4.8-complete.jar src/Grammar.g4
-    javac src/*.java -d target/
+    javac -cp lib/antlr-4.8-complete.jar src/*.java -d target/
 }
 
 run() {
     # Change working directory.
     cd Resources/target
 
-    java Grammar ../src/phrase.tmp
+    java -cp ../lib/antlr-4.8-complete.jar:. Grammar ../src/phrase.tmp
 }
 
 clean() {
