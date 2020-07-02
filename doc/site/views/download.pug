@@ -1,0 +1,25 @@
+include _layout.pug
+
+title Lyntax - Download
+
+div(id='page_content' class='content')
+    h2(style='margin-top: 20px;')
+        | Download
+
+    div(class='w3-container')
+        ul
+            li
+                a(href="/lyntax/download/cli", style="color: rgb(140, 187, 251);") Command Line Interface
+
+            pre
+
+            li
+                | Graphical User Interface
+                strong [Alpha Version]
+                ul
+                    li
+                        a(href="/lyntax/download/gui?os=linux", style="color: rgb(140, 187, 251);") Linux
+                    li
+                        | Windows (not available yet...)
+    script.
+        $('#menu_tool').addClass('active');

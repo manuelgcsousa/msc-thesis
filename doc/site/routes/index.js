@@ -11,8 +11,18 @@ router.get('/', function(req, res, next) {
     res.render('home', { title: 'Home' });
 });
 
+// tool page
+router.get('/lyntax/information', (req, res, next) => {
+    res.render('lyntax', { title: 'lyntax' });
+});
+
+// download tool page
+router.get('/lyntax/download', (req, res, next) => {
+    res.render('download', { title: 'download '});
+});
+
 // download tool
-router.get('/download/:type', function(req, res, next) {
+router.get('/lyntax/download/:type', function(req, res, next) {
     const type = req.params.type;
 
     if (type === 'cli') {
@@ -24,13 +34,8 @@ router.get('/download/:type', function(req, res, next) {
             // res.download(path.join(__dirname, '../_download/lyntax-gui-windows.zip'));
             res.redirect('/');
     } else {
-        res.redirect('/');
+        res.render('download', { title: 'download' });
     }
-});
-
-// tool page
-router.get('/lyntax', (req, res, next) => {
-    res.render('lyntax', { title: 'lyntax' });
 });
 
 // dsl page
