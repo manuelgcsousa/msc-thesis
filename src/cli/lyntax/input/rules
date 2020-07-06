@@ -1,5 +1,5 @@
 // Nomes animados e verbos que pedem sujeitos animados.
-SRUCTURE:
+STRUCTURE:
     part(
         Frase,
         subparts[
