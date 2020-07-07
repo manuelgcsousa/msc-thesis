@@ -45,6 +45,15 @@ public class Editor extends javax.swing.JFrame
                 umInput.addEdit(e.getEdit());
             });
     }
+    
+    private void showOutputDialog(String msg) {
+        this.outputDialog.setAlwaysOnTop(true);
+        this.outputDialog.setLocationRelativeTo(null);
+        this.outputDialog.setVisible(true);
+        this.outputPane.setText(msg);
+        
+        this.setEnabled(false); 
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -55,6 +64,11 @@ public class Editor extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        outputDialog = new javax.swing.JDialog();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        outputPane = new javax.swing.JTextPane();
+        outputDialogOK = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         RulesArea = new javax.swing.JTextArea();
         RulesLabel = new javax.swing.JLabel();
@@ -79,6 +93,57 @@ public class Editor extends javax.swing.JFrame
         MenuEdit = new javax.swing.JMenu();
         Undo = new javax.swing.JMenuItem();
         Redo = new javax.swing.JMenuItem();
+
+        outputDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        outputDialog.setTitle("Output");
+        outputDialog.setMaximumSize(new java.awt.Dimension(650, 450));
+        outputDialog.setSize(new java.awt.Dimension(400, 300));
+        outputDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                outputDialogWindowClosed(evt);
+            }
+        });
+
+        outputPane.setEditable(false);
+        outputPane.setCaretColor(new java.awt.Color(255, 255, 255));
+        jScrollPane4.setViewportView(outputPane);
+
+        outputDialogOK.setText("OK");
+        outputDialogOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                outputDialogOKActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Errors / Warnings");
+
+        javax.swing.GroupLayout outputDialogLayout = new javax.swing.GroupLayout(outputDialog.getContentPane());
+        outputDialog.getContentPane().setLayout(outputDialogLayout);
+        outputDialogLayout.setHorizontalGroup(
+            outputDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(outputDialogLayout.createSequentialGroup()
+                .addComponent(outputDialogOK)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(outputDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(outputDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4)
+                    .addGroup(outputDialogLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 278, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        outputDialogLayout.setVerticalGroup(
+            outputDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(outputDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(outputDialogOK)
+                .addContainerGap())
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Lyntax Editor");
@@ -432,7 +497,7 @@ public class Editor extends javax.swing.JFrame
             if (msg.equals("err"))
                 javax.swing.JOptionPane.showMessageDialog(this, "Internal error...", "Generate", 0);
             else
-                javax.swing.JOptionPane.showMessageDialog(this, msg, "Generate", 0);
+                this.showOutputDialog(msg);
         else
             javax.swing.JOptionPane.showMessageDialog(this, "Grammar generated with success!", "Generate", 1);
     }//GEN-LAST:event_genBtnActionPerformed
@@ -442,6 +507,15 @@ public class Editor extends javax.swing.JFrame
         this.facade.onRun();
         this.setEnabled(true);
     }//GEN-LAST:event_runBtnActionPerformed
+
+    private void outputDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_outputDialogWindowClosed
+        this.setEnabled(true);
+    }//GEN-LAST:event_outputDialogWindowClosed
+
+    private void outputDialogOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outputDialogOKActionPerformed
+        this.setEnabled(true);
+        this.outputDialog.dispose();
+    }//GEN-LAST:event_outputDialogOKActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea InputArea;
@@ -465,8 +539,13 @@ public class Editor extends javax.swing.JFrame
     private javax.swing.JMenuItem SubmenuRulesSaveAs;
     private javax.swing.JMenuItem Undo;
     private javax.swing.JButton genBtn;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JDialog outputDialog;
+    private javax.swing.JButton outputDialogOK;
+    private javax.swing.JTextPane outputPane;
     private javax.swing.JButton runBtn;
     // End of variables declaration//GEN-END:variables
 }
