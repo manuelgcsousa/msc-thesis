@@ -369,7 +369,7 @@ public class Editor extends javax.swing.JFrame
                 javax.swing.JOptionPane.showMessageDialog(this, "Error when opening file!", "Open", 0);
             } else {
                 this.InputArea.setText("");
-                this.InputLabel.setText("Rules: \"" + fileName + "\"");
+                this.InputLabel.setText("Input: \"" + fileName + "\"");
                 
                 this.facade
                     .getInputFile()
