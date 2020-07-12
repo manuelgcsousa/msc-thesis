@@ -29,6 +29,12 @@ public class Execute
     public Execute() { }
     
     public static StringBuilder[] generate(String meta_lang) throws IOException {
+        String _OS = System.getProperty("os.name").toLowerCase();
+        String cmd = 
+            _OS.contains("windows") ? "cmd /c \\Resources\\exec.bat -g" : "./Resources/exec.sh -g"
+        ;
+        System.out.println(cmd); // DEBUG
+        
         FileWriter fw = new FileWriter(
             System.getProperty("user.dir") + 
             "/Resources/target/meta-lang"
@@ -38,7 +44,7 @@ public class Execute
 
         Process process = Runtime
             .getRuntime()
-            .exec("./Resources/exec -g Resources/target/meta-lang");
+            .exec(cmd);
 
         StringBuilder[] output = {
             new StringBuilder(0), // input
@@ -70,9 +76,15 @@ public class Execute
     
     public static void run() {
         try {
+            String _OS = System.getProperty("os.name").toLowerCase();
+            String cmd = 
+                _OS.contains("windows") ? ".\\Resources\\exec.bat -r" : "./Resources/exec.sh -r"
+            ;
+            System.out.println(cmd); // DEBUG
+            
             Process process = Runtime
                 .getRuntime()
-                .exec("./Resources/exec -r");
+                .exec(cmd);
            
             String output = null;
             

@@ -126,7 +126,6 @@ public class Facade
         String msg;
         
         String meta_lang = rules_str + "\n" + input_str;
-        System.out.println(meta_lang); // DEBUG
         
         try {
             StringBuilder[] output = Execute.generate(meta_lang); 
