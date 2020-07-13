@@ -29,7 +29,8 @@ javac -cp lib\antlr-4.8-complete.jar src\*.java -d target\
 EXIT /B 0
 
 :run
-cd Resources\target
+cd Resources
+cd target
 
 java -cp ..\lib\antlr-4.8-complete.jar;. Grammar ..\src\phrase.tmp
 EXIT /B 0
