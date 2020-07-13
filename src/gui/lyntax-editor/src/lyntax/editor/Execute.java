@@ -34,6 +34,7 @@ public class Execute
             _OS.contains("windows") ? "cmd /c \\Resources\\exec.bat -g" : "./Resources/exec.sh -g"
         ;
         System.out.println(cmd); // DEBUG
+        System.out.println(System.getProperty("user.dir"));
         
         FileWriter fw = new FileWriter(
             System.getProperty("user.dir") + 
