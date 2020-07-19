@@ -23,14 +23,14 @@ public class Utils
 	public static void print_msg(int type, String block, String msg) {
 		switch (type) {
 			case 0:
-				System.out.println(ANSI_RED + "ERROR: (" + block + ")" + ANSI_RESET);
-				System.out.println(msg);
+				System.err.println(ANSI_RED + "ERROR: (" + block + ")" + ANSI_RESET + " " + msg);
+				// System.err.println(msg);
 				System.exit(0); // exit program after printing error message.
 				break;
 
 			case 1:
-				System.out.println(ANSI_YELLOW + "WARNING: (" + block + ")" + ANSI_RESET);
-				System.out.println(msg);
+				System.err.println(ANSI_YELLOW + "WARNING: (" + block + ")" + ANSI_RESET + " " + msg);
+				// System.err.println(msg);
 				break;
 		}
 	}

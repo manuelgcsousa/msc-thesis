@@ -5,7 +5,7 @@ generate() {
     cd Resources
 
     java -jar lib/MetaGrammar.jar target/meta-lang
-    mv Grammar.g4 phrase.tmp src/
+    mv Grammar.g4 phrase.tmp src/ > /dev/null 2>&1
 
     java -jar lib/antlr-4.8-complete.jar src/Grammar.g4
     javac -cp lib/antlr-4.8-complete.jar src/*.java -d target/

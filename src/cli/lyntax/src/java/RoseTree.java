@@ -9,7 +9,7 @@ public class RoseTree
 	// Main attributes
 	private String value;
 	private boolean required;
-	private Map<String, String> attributes; // Key -> attribute name :: Value -> attributed value
+	private Map<String, String> attributes; // Key -> attribute name :: Value -> attribute value
 	private List<String> lexical_part;
 	private List<RoseTree> children;
 	

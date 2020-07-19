@@ -28,13 +28,13 @@ public class Execute
 {
     public Execute() { }
     
-    public static StringBuilder[] generate(String meta_lang) throws IOException {
+    public static StringBuilder generate(String meta_lang) throws IOException {
         String _OS = System.getProperty("os.name").toLowerCase();
         String cmd = 
             _OS.contains("windows") ? "cmd /c \\Resources\\exec.bat -g" : "./Resources/exec.sh -g"
         ;
         System.out.println(cmd); // DEBUG
-        System.out.println(System.getProperty("user.dir"));
+        System.out.println(System.getProperty("user.dir")); // DEBUG
         
         FileWriter fw = new FileWriter(
             System.getProperty("user.dir") + 
@@ -47,29 +47,17 @@ public class Execute
             .getRuntime()
             .exec(cmd);
 
-        StringBuilder[] output = {
-            new StringBuilder(0), // input
-            new StringBuilder(1)  // error
-        };
-        String outputIn, outputErr;
-
-        BufferedReader stdInput = new BufferedReader(
-            new InputStreamReader(process.getInputStream())
-        );
+        StringBuilder output = new StringBuilder();
+        String outErr;
 
         BufferedReader stdError = new BufferedReader(
             new InputStreamReader(process.getErrorStream())
         );
 
-        while ((outputIn = stdInput.readLine()) != null) {
-            output[0].append(outputIn).append("\n");
+        while ((outErr = stdError.readLine()) != null) {
+            output.append(outErr).append("\n\n");
         }
-
-        while ((outputErr = stdError.readLine()) != null) {
-            output[1].append(outputErr).append("\n");
-        }
-
-        stdInput.close();
+        
         stdError.close();
         
         return output;

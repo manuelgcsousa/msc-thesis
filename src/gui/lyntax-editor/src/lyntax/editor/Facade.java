@@ -123,14 +123,13 @@ public class Facade
     }
     
     public String onGen(String rules_str, String input_str) {
-        String msg;
-        
+        String msg;    
         String meta_lang = rules_str + "\n" + input_str;
         
         try {
-            StringBuilder[] output = Execute.generate(meta_lang); 
+            StringBuilder output = Execute.generate(meta_lang); 
            
-            if (output[0].length() == 0 && output[1].length() == 0) msg = "";
+            if (output.length() == 0) msg = "";
             else {
                 String 
                     ANSI_RED = "\u001B[31m", 
@@ -138,17 +137,11 @@ public class Facade
                     ANSI_RESET = "\u001B[0m"
                 ;
                 
-                String out = output[0].toString()
+                msg = output.toString()
                     .replace(ANSI_RED, "")
                     .replace(ANSI_YELLOW, "")
-                    .replace(ANSI_RESET, "");
-                
-                String err = output[1].toString().split(System.lineSeparator(), 2)[0];
-                
-                msg = (
-                    ( !out.isEmpty() ? ("> " + out) : "" ) +
-                    ( !err.isEmpty() ? ("> " + err) : "" )
-                );
+                    .replace(ANSI_RESET, "")
+                ;
             }
         } catch (IOException e) {
             msg = "err";
