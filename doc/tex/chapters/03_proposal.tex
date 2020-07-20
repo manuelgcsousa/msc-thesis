@@ -33,26 +33,48 @@ The main intention of this language is to preprocess the information written by 
 
 \begin{center}
 \begin{minipage}{8cm}
-\begin{Verbatim}[frame=single, framesep=2mm]
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:processor_prod}, caption=Processor production]
 processor : structure errors input
 ;
-\end{Verbatim}
+\end{lstlisting}
 \end{minipage}
 \end{center}
+
+%\begin{center}
+%\begin{minipage}{8cm}
+%\begin{Verbatim}[frame=single, framesep=2mm]
+%processor : structure errors input
+%;
+%\end{Verbatim}
+%\end{minipage}
+%\end{center}
 
 Firstly, the teacher specification will be discussed - meaning the \textbf{structure} and \textbf{errors} blocks.
 The \textbf{structure} block is divided into \textbf{parts}, or main parts. These main parts correspond to the main components of the sentence. Each of these parts have an \textbf{element} within, containing the information about a certain component.
 
-%\begin{center}
-%\begin{minipage}{8cm}
-\begin{Verbatim}[frame=single, framesep=2mm]
+\begin{center}
+\begin{minipage}{14cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:dsl_struct_prod}, caption=DSL structure/part/element productions]
 structure : 'STRUCTURE:' (part)+ ;
 
 part : 'part' element ;
 
 element : '(' WORD ( ',' attributes )? ( ',' subparts )? ')' 
     ('?')? ;
-\end{Verbatim}
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+%\begin{center}
+%\begin{minipage}{8cm}
+%\begin{Verbatim}[frame=single, framesep=2mm]
+%structure : 'STRUCTURE:' (part)+ ;
+%
+%part : 'part' element ;
+%
+%element : '(' WORD ( ',' attributes )? ( ',' subparts )? ')' 
+%    ('?')? ;
+%\end{Verbatim}
 %\end{minipage}
 %\end{center}
 
@@ -66,16 +88,28 @@ element : '(' WORD ( ',' attributes )? ( ',' subparts )? ')'
 The \textbf{element} is composed by the name of the component, a possible set of \textbf{attributes} and possible \textbf{subparts}.
 
 \begin{center}
-\begin{minipage}{12cm}
-\begin{Verbatim}[frame=single, framesep=2mm]
+\begin{minipage}{13cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:dsl_attrs_prod}, caption=DSL attributes/subparts productions]
 attributes : 'attributes' '{' WORD ( ',' WORD )* '}'
 ;
 
 subparts : 'subparts' '[' element ( ',' element ) ']'
 ;
-\end{Verbatim}
+\end{lstlisting}
 \end{minipage}
 \end{center}
+
+%\begin{center}
+%\begin{minipage}{12cm}
+%\begin{Verbatim}[frame=single, framesep=2mm]
+%attributes : 'attributes' '{' WORD ( ',' WORD )* '}'
+%;
+%
+%subparts : 'subparts' '[' element ( ',' element ) ']'
+%;
+%\end{Verbatim}
+%\end{minipage}
+%\end{center}
 
 %\begin{figure}[h]
 %    \centering
@@ -88,18 +122,29 @@ The \textbf{subparts} production intends to be the path for ``injecting'' more e
 
 Secondly, the teacher can define a list of restrictions to be applied to each attribute defined in the previous structure. These restrictions are logical conditions that must be obey for a sentence to be valid based on a specific structure.
 
-
 \begin{center}
 \begin{minipage}{12cm}
-\begin{Verbatim}[frame=single, framesep=2mm]
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:dsl_errors_prod}, caption=DSL errors/expression productions]
 errors : 'ERRORS:' ( expression ';' )+
 ;
 
 expression : condition ( ('AND'|'OR') condition )*
 ;
-\end{Verbatim}
+\end{lstlisting}
 \end{minipage}
 \end{center}
+
+%\begin{center}
+%\begin{minipage}{12cm}
+%\begin{Verbatim}[frame=single, framesep=2mm]
+%errors : 'ERRORS:' ( expression ';' )+
+%;
+%
+%expression : condition ( ('AND'|'OR') condition )*
+%;
+%\end{Verbatim}
+%\end{minipage}
+%\end{center}
 
 %\begin{figure}[h]
 %    \centering
@@ -112,13 +157,23 @@ The \textbf{expression} production is a set of conditions that can be joined usi
 
 \begin{center}
 \begin{minipage}{10cm}
-\begin{Verbatim}[frame=single, framesep=2mm]
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:dsl_cond_prod}, caption=DSL condition production]
 condition : WORD ( '.' WORD )* '->' WORD 
-    ('='|'!=') '"' WORD '"'
+    ('='|'!=') '``' WORD '"'
 ;
-\end{Verbatim}
+\end{lstlisting}
 \end{minipage}
 \end{center}
+
+%\begin{center}
+%\begin{minipage}{10cm}
+%\begin{Verbatim}[frame=single, framesep=2mm]
+%condition : WORD ( '.' WORD )* '->' WORD 
+%    ('='|'!=') '"' WORD '"'
+%;
+%\end{Verbatim}
+%\end{minipage}
+%\end{center}
 
 %\begin{figure}[h]
 %    \centering
@@ -134,12 +189,21 @@ by the student, allowing for a correct and non-subjective parsing of each word i
 
 \begin{center}
 \begin{minipage}{8cm}
-\begin{Verbatim}[frame=single, framesep=2mm]
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:dsl_input_prod}, caption=DSL input production]
 input : 'INPUT:' ( '-' parts )+
 ;
-\end{Verbatim}
+\end{lstlisting}
 \end{minipage}
 \end{center}
+
+%\begin{center}
+%\begin{minipage}{8cm}
+%\begin{Verbatim}[frame=single, framesep=2mm]
+%input : 'INPUT:' ( '-' parts )+
+%;
+%\end{Verbatim}
+%\end{minipage}
+%\end{center}
 
 %\begin{figure}[h]
 %    \centering
@@ -151,8 +215,8 @@ input : 'INPUT:' ( '-' parts )+
 The sketch starts within a section named \textbf{parts}, which corresponds to one sentence in particular. This production is composed by one or more blocks, where all the information is stored. Inside, the name of the components and their required attributes must be specified. It is also important to notice that a correct path must be specified by the student. If the student specifies a component that is not declared in the structure defined previously by the teacher, then an error should be thrown.
 
 \begin{center}
-\begin{minipage}{9cm}
-\begin{Verbatim}[frame=single, framesep=2mm]
+\begin{minipage}{10cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:dsl_parts_prod}, caption=DSL parts/component/content productions]
 parts : '(' block ( ',' block )* ')'
 ;
 
@@ -161,9 +225,24 @@ block : WORD content
 
 content : (slice)? (attrs)? (parts)?
 ;
-\end{Verbatim}
+\end{lstlisting}
 \end{minipage}
 \end{center}
+
+%\begin{center}
+%\begin{minipage}{9cm}
+%\begin{Verbatim}[frame=single, framesep=2mm]
+%parts : '(' block ( ',' block )* ')'
+%;
+%
+%block : WORD content
+%;
+%
+%content : (slice)? (attrs)? (parts)?
+%;
+%\end{Verbatim}
+%\end{minipage}
+%\end{center}
 
 %\begin{figure}[h]
 %    \centering
@@ -175,9 +254,9 @@ content : (slice)? (attrs)? (parts)?
 The student can specify the \textbf{slice} of the sentence that corresponds to the component that is being declared, and a set of attributes (\textbf{attrs}) that composes said component. Furthermore, it is possible to continue to define more \textbf{parts} within one part, just like the teacher's \textsc{DSL} \textbf{subparts}.
 
 \begin{center}
-\begin{minipage}{8cm}
-\begin{Verbatim}[frame=single, framesep=2mm]
-slice : ':' '"' (WORD)+ '"'
+\begin{minipage}{11cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:dsl_slice_prod}, caption=DSL slice/attrs/evaluations/eval productions]
+slice : ':' '``' (WORD)+ '"'
 ;
 
 attrs : '[' evaluations ']'
@@ -186,11 +265,29 @@ attrs : '[' evaluations ']'
 evaluations : eval ( ',' eval )*
 ;
 
-eval : WORD '=' '"' WORD '"'
+eval : WORD '=' '``' WORD '"'
 ;
-\end{Verbatim}
+\end{lstlisting}
 \end{minipage}
 \end{center}
+
+%\begin{center}
+%\begin{minipage}{8cm}
+%\begin{Verbatim}[frame=single, framesep=2mm]
+%slice : ':' '"' (WORD)+ '"'
+%;
+%
+%attrs : '[' evaluations ']'
+%;
+%
+%evaluations : eval ( ',' eval )*
+%;
+%
+%eval : WORD '=' '"' WORD '"'
+%;
+%\end{Verbatim}
+%\end{minipage}
+%\end{center}
 
 %\begin{figure}[h]
 %    \centering
@@ -206,7 +303,7 @@ For a better understanding of the three main categories (structure, errors and i
 
 \begin{center}
 \begin{minipage}{13cm}
-\begin{Verbatim}[frame=single, framesep=2mm, fontsize=\tiny]
+\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:meta_struct_err}, caption=Example of a possible sentence structure]
 STRUCTURE:
     part(Sujeito, attributes{tipo}, subparts[(Determinante)?, (Nome)])
     part(
@@ -220,14 +317,39 @@ STRUCTURE:
     )
 
 ERRORS:
-    Predicado->tipoVerb = "sujAnimado" AND Sujeito->tipo = "inanimado";
-    Predicado->tipoVerb = "complAnimado" AND Predicado->tipoComplDir = "inanimado";
-    Predicado->tipoVerb = "sujInanimado" AND Sujeito->tipo = "animado";
-    Predicado->tipoVerb = "tempo" AND Predicado->tipoComplDir != "tempo" AND Predicado->tipoComplDir != "null";
-    Predicado->tipoVerb = "tempo" AND Predicado->tipoComplInd != "tempo" AND Predicado->tipoComplInd != "null";
-\end{Verbatim}
+    Predicado->tipoVerb = ``sujAnimado" AND Sujeito->tipo = ``inanimado";
+    Predicado->tipoVerb = ``complAnimado" AND Predicado->tipoComplDir = ``inanimado";
+    Predicado->tipoVerb = ``sujInanimado" AND Sujeito->tipo = ``animado";
+    Predicado->tipoVerb = ``tempo" AND Predicado->tipoComplDir != ``tempo" AND Predicado->tipoComplDir != ``null";
+    Predicado->tipoVerb = ``tempo" AND Predicado->tipoComplInd != ``tempo" AND Predicado->tipoComplInd != ``null";
+\end{lstlisting}
 \end{minipage}
 \end{center}
+
+%\begin{center}
+%\begin{minipage}{13cm}
+%\begin{Verbatim}[frame=single, framesep=2mm, fontsize=\tiny]
+%STRUCTURE:
+%    part(Sujeito, attributes{tipo}, subparts[(Determinante)?, (Nome)])
+%    part(
+%        Predicado,
+%        attributes{tipoVerb, tipoComplDir, tipoComplInd},
+%        subparts[
+%            (Verbo),
+%            (Complemento_Direto, subparts[(Determinante)?, (Nome)]),
+%            (Complemento_Indireto, subparts[(Pronome), (Quantificador)?, (Nome)])?
+%        ]
+%    )
+%
+%ERRORS:
+%    Predicado->tipoVerb = "sujAnimado" AND Sujeito->tipo = "inanimado";
+%    Predicado->tipoVerb = "complAnimado" AND Predicado->tipoComplDir = "inanimado";
+%    Predicado->tipoVerb = "sujInanimado" AND Sujeito->tipo = "animado";
+%    Predicado->tipoVerb = "tempo" AND Predicado->tipoComplDir != "tempo" AND Predicado->tipoComplDir != "null";
+%    Predicado->tipoVerb = "tempo" AND Predicado->tipoComplInd != "tempo" AND Predicado->tipoComplInd != "null";
+%\end{Verbatim}
+%\end{minipage}
+%\end{center}
 
 % Exemplo de frase da meta gramática (parte do professor)
 %\begin{figure}[h]
@@ -241,15 +363,29 @@ In the case of the student, this is the semantic that should be used and one of 
 
 \begin{center}
 \begin{minipage}{13cm}
-\begin{Verbatim}[frame=single, framesep=2mm, fontsize=\tiny]
+\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:meta_input}, caption=Example of the students parsing]
 INPUT:
-    - (Sujeito: "O Carlos" [tipo = "animado"]
-        (Determiannte: "O", Nome: "Carlos"))
-    - (Predicado: "teme a sinceridade" [tipoVerb = "sujAnimado", tipoComplDir = "tempo", tipoComplInd = "null"]
-        (Verbo: "teme", Complemento_Direto: "a sinceridade" (Determinante: "a", Nome: "sinceridade")))
-\end{Verbatim}
+    - (Sujeito: ``O Carlos" [tipo = ``animado"]
+        (Determinante: ``O", Nome: ``Carlos"))
+    - (Predicado: ``teme a sinceridade" 
+        [tipoVerb = ``sujAnimado", tipoComplDir = ``tempo", tipoComplInd = ``null"]
+        (Verbo: ``teme", Complemento_Direto: ``a sinceridade" 
+            (Determinante: ``a", Nome: ``sinceridade")))
+\end{lstlisting}
 \end{minipage}
 \end{center}
+
+%\begin{center}
+%\begin{minipage}{13cm}
+%\begin{Verbatim}[frame=single, framesep=2mm, fontsize=\tiny]
+%INPUT:
+%    - (Sujeito: "O Carlos" [tipo = "animado"]
+%        (Determiannte: "O", Nome: "Carlos"))
+%    - (Predicado: "teme a sinceridade" [tipoVerb = "sujAnimado", tipoComplDir = "tempo", tipoComplInd = "null"]
+%        (Verbo: "teme", Complemento_Direto: "a sinceridade" (Determinante: "a", Nome: "sinceridade")))
+%\end{Verbatim}
+%\end{minipage}
+%\end{center}
 
 % Exemplo de frase da meta gramática (parte do aluno)
 %\begin{figure}[h]
@@ -259,6 +395,7 @@ INPUT:
 %    \label{fig:meta_grammar_student}
 %\end{figure}
 
+\newpage
 \section{Case Study}
 After the conception of a possible system architecture and DSL, the first task was to define the \textsc{DSL} that was supposed to be generated by the ``meta-language'' processor. This \textsc{DSL} would be the translation of the previously defined language into \textsc{ANTLR} instructions, which main purpose is to verify the sentences written by the students. The \textsc{DSL} design consists in slicing the sentence into main parts, with each main part possibly having more parts into them. These parts are supposed to be specified by the teacher, but in this context, as a case study, it was assumed that a structure is predefined.
 
@@ -267,30 +404,59 @@ This case study intends to validate sentence components based on their attribute
 
 \begin{center}
 \begin{minipage}{12cm}
-\begin{Verbatim}[frame=single, framesep=2mm, fontsize=\small]
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:case_study_sentence}, caption=Example of a possible sentence grammar]
 oracao : sujeito predicado '.' ;
 
 sujeito : (determinante)? nome ;
 
-predicado : verbo complementoDireto
+predicado 
+    : verbo complementoDireto
     | verbo complementoIndireto
     | verbo complementoDireto complementoIndireto
 ;
 
 verbo : '...' ;
 
-complementoDireto: (determinante)? nome ;
+complementoDireto : (determinante)? nome ;
 
-complementoIndireto : (pronome)? (QUANTIFICADOR)? nome ;
+complementoIndireto 
+    : (pronome)? (QUANTIFICADOR)? nome ;
 
 pronome : '...' ;
 
 determinante : '...' ;
 
 nome : '...' ;
-\end{Verbatim}
+\end{lstlisting}
 \end{minipage}
 \end{center}
+
+%\begin{center}
+%\begin{minipage}{12cm}
+%\begin{Verbatim}[frame=single, framesep=2mm, fontsize=\small]
+%oracao : sujeito predicado '.' ;
+%
+%sujeito : (determinante)? nome ;
+%
+%predicado : verbo complementoDireto
+%    | verbo complementoIndireto
+%    | verbo complementoDireto complementoIndireto
+%;
+%
+%verbo : '...' ;
+%
+%complementoDireto: (determinante)? nome ;
+%
+%complementoIndireto : (pronome)? (QUANTIFICADOR)? nome ;
+%
+%pronome : '...' ;
+%
+%determinante : '...' ;
+%
+%nome : '...' ;
+%\end{Verbatim}
+%\end{minipage}
+%\end{center}
 
 % Excerto da DSL para caso de estudo.
 %\begin{figure}[h]
@@ -305,26 +471,48 @@ All that is left to do is to start evaluating all the different attributes that 
 As shown in the excerpt below, and based on different set of attributes and rules, if the verb requires an \textbf{animated} subject then if the subject is \textbf{inanimated} an error message should appear, and notify the student of that same error. These error messages are the translation of the ``ERRORS'' block explained on the previous section.
 
 \begin{center}
-\begin{minipage}{14cm}
-\begin{Verbatim}[frame=single, framesep=2mm, fontsize=\small]
+\begin{minipage}{12cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:case_study_oracao}, caption=Example DSL attribute validation]
 oracao : sujeito predicado '.'
 {
     if ($predicado.req_verbo == SUJEITO_ANIMADO) {
         if ($sujeito.tipo == INANIMADO) {
             String err = String
                 .format(
-                    "- O verbo '%s' requer um sujeito ANIMADO.\n",
+                    ``- O verbo '%s' requer um sujeito ANIMADO.\n",
                     $predicado.verbo_TXT
                 );
 
-            System.out.println("\nERRO: ");
+            System.out.println(``\nERRO: ");
             System.out.println(err);
         }
     } else if { ... }
 }
-\end{Verbatim}
+\end{lstlisting}
 \end{minipage}
 \end{center}
+
+%\begin{center}
+%\begin{minipage}{14cm}
+%\begin{Verbatim}[frame=single, framesep=2mm, fontsize=\small]
+%oracao : sujeito predicado '.'
+%{
+%    if ($predicado.req_verbo == SUJEITO_ANIMADO) {
+%        if ($sujeito.tipo == INANIMADO) {
+%            String err = String
+%                .format(
+%                    "- O verbo '%s' requer um sujeito ANIMADO.\n",
+%                    $predicado.verbo_TXT
+%                );
+%
+%            System.out.println("\nERRO: ");
+%            System.out.println(err);
+%        }
+%    } else if { ... }
+%}
+%\end{Verbatim}
+%\end{minipage}
+%\end{center}
 
 % Excerto da validação de atributos na gramática.
 % \begin{figure}[h]
@@ -345,13 +533,22 @@ To conclude, if we use as an input a sentence like
 \noindent we get an error which indicates that the verb ``teme'' requires an animated subject, and ``acidente'' belongs to the subject that has an inanimated property.
 
 \begin{center}
-\begin{minipage}{9cm}
-\begin{Verbatim}[frame=single, framesep=2mm, fontsize=\small]
+\begin{minipage}{10cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:error_message_dsl}, caption=Example of an error message]
 ERRO:
 - O verbo 'teme' requer um sujeito ANIMADO.
-\end{Verbatim}
+\end{lstlisting}
 \end{minipage}
 \end{center}
+
+%\begin{center}
+%\begin{minipage}{9cm}
+%\begin{Verbatim}[frame=single, framesep=2mm, fontsize=\small]
+%ERRO:
+%- O verbo 'teme' requer um sujeito ANIMADO.
+%\end{Verbatim}
+%\end{minipage}
+%\end{center}
 
 % Exemplo de um erro na dsl de teste.
 %\begin{figure}[h]
@@ -366,8 +563,8 @@ ERRO:
 This case study, based on the same \textsc{DSL} excerpt [\ref{fig:dsl_excerpt}], intends to validade the gender and number within the subject. Two of the productions, \textbf{determinante} and \textbf{nome}, need to be in concordance when it comes to gender and number. By using synthesized attributes, we can return the genders and numbers of the given words.
 
 \begin{center}
-\begin{minipage}{11cm}
-\begin{Verbatim}[frame=single, framesep=2mm, fontsize=\small]
+\begin{minipage}{13cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:det_dsl_excerpt}, caption=Excerpt of the ``determinante'' production]
 determinante returns[Integer genero, Integer numero]
     : ('A' | 'a')
         { $genero = FEMININO; $numero = SINGULAR; }
@@ -380,9 +577,28 @@ determinante returns[Integer genero, Integer numero]
 
     (...)
 ;
-\end{Verbatim}
+\end{lstlisting}
 \end{minipage}
 \end{center}
+
+%\begin{center}
+%\begin{minipage}{11cm}
+%\begin{Verbatim}[frame=single, framesep=2mm, fontsize=\small]
+%determinante returns[Integer genero, Integer numero]
+%    : ('A' | 'a')
+%        { $genero = FEMININO; $numero = SINGULAR; }
+%    | ('O' | 'o')
+%        { $genero = MASCULINO; $numero = SINGULAR; }
+%    | ('As' | 'as')
+%        { $genero = FEMININO; $numero = PLURAL; }
+%    | ('Os' | 'os')
+%        { $genero = MASCULINO; $numero = PLURAL; }
+%
+%    (...)
+%;
+%\end{Verbatim}
+%\end{minipage}
+%\end{center}
 
 % produção do determinante dsl excerpt
 %\begin{figure}[h]
@@ -393,19 +609,34 @@ determinante returns[Integer genero, Integer numero]
 %\end{figure}
 
 \begin{center}
-\begin{minipage}{11cm}
-\begin{Verbatim}[frame=single, framesep=2mm, fontsize=\small]
+\begin{minipage}{13cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:nome_dsl_excerpt}, caption=Excerpt of the ``nome'' production]
 nome returns[Integer genero, Integer numero]
     : 'Carlos'
         { $genero = MASCULINO; $numero = SINGULAR; }
     | 'sinceridade'
         { $genero = FEMININO; $numero = SINGULAR; }
-    
+
     (...)
 ;
-\end{Verbatim}
+\end{lstlisting}
 \end{minipage}
 \end{center}
+
+%\begin{center}
+%\begin{minipage}{11cm}
+%\begin{Verbatim}[frame=single, framesep=2mm, fontsize=\small]
+%nome returns[Integer genero, Integer numero]
+%    : 'Carlos'
+%        { $genero = MASCULINO; $numero = SINGULAR; }
+%    | 'sinceridade'
+%        { $genero = FEMININO; $numero = SINGULAR; }
+%    
+%    (...)
+%;
+%\end{Verbatim}
+%\end{minipage}
+%\end{center}
 
 % produção do nome dsl excerpt
 %\begin{figure}[h]
@@ -419,8 +650,8 @@ nome returns[Integer genero, Integer numero]
 Within the \textbf{sujeito} production, we can perform these two evaluations, and check if the sentence provided by the student is, again, according to the rules, valid.
 
 \begin{center}
-\begin{minipage}{11cm}
-\begin{Verbatim}[frame=single, framesep=2mm, fontsize=\tiny]
+\begin{minipage}{13cm}
+\begin{lstlisting}[language=java, basicstyle=\tiny, label={sujeito_dsl_excerpt}, caption=Example of gender/number validation within the ``sujeito'' production]
 sujeito returns[Integer tipo]
 @init {
     boolean flag = false;
@@ -431,7 +662,7 @@ sujeito returns[Integer tipo]
             if ($determinante.genero != $nome.genero) {
                 String err = String
                     .format(
-                        "- Discordância de género entre o determinante '%s' e o nome '%s'.",
+                        "- Discordancia de genero entre o determinante '%s' e o nome '%s'.",
                         $determinante.text,
                         $nome.text
                     );
@@ -443,7 +674,7 @@ sujeito returns[Integer tipo]
             if ($determinante.numero != $nome.numero) {
                 String err = String
                     .format(
-                        "- Discordância de número entre o determinante '%s' e o nome '%s'.",
+                        "- Discordancia de numero entre o determinante '%s' e o nome '%s'.",
                         $determinante.text,
                         $nome.text
                     );
@@ -456,9 +687,51 @@ sujeito returns[Integer tipo]
         $tipo = $nome.tipo;
     }
 ;
-\end{Verbatim}
+\end{lstlisting}
 \end{minipage}
 \end{center}
+
+%\begin{center}
+%\begin{minipage}{11cm}
+%\begin{Verbatim}[frame=single, framesep=2mm, fontsize=\tiny]
+%sujeito returns[Integer tipo]
+%@init {
+%    boolean flag = false;
+%}
+%    : ( determinante { flag = true; } )? nome
+%    {
+%        if (flag) {
+%            if ($determinante.genero != $nome.genero) {
+%                String err = String
+%                    .format(
+%                        "- Discordância de género entre o determinante '%s' e o nome '%s'.",
+%                        $determinante.text,
+%                        $nome.text
+%                    );
+%
+%                System.out.println("\nERRO: ");
+%                System.out.println(err);
+%            }
+%
+%            if ($determinante.numero != $nome.numero) {
+%                String err = String
+%                    .format(
+%                        "- Discordância de número entre o determinante '%s' e o nome '%s'.",
+%                        $determinante.text,
+%                        $nome.text
+%                    );
+%
+%                System.out.println("\nERRO: ");
+%                System.out.println(err);
+%            }
+%        }
+%
+%        $tipo = $nome.tipo;
+%    }
+%;
+%\end{Verbatim}
+%\end{minipage}
+%\end{center}
 
 % produção do sujeito dsl excerpt
 %\begin{figure}[h]
@@ -475,13 +748,22 @@ To conclude this case study, if we use a similar input, but with an error
 \noindent we get a message indicating that the determinant and noun have a different gender.
 
 \begin{center}
-\begin{minipage}{15cm}
-\begin{Verbatim}[frame=single, framesep=2mm, fontsize=\small]
+\begin{minipage}{12cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:erro_gender_dsl_excerpt}, caption=Example of a gender error message]
 ERRO:
-- Discordância de género entre o determinante 'A' e o nome 'Carlos'.
-\end{Verbatim}
+- Discordancia de genero entre o determinante 'A' e o nome 'Carlos'.
+\end{lstlisting}
 \end{minipage}
 \end{center}
+
+%\begin{center}
+%\begin{minipage}{15cm}
+%\begin{Verbatim}[frame=single, framesep=2mm, fontsize=\small]
+%ERRO:
+%- Discordância de género entre o determinante 'A' e o nome 'Carlos'.
+%\end{Verbatim}
+%\end{minipage}
+%\end{center}
 
 % erro gender dsl excerpt
 %\begin{figure}[h]
@@ -498,13 +780,22 @@ Using another input, for example
 \noindent we can see that the gender matches, but the number in incorrect. Likewise, we get an error.
 
 \begin{center}
-\begin{minipage}{15cm}
-\begin{Verbatim}[frame=single, framesep=2mm, fontsize=\small]
+\begin{minipage}{12cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:erro_number_dsl_excerpt}, caption=Example of a number error message]
 ERRO:
-- Discordância de número entre o determinante 'Os' e o nome 'Carlos'.
-\end{Verbatim}
+- Discordancia de numero entre o determinante 'Os' e o nome 'Carlos'.
+\end{lstlisting}
 \end{minipage}
 \end{center}
+
+%\begin{center}
+%\begin{minipage}{12cm}
+%\begin{Verbatim}[frame=single, framesep=2mm, fontsize=\small]
+%ERRO:
+%- Discordância de número entre o determinante 'Os' e o nome 'Carlos'.
+%\end{Verbatim}
+%\end{minipage}
+%\end{center}
 
 % erro number dsl excerpt
 %\begin{figure}[h]
