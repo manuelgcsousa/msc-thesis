@@ -5,17 +5,20 @@ Having known this, the decision was made that the student would beforehand ident
 % FALAR DO QUE VOU FAZER DE DIFERENTE (DICA DO LÁZARO!)
 
 \section{System Architecture}
-In order to specify all kinds of sentences/rules possible, the idea of creating a ``meta-language'' emerged. This ``meta-language'' is suppost to be the language in which the teacher would specify the rules for sentence construction. These rules would be written (in a single file) according to the following structure, that is divided into three main categories:
+In order to specify all kinds of sentences/rules possible, the idea of creating a ``meta-language'' emerged. This ``meta-language'' will be used by the teacher to specify the rules for sentence construction. 
+These rules will be written (in a single file) according to the following structure, that is divided into three main categories:
 
 \begin{enumerate}
-    \item \textbf{STRUCTURE} - this would be the block where the teacher would write how was the sentence suppost to be written, and what components would it have.
+    \item \textbf{STRUCTURE} - the block where the teacher will write how is the sentence supposed to be written, and what components will it have.
     
-    \item \textbf{ERRORS} - list of conditions that the teacher would write in order to be analysed afterwards, for example, certain values for different attributes. If one of the conditions was matched, an error would appear.
+    \item \textbf{ERRORS} - list of conditions that the teacher could write in order to be analysed afterwards, for example, certain values for different attributes. If one of the conditions is matched, an error will appear.
     
-    \item \textbf{INPUT} - this block corresponds to the ``parsing'' of the sentence (the lexical part) that the student wants to test. This would be written by the student and then automatically joined with the teachers information.
+    \item \textbf{INPUT} - this block corresponds to the ``parsing'' of the sentence (the lexical part) that the student wants to test. This will be written by the student and then automatically joined with the teachers information.
 \end{enumerate}
 
-This file would then be processed by an \textsc{ANTLR} processor that would work on the information that was written, and then generate a grammar (also specified in \textsc{ANTLR}). This grammar corresponds to the translation of the ``meta-language'' into \textsc{ANTLR} instructions. Afterwards, the generated grammar would be used to create a validator of sentences, where the student could write his sentence/sentences and obtain results. These results would be the validation of the given sentence/sentences and a tree for a better visualization of the input structure.
+This file will then be processed by an \textsc{ANTLR} processor that will work on the information that was written, and then generate a grammar (also specified in \textsc{ANTLR}). This grammar corresponds to the translation of the
+``meta-language'' into \textsc{ANTLR} instructions. Afterwards, the generated grammar will be used to create a validator of sentences, where the student can write his sentence/sentences and obtain results. 
+These results would be the validation of the given sentence/sentences and a tree for a better visualization of the input structure.
 
 % Imagem da arquitetura do sistema.
 \begin{figure}[h]
@@ -26,7 +29,8 @@ This file would then be processed by an \textsc{ANTLR} processor that would work
 \end{figure}
 
 \section{Meta-Language}
-As it was stated in the beginning of this document, the main goal was to create a \textsc{DSL} that was easy to learn and to rapidly understand and grasp. With this in mind, the structure mencioned before on the first section of this chapter was followed: Three main parts, where two of them would be constructed by the teacher, and the third one was intended to be written by the student and later concatenated in a single file.
+As it was stated in the beginning of this document, the main goal was to create a \textsc{DSL} that should be easy to learn and to rapidly understand and grasp. With this in mind, the structure mencioned before on the first section
+of this chapter was followed: Three main parts, where two of them would be constructed by the teacher, and the third one was intended to be written by the student and later concatenated in a single file.
 
 \subsection{Domain Specific Meta-Grammar}
 The main intention of this language is to preprocess the information written by the teacher + student and then generate a validator for a particular structure. With simplicity in mind, a first version of the \textsc{DSL} was created, and it will be explained next.
@@ -120,7 +124,7 @@ subparts : 'subparts' '[' element ( ',' element ) ']'
 
 The \textbf{subparts} production intends to be the path for ``injecting'' more elements inside a single component. One component may be composed by several other components. As shown in the example above, the \textbf{subparts} production is a list of one or more elements.
 
-Secondly, the teacher can define a list of restrictions to be applied to each attribute defined in the previous structure. These restrictions are logical conditions that must be obey for a sentence to be valid based on a specific structure.
+Secondly, the teacher can define a list of restrictions to be applied to each attribute defined in the previous structure. A sentence will be valid if it follows the specified structure and if it obeys to the specified conditions.
 
 \begin{center}
 \begin{minipage}{12cm}
@@ -182,10 +186,10 @@ condition : WORD ( '.' WORD )* '->' WORD
 %    \label{fig:dsl_condition_production}
 %\end{figure}
 
-If, for instance, the teacher says that an attribute is equal to some value, then the student can not use said value with said attribute - this would result in an error.
+If, for instance, the teacher says that an attribute is equal to some value, then the student can not use other value to that attribute - this would result in an error.
 
 Thirdly, and finally, the \textbf{input} block, which corresponds to the students section. This was treated has a different and separate \textsc{DSL}, as its main purpose was to identify the lexical parts of the sentence written 
-by the student, allowing for a correct and non-subjective parsing of each word in the sentence. By being treated as a separate \textsc{DSL}, it is accessible when it comes to changes, and simple to produce them.
+by the student, allowing for a correct and non-subjective parsing of each word in the sentence.
 
 \begin{center}
 \begin{minipage}{8cm}
@@ -298,7 +302,7 @@ eval : WORD '=' '``' WORD '"'
 
 Inside the \textbf{slice} production, a list of words can be written. These are the words that will then be used to build the lexical part of the generated grammar. Also, when specifying attributes, the student must assign a value for each attribute that will then be used to validate each component of the sentence.
 
-For a better understanding of the three main categories (structure, errors and input), bellow there is an example that is based on the first case study, and shows what the semantic of the teacher should look like.
+For a better understanding of the three main categories (structure, errors and input), bellow there is an example that is based on the first case study, and shows what the specification of the teacher should look like.
 \newpage
 
 \begin{center}
@@ -359,7 +363,7 @@ ERRORS:
 %    \label{fig:meta_grammar_teacher}
 %\end{figure}
 
-In the case of the student, this is the semantic that should be used and one of the many examples that fit into the defined structured.
+In the case of the student, this is the specification that should be used and one of the many examples that fit into the defined structured.
 
 \begin{center}
 \begin{minipage}{13cm}

@@ -2,7 +2,9 @@
 
 This section will present the workflow of the system. As previously mentioned, the next step was to expand the defined DSL, and to use attributes as a form of calculation. Most of the productions were expandable, allowing for certain calculations to be injected over the tree.
 
-With the grammar divided into 3 main parts (STRUCTURE, ERRORS, INPUT), different types of calculations occur at different sections. The STRUCTURE and ERRORS blocks are written in a single file (by the teacher) which is then joined with the INPUT block (written by the student). The process starts with searching for the teacher and student specification, and then compiling the meta-grammar. After that, a single file is passed on to the processor for verification. This is the file containing the three main parts.
+With the grammar divided into 3 main parts (STRUCTURE, ERRORS, INPUT), different types of calculations occur at different sections. The STRUCTURE and ERRORS blocks are written in a single file (by the teacher) which is then joined 
+with the INPUT block (written by the student). The process starts with searching for the teacher and student specification, and then compiling the program using a meta-grammar based processor. A new processor is generated to be 
+used by the student to verify if his sentences are correctly following the structure defined by the teacher.
 
 Within the grammar itself, the first rule
 \newpage
@@ -49,7 +51,7 @@ processor
 \noindent starts by initializing the main data structure. This structure is responsible for storing all the information that is being parsed from the file given as input (the meta-language file). 
 
 When choosing the correct structure to store all the important data, the first \/\*approach\*\/ taken was to store all components in a single Map, with each name of a component
-matching their respective value. The problem with this approach, which was identified right away, was that their could exist two or more components with the same exact
+matching their respective value. The problem with this approach, which was identified right away, was that is possible to exist two or more components with the same exact
 name, causing a conflict within the Map. Furthermore, components have different information associated, like attributes, and it would be better if it is all in the same
 place - this created the need for a Component class.
 
