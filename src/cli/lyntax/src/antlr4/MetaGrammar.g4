@@ -24,7 +24,7 @@ grammar MetaGrammar;
 	List<String> grammar_error_conditions;
 	
 	/* Data structure to store mandatory components. */
-	Map<String, Integer> required_components;
+	List<Map<String, Integer>> required_components;
 }
 
 
@@ -35,8 +35,8 @@ processor
 
 	grammar_members = new LinkedHashSet<>();
 	grammar_error_conditions = new ArrayList<>();
-
-	required_components = new HashMap<>();
+    
+    required_components = new ArrayList<>();
 }
 	: structure[struct] 
 	  errors[struct] 
@@ -57,7 +57,14 @@ processor
 /* *********************************************************** */
 
 structure[List<RoseTree> struct]
-	: 'STRUCTURE:' ( part[struct] )+ { Utils.getRequiredComponents(struct, required_components); }
+@init { int pointer = 0; }
+	: 'STRUCTURE:' ( 
+        part[struct] {
+            Map<String, Integer> part = new HashMap<>();
+            Utils.getRequiredComponents(struct.get(pointer++), part);
+            required_components.add(part);
+        }
+    )+
 ;
 
 part[List<RoseTree> struct]
@@ -200,7 +207,7 @@ returns[List<String> components, String attribute]
 			if (value == null) {
 				String err = String
 					.format(
-						"- O atributo '%s' correspondente ao componente '%s' não foi declarado em STRUCTURE.\n",
+                        "- The attribute '%s' related to the component '%s' was not declared in the STRUCTURE.\n",
 						$attribute,
 						last_eval_comp
 					);
@@ -210,7 +217,7 @@ returns[List<String> components, String attribute]
 		} else {
 			String err = String
 				.format(
-					"- O padrão de componentes %s não é válido.\n",
+                    "- The pattern of components %s is not valid.\n",
 					$components
 				);
 			
@@ -219,101 +226,6 @@ returns[List<String> components, String attribute]
 	}
 ;
 
-
-/*
-errors[List<RoseTree> struct]
-	: ( 'ERRORS:' ( e=expression[struct] { grammar_error_conditions.add($e.logical_expression); } ';' )+ )?
-;
-
-expression[List<RoseTree> struct]
-returns[String logical_expression]
-@init {
-	List<String> exp = new ArrayList<>();
-}
-	: c1=condition[struct] { exp.add($c1.logical_condition); }  
-	( op=('AND'|'OR') { if ($op.text.equals("AND")) exp.add("&&"); else exp.add("||"); } 
-	  c2=condition[struct] { exp.add($c2.logical_condition); } )* 
-	{
-        $logical_expression = "if (";
-
-		for (String e : exp) {
-			$logical_expression += (" " + e);
-		}
-		$logical_expression += " ) { System.out.println(\"ERROR!\"); }";
-	}
-;
-
-condition[List<RoseTree> struct]
-returns[String logical_condition]
-@init {
-	List<String> components = new ArrayList<>();
-	List<RoseTree> children;
-}
-	: c1=WORD { components.add($c1.text); } ('.' c2=WORD { components.add($c2.text); })* '->' a=WORD op=('='|'!=') '"' v=WORD '"'
-	{
-		boolean path = true;
-		String last_eval_comp = null;
-
-		List<RoseTree> aux_children = $struct;
-		RoseTree aux_node = null;
-		
-		for (int i = 0; i < components.size() && path != false; i++) {
-			last_eval_comp = components.get(i);
-
-			aux_node = containsValue(aux_children, last_eval_comp, null);
-
-			if (aux_node != null) {
-				aux_children = aux_node.getChildren();
-			} else {
-				path = false;
-			}
-		}
-		
-
-		// If 'path' still has value of 'true' then the path is valid.
-		if (path) {
-			// Search within the mapping of the last node of the path and check if the attribute '$a.text' is valid.
-			String value = aux_node.hasAttribute($a.text);
-			
-			if (value != null) {
-				// Build string that corresponds to the condition.
-				$logical_condition = "";
-				String comp = "";
-
-				int i = 0;
-				for (i = 0; i < components.size(); i++) {
-					comp = components.get(i);
-					$logical_condition += (comp + "__");
-				}
-				$logical_condition += ($a.text.toUpperCase());
-				
-				if ($op.text.equals("!=")) {
-					$logical_condition = ("!" + $logical_condition);
-				}
-
-				$logical_condition += (".equals(\"" + $v.text + "\")");
-			} else {
-				String err = String
-					.format(
-						"- O atributo '%s' correspondente ao componente '%s' não foi declarado em STRUCTURE.\n",
-						$a.text,
-						last_eval_comp
-					);
-				
-				print_msg(0, "STRUCTURE", err);
-			}
-		} else {
-			String err = String
-				.format(
-					"- O padrão de componentes %s não é válido.\n",
-					components
-				);
-			
-			print_msg(0, "STRUCTURE", err);
-		}
-	}
-;
-*/
 
 
 /* ******************************************************* */
@@ -328,30 +240,30 @@ input[List<RoseTree> struct]
 phrase[List<RoseTree> struct]
 @init {
 	String path = "";
+    int pointer = 0;
 }
-	: ( '-' parts[path, struct] )+
-	{
-		for (Map.Entry<String, Integer> entry : required_components.entrySet()) {
-			if (entry.getValue() != 0) {
+	: ( '-' parts[path, pointer, struct] {
+        for (Map.Entry<String, Integer> entry : required_components.get(pointer).entrySet()) {
+            if (entry.getValue() != 0) {
 				String err = String
 					.format(
-						"- Existem componentes obrigatórios que não foram definidos.\n"
+                        "- The mandatory component '%s' has not been defined.\n",
+                        entry.getKey()
 					);
 					
 				Utils.print_msg(0, "INPUT", err);
 			}
-		}
-		
-		// Reset 'required_components' values to 1.
-		required_components.replaceAll( (k, v) -> 1 );
-	}
+        }
+
+        pointer++;
+    } )+
 ;
 
-parts[String path, List<RoseTree> struct] 
-	: '(' block[path, struct] ( ',' block[path, struct] )* ')'
+parts[String path, int pointer, List<RoseTree> struct] 
+	: '(' block[path, pointer, struct] ( ',' block[path, pointer, struct] )* ')'
 ;
 
-block[String path, List<RoseTree> struct]
+block[String path, int pointer, List<RoseTree> struct]
 @init {
 	RoseTree child;
 }
@@ -361,7 +273,7 @@ block[String path, List<RoseTree> struct]
 		if (child == null) {
 			String err = String
 				.format(
-					"- O componente '%s' não é permitido nas regras definidas em STRUCTURE.\n",
+                    "- The component '%s' is not allowed within the STRUCTURE rules.\n",
 					$c.text
 				);
 			
@@ -370,27 +282,27 @@ block[String path, List<RoseTree> struct]
 			// If the element is mandatory \
 			// then remove the first occurence of the component in the global list.
 			if (child.getRequiredState()) {
-				required_components.replace($c.text, 0);
+                required_components.get(pointer).computeIfPresent($c.text, (k, v) -> v - 1);
 			}
 
 			path += ($c.text + "__");
 		}
-	} content[$c.text, path, child]
+	} content[$c.text, path, pointer, child]
 ;
 
-content[String parent_comp, String path, RoseTree node]
+content[String parent_comp, String path, int pointer, RoseTree node]
 @init {
 	boolean hasAttrs = false;
 	boolean hasSubparts = false;
 }
-	: (s=slice)? ( attrs[parent_comp, path, node] { hasAttrs = true; } )? ( parts[path, node.getChildren()] { hasSubparts = true; } )?
+	: (s=slice)? ( attrs[parent_comp, path, node] { hasAttrs = true; } )? ( parts[path, pointer, node.getChildren()] { hasSubparts = true; } )?
 	{
 		if (!hasAttrs) {
 			// If the node attributes are not empty, then an error should come up.
 			if (!node.getAttributes().isEmpty()) { 
 				String err = String
 					.format(
-						"- Existem atributos relativos ao componente '%s' que não foram definidos.\n",
+                        "- There are attributes related to the component '%s' that were not defined.\n",
 						node.getValue()
 					);
 				
@@ -432,7 +344,7 @@ attrs[String parent_comp, String path, RoseTree node]
 			} else {
 				String err = String
 					.format(
-						"- O atributo '%s' pertencente ao componente '%s' não foi definido.\n",
+                        "- The attribute '%s' related to the component '%s' was not defined.\n",
 						attr,
 						value
 					);
@@ -455,7 +367,7 @@ returns[Map<String, String> attr_value]
 		if ( !attributes.containsKey($e1.attribute) ) {
 			String err = String
 				.format(
-					"- O atributo '%s' pertencente ao componente '%s' não é válido.\n",
+                    "- The attribute '%s' related to the component '%s' is not valid.\n",
 					$e1.attribute,
 					value
 				);
@@ -466,7 +378,7 @@ returns[Map<String, String> attr_value]
 		if ( $attr_value.containsKey($e1.attribute) ) {
 			String warn = String
 				.format(
-					"- O atributo '%s' já foi declarado! Assume-se o último valor encontrado.\n",
+                    "- The attribute '%s' has already been declared! Using the last value found.\n",
 					$e1.attribute
 				);
 			
@@ -479,7 +391,7 @@ returns[Map<String, String> attr_value]
 		if ( !attributes.containsKey($e2.attribute) ) {
 			String err = String
 				.format(
-					"- O atributo '%s' pertencente ao componente '%s' não é válido.\n",
+                    "- The attribute '%s' related to the component '%s' is not valid.\n",
 					$e2.attribute,
 					value
 				);
@@ -490,7 +402,7 @@ returns[Map<String, String> attr_value]
 		if ( $attr_value.containsKey($e2.attribute) ) {
 			String warn = String
 				.format(
-					"- O atributo '%s' já foi declarado! Assume-se o último valor encontrado.\n",
+                    "- The attribute '%s' has already been declared! Using the last value found.\n",
 					$e2.attribute
 				);
 			

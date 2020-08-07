@@ -99,7 +99,8 @@ public class Utils
      * @param struct the main structure (as a form of a list of RoseTree's)
      * @param required_components a Map containing every required component 
      */
-	public static void getRequiredComponents(List<RoseTree> struct, Map<String, Integer> required_components) {
+	/*
+    public static void getRequiredComponents(List<RoseTree> struct, Map<String, Integer> required_components) {
 		for (int i = 0; i < struct.size(); i++) {
 			RoseTree parent = struct.get(i);
 
@@ -112,5 +113,20 @@ public class Utils
 				getRequiredComponents(children, required_components);
 			}
 		}
+	}
+    */
+
+    public static void getRequiredComponents(RoseTree parent, Map<String, Integer> required_components) {
+        if (parent.getRequiredState()) {
+            Integer occur = required_components.get(parent.getValue());
+            if (occur != null)
+                required_components.put(parent.getValue(), ++occur);
+            else
+                required_components.put(parent.getValue(), 1);
+            
+            for (RoseTree child : parent.getChildren()) {
+                getRequiredComponents(child, required_components);
+            }
+        }
 	}
 } 

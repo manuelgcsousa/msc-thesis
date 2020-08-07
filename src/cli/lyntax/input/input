@@ -1,10 +1,16 @@
 INPUT:
+    - (Sujeito: "O Carlos" [tipo = "animado", tipo = "inanimado"]
+        (Determinante: "O", Nome: "Carlos"))
+    - (Predicado: "teme a sinceridade" 
+        (Verbo: "teme" [tipo = "animado"], Complemento_Direto: "a sinceridade" (Determinante: "a", Nome: "sinceridade")))
+
+/*
+INPUT:
     - (Frase: "O pensamento cansa"
         (Determinante: "O",
          Nome: "pensamento" [tipo = "inanimado"],
          Verbo: "cansa" [tipo = "inanimado"]))
 
-/*
 
 // ERRO:
 INPUT:
