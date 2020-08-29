@@ -1,22 +1,5 @@
 INPUT:
-    - (Sujeito: "O Carlos" [tipo = "animado", tipo = "inanimado"]
-        (Determinante: "O", Nome: "Carlos"))
-    - (Predicado: "teme a sinceridade" 
-        (Verbo: "teme" [tipo = "animado"], Complemento_Direto: "a sinceridade" (Determinante: "a", Nome: "sinceridade")))
-
-/*
-INPUT:
-    - (Frase: "O pensamento cansa"
-        (Determinante: "O",
-         Nome: "pensamento" [tipo = "inanimado"],
-         Verbo: "cansa" [tipo = "inanimado"]))
-
-
-// ERRO:
-INPUT:
-    - (Frase: "A preocupação come"
-        (Determinante: "A",
-         Nome: "preocupação" [tipo = "inanimado"],
-         Verbo: "come" [tipo = "animado"]))
-
-*/
+    - (Frase: "A Olinda lê"
+        (Determinante: "A" [genero = "feminino"],
+         Nome: "Olinda" [genero = "feminino"],
+         Verbo: "lê"))

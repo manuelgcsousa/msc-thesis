@@ -1,44 +1,16 @@
 STRUCTURE:
     part(
-        Sujeito, 
-        attributes{tipo}, 
-        subparts[
-            (Determinante)?, 
-            (Nome)
-        ]
-    )
-    
-    part(
-        Predicado,
-        subparts[
-            (Verbo, attributes{tipo}),
-            (Complemento_Direto, subparts[(Determinante)?, (Nome)])
-        ]
-    )
-
-ERRORS:
-    Sujeito->tipo = "animado" AND Predicado.Verbo->tipo = "inanimado";
-    Sujeito->tipo = "inanimado" AND Predicado.Verbo->tipo = "animado";
-
-
-/*
-// Nomes animados e verbos que pedem sujeitos animados.
-STRUCTURE:
-    part(
         Frase,
         subparts[
-            (Determinante),
-            (Nome, attributes{tipo}),
-            (Verbo, attributes{tipo})
+            (Determinante, attributes{genero}),
+            (Nome, attributes{genero}),
+            (Verbo)
         ]
     )
 
 ERRORS:
-    Frase.Nome->tipo != Frase.Verbo->tipo;
+    Frase.Determinante->genero = "masculino" AND Frase.Nome->genero = "feminino";
+    Frase.Determinante->genero = "feminino" AND Frase.Nome->genero = "masculino";
     
-    // Frase.Nome->tipo = "animado" AND Frase.Verbo->tipo = "inanimado";
-    // Frase.Nome->tipo = "inanimado" AND Frase.Verbo->tipo = "animado";
-
-    Frase.Nome->tipo != "animado" AND Frase.Nome->tipo != "inanimado";
-    Frase.Verbo->tipo != "animado" AND Frase.Verbo->tipo != "inanimado";
-*/
+    Frase.Determinante->genero != "masculino" AND Frase.Determinante->genero != "feminino";
+    Frase.Nome->genero != "masculino" AND Frase.Nome->genero != "feminino";
