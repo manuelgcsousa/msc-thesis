@@ -28,11 +28,7 @@ router.get('/lyntax/download/:type', function(req, res, next) {
     if (type === 'cli') {
         res.download(path.join(__dirname, '../_download/lyntax-cli.zip'));
     } else if (type === 'gui') {
-        if (req.query.os === 'linux')
-            res.download(path.join(__dirname, '../_download/lyntax-gui-linux.zip'));
-        else
-            // res.download(path.join(__dirname, '../_download/lyntax-gui-windows.zip'));
-            res.redirect('/');
+		res.download(path.join(__dirname, '../_download/lyntax-gui.zip'));
     } else {
         res.render('download', { title: 'download' });
     }
