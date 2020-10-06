@@ -1,0 +1,276 @@
+\chapter{Case Study} \label{case_study}
+In order to better explain the solution architecture presented in this thesis, some concrete examples will be presented in this section. The main idea is to show the 
+specifications used by the teacher and by the student and how the generator processor verifies the correcteness of the student sentences. The DSL design consists in 
+slicing the sentence into parts, and each part can have subparts.
+
+\section{Attribute Validation}
+This case study intends to demonstrate the validation on sentence components based on their attributes. The example showed in the previous chapter 
+[\ref{lst:meta_struct_err}] contains a structure that is composed by two main parts: a subject (\underline{Sujeito}) and a predicate (\underline{Predicado}). 
+The subject is then subdivided into a possible pronoun (\underline{Pronome}) and a noun (\underline{Nome}), which are then matched with a word 
+(the lexical part identified by the student). The predicate is composed by a verb and a complement that is directly related to the verb. This complement 
+(\underline{Complemento\_Direto}) is then composed by a possible determinant (\underline{Determinante}) and a mandatory noun (\underline{Nome}).
+
+In this particular example, both the subject and the verb from the predicate have an attribute named ‘tipo’ which purpose is to check evaluate if each of the components
+are animated or inanimated. By analysing the logic in the ERRORS block [\ref{lst:meta_struct_err}], we can see that if the value of the attribute ‘tipo’ is different 
+between the two components, than an error should be pointed. In this case, the sentence parsed by the student is
+
+``O Carlos teme a sinceridade.''
+
+\noindent which is in fact a valid sentence, as the name ``Carlos'' and the verb ``teme'' are both animated.
+
+When running the example above [\ref{lst:meta_struct_err} plus \ref{lst:meta_input}] in the Meta Grammar processor, and if no errors occur, a specific grammar (in ANTLR) 
+in then generated. For this specific case, this is the generated grammar.
+
+\begin{center}
+\begin{minipage}{15cm}
+\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:case_study_sentence}, caption=Example of a specific generated grammar.]
+grammar Grammar;
+
+@members {
+    final String Sujeito__TIPO = ``animado";
+    final String Predicado__Verbo__TIPO = ``animado";
+}
+
+
+main : sujeito predicado
+{
+    if ( Sujeito__TIPO.equals(``animado") && Predicado__Verbo__TIPO.equals(``inanimado") ) 
+        { System.out.println(``ERROR!"); }
+
+    if ( Sujeito__TIPO.equals(``inanimado") && Predicado__Verbo__TIPO.equals(``animado") ) 
+        { System.out.println(``ERROR!"); }
+}
+;
+
+sujeito : (determinante)? nome 
+;
+
+determinante : 'O' | 'a'
+;
+
+nome : 'Carlos' | 'sinceridade'
+;
+
+predicado : verbo complemento_direto 
+;
+
+complemento_direto : (determinante)? nome 
+;
+
+verbo : 'teme'
+;
+
+
+/* LEXER */
+(...)
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+In the ‘main’ production, we can see the logical conditions that are ready to be evaluated when running this grammar. As the conditions are false, no errors should occur,
+allowing for the visualization of the syntax tree.
+
+% INSERIR PRINT DO TESTRIG????
+
+%To conclude, if we use as an input a sentence like
+%
+%``O Carlos teme a sinceridade.''
+%
+%\noindent the sentence is accepted because, firstly, the structure is correct, and every component is in the right place, and secondly, all the attributes obey to the rules. As another example, if we use as an input other sentence for example
+%
+%``O acidente teme a sinceridade.''
+%
+%\noindent we get an error which indicates that the verb ``teme'' requires an animated subject, and ``acidente'' belongs to the subject that has an inanimated property.
+%
+%\begin{center}
+%\begin{minipage}{10cm}
+%\begin{lstlisting}[language=java, basicstyle=\small, label={lst:error_message_dsl}, caption=Example of an error message]
+%ERRO:
+%- O verbo 'teme' requer um sujeito ANIMADO.
+%\end{lstlisting}
+%\end{minipage}
+%\end{center}
+
+\section{Missing components \& Warnings}
+Still based on the previous defined structure [\ref{lst:meta_struct_err}], the student's specification can still be missing some components that are mandatory. This case 
+study just intends to show the way that errors or warnings are notified to the user.
+
+In order to demonstrate this, the input block defined above [\ref{lst:meta_input}] is going to suffer some modifications in order to trigger errors or warnings.
+
+\begin{center}
+\begin{minipage}{13cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:meta_input_missing_comp}, caption=Example of the students parsing with missing component]
+INPUT:
+    - (Sujeito: ``O Carlos" [tipo = ``animado"]
+        (Determinante: ``O"))
+    - (Predicado: ``teme a sinceridade" 
+        (Verbo: ``teme" [tipo = ``animado"], 
+         Complemento_Direto: ``a sinceridade" 
+            (Determinante: ``a", Nome: ``sinceridade")))
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+In this example, we can see that within the subject component (\underline{Sujeito}), the noun component (\underline{Nome}) is not defined. This particular case would
+cause an error as the noun component is mandatory (based on the previous structure [\ref{lst:meta_struct_err}]). The error message identifies the missing component.
+
+\begin{center}
+\begin{minipage}{13cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:err_msg_missing_comp}, caption=Example error message of missing component]
+ERROR: (INPUT) 
+- The mandatory component 'Nome' has not been defined.
+\end{lstlisting}
+\end{minipage}
+\end{center}
+Another possible error would be to not define attributes, and to not give those attributes values. In this case, if we remove the attribute ‘tipo’ from the subject 
+component (\underline{Sujeito}),
+
+\begin{center}
+\begin{minipage}{13cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:meta_input_missing_attr}, caption=Example of the students parsing with missing attribute]
+INPUT:
+    - (Sujeito: ``O Carlos"
+        (Determinante: ``O", Nome: ``Carlos"))
+    - (Predicado: ``teme a sinceridade" 
+        (Verbo: ``teme" [tipo = ``animado"], 
+         Complemento_Direto: ``a sinceridade" 
+            (Determinante: ``a", Nome: ``sinceridade")))
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+\noindent the error should notify the user that the subject component is missing attributes, as attributes are always mandatory (if the component related to them is also
+mandatory).
+
+\begin{center}
+\begin{minipage}{14cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:err_msg_missing_attr}, caption=Example error message of missing attributes]
+ERROR: (INPUT)
+- There are attributes related to the component 'Sujeito' that were not defined.
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+When it comes to warnings, there is only one case that raises them. This happens when the user defines the same attribute multiple times, warning that only the last value 
+will be considered for the final evaluation. If, for example, we use the same attribute twice on the subject component,
+
+\begin{center}
+\begin{minipage}{14cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:meta_input_attr_twice}, caption=Example of the students parsing with the same attribute in a single component]
+INPUT:
+    - (Sujeito: ``O Carlos" 
+        [tipo = ``animado", tipo = ``inanimado"]
+        (Determinante: ``O", Nome: ``Carlos"))
+    - (Predicado: ``teme a sinceridade" 
+        (Verbo: ``teme" [tipo = ``animado"], 
+         Complemento_Direto: ``a sinceridade" 
+            (Determinante: ``a", Nome: ``sinceridade")))
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+\noindent a warning is raised to notify the user that only the last value was considered as final (\emph{tipo = ``inanimado''}).
+
+\begin{center}
+\begin{minipage}{14cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:meta_input_missing_attr_warn}, caption=Example warning message of same attribute in a single component]
+WARNING: (INPUT) 
+- The attribute 'tipo' has already been declared! Using the last value found.
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+\section{Arbitrary Structure}
+
+This last case study has the intention to demonstrate that is possible to define any arbitrary sentence structure, without obeying to any specific linguistic rules. If, for instance, the main goal of the teacher is to test
+different attributes despite of the components of a sentence, a simple structure can be defined for that same purpose. The following structure and rules intend to test the gender between two components, and this can be done 
+with very simple sentences.
+
+\begin{center}
+\begin{minipage}{15cm}
+\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:arbitrary_structure}, caption=Example of an arbitrary sentence structure]
+STRUCTURE:
+    part(
+        Frase,
+        subparts[
+            (Determinante, attributes{genero}),
+            (Nome, attributes{genero}),
+            (Verbo)
+        ]
+    )
+
+ERRORS:
+    Frase.Determinante->genero = ``masculino" AND Frase.Nome->genero = ``feminino";
+    Frase.Determinante->genero = ``feminino" AND Frase.Nome->genero = ``masculino";
+    
+    Frase.Determinante->genero != ``masculino" AND Frase.Determinante->genero != ``feminino";
+    Frase.Nome->genero != ``masculino" AND Frase.Nome->genero != ``feminino";
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+Based on the rules written, we can see that the gender must be equal, or the sentence is invalid. Furthermore, the rules ensure that the gender can only be male or female (``masculino'' and ``feminino'' respectively) in order
+to be a valid sentence.
+
+\begin{center}
+\begin{minipage}{14cm}
+\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:arbitrary_structure_input}, caption=Example of an arbitrary sentence input]
+INPUT:
+    - (Frase: ``A Olinda come"
+        (Determinante: ``A" [genero = ``feminino"],
+         Nome: ``Olinda" [genero = ``feminino"],
+         Verbo: ``come"))
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+Combining all the information in the processor, we generate a specific grammar for this arbitrary structure.
+
+\begin{center}
+\begin{minipage}{15cm}
+\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:case_study_sentence}, caption=Example of a specific generated grammar.]
+grammar Grammar;
+
+@members {
+    final String Frase__Determinante__GENERO = ``feminino";
+    final String Frase__Nome__GENERO = ``feminino";
+}
+
+
+main : frase
+{
+    if ( Frase__Determinante__GENERO.equals(``masculino") && Frase__Nome__GENERO.equals(``feminino") ) 
+        { System.out.println(``ERROR!"); }
+	
+    if ( Frase__Determinante__GENERO.equals(``feminino") && Frase__Nome__GENERO.equals(``masculino") ) 
+        { System.out.println(``ERROR!"); }
+	
+    if ( !Frase__Determinante__GENERO.equals(``masculino") && !Frase__Determinante__GENERO.equals(``feminino") ) 
+        { System.out.println(``ERROR!"); }
+	
+    if ( !Frase__Nome__GENERO.equals(``masculino") && !Frase__Nome__GENERO.equals(``feminino") ) 
+        { System.out.println(``ERROR!"); }
+}
+;
+
+frase : determinante nome verbo 
+;
+
+determinante : 'A'
+;
+
+nome : 'Olinda'
+;
+
+verbo : 'come'
+;
+
+
+/* LEXER */
+(...)
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+
+This simple example shows that the meta-language created is flexible to the point of writing arbitrary sentences or rules, augmenting the possibilities of syntactic structures.
