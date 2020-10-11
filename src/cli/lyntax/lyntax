@@ -29,7 +29,7 @@ _help() {
 
     printf "${YELLOW}OPTIONS:${NC}\n"
     printf "    ${GREEN}-h${NC}, ${GREEN}help${NC}              Help message.\n"
-    printf "    ${GREEN}-c${NC}, ${GREEN}generate${NC}          Generates Grammar sources.\n"
+    printf "    ${GREEN}-g${NC}, ${GREEN}generate${NC}          Generates Grammar sources.\n"
     printf "    ${GREEN}-r${NC}, ${GREEN}run${NC}               Compiles Grammar sources, running it given the sentence as input.\n"
     printf "    ${GREEN}-c${NC}, ${GREEN}clean${NC}             Cleans files.\n"
     

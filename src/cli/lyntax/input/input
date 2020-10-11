@@ -1,5 +1,5 @@
 INPUT:
     - (Frase: "A Olinda lê"
-        (Determinante: "A" [genero = "feminino"],
+        (Determinante: "A" [genero = "masculino"],
          Nome: "Olinda" [genero = "feminino"],
          Verbo: "lê"))

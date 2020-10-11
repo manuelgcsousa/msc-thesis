@@ -8,7 +8,8 @@ STRUCTURE:
         ]
     )
 
-ERRORS:
+/*ERRORS:*/
+RULES:
     Frase.Determinante->genero = "masculino" AND Frase.Nome->genero = "feminino";
     Frase.Determinante->genero = "feminino" AND Frase.Nome->genero = "masculino";
     

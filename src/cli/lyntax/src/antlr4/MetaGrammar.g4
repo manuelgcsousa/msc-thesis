@@ -127,9 +127,25 @@ subparts[String parent_comp, String path, List<RoseTree> children]
 /* ******************************************************** */
 
 errors[List<RoseTree> struct]
-	: ( 'ERRORS:' ( c=condition[struct] { grammar_error_conditions.add($c.logical_condition); } ';' )+ )?
+	: ( blk=('RULES'|'ERRORS') ':' ( 
+		c=condition[struct] {
+			if ($blk.text.equals("RULES"))
+				$c.logical_condition = ("if ( !(" + $c.logical_condition);
+			else
+				$c.logical_condition = ("if (" + $c.logical_condition);
+
+			$c.logical_condition += " ) ) { System.out.println(\"ERROR!\"); }"; /* Rever erro da condição! */
+			
+			grammar_error_conditions.add($c.logical_condition);
+		} ';' )+ 
+	)?
 ;
 
+/*
+errors[List<RoseTree> struct]
+	: ( 'ERRORS:' ( c=condition[struct] { grammar_error_conditions.add($c.logical_condition); } ';' )+ )?
+;
+*/
 
 condition[List<RoseTree> struct]
 returns[String logical_condition]
@@ -140,12 +156,13 @@ returns[String logical_condition]
     ( op=('AND'|'OR') { if ($op.text.equals("AND")) exp.add("&&"); else exp.add("||"); }
       a2=assignment[struct] { exp.add($a2.logical_expression); } )*
     {
-        $logical_condition = "if (";
-		
+		// $logical_condition = "if (";
+		$logical_condition = "";
+	
         for (String e : exp)
             $logical_condition += (" " + e);
 		
-        $logical_condition += " ) { System.out.println(\"ERROR!\"); }"; // Rever erro da condição!
+        // $logical_condition += " ) { System.out.println(\"ERROR!\"); }"; /* Rever erro da condição! */
     }
 ;
 
