@@ -8,7 +8,7 @@ public class Utils
 	private static final String ANSI_RED = "\u001B[31m";
 	private static final String ANSI_YELLOW = "\u001B[33m";
 	private static final String ANSI_RESET = "\u001B[0m";
-	
+
 	/**
      * Method that prints error/warning messages with custom colors.
      * There are two types of messages:
