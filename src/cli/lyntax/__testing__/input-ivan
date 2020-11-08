@@ -1,0 +1,78 @@
+/*
+INPUT:
+	- (Frase (
+		Modificador: "Hoje", 
+		Sujeito: "eu", 
+		Predicado (
+			Verbo: "comi",
+			Complemento_Direto: "uma pizza",
+			Complemento_Circunstancial: "na pizzaria abaixo" [tipo = "lugar"]
+		)
+	))
+*/
+
+/////////////////////////////////////////////////////////////////////////
+
+/*
+INPUT:
+	- (Frase (
+		Predicado (
+			Verbo: "Comprei",
+			Complemento_Direto: "o computador"
+			// Complemento_Indireto: "para o Pedro"
+		)
+	))
+*/
+
+/////////////////////////////////////////////////////////////////////////
+
+/*
+// CUSTOM
+INPUT:
+	- (Frase (
+		Predicado (
+			Verbo: "Acho" [infinitivo = "achar"],
+			Complemento_Direto: "a cidade do Porto",
+			Predicativo_Complemento_Direto: "lindíssima"
+		)
+	))
+*/
+
+/////////////////////////////////////////////////////////////////////////
+
+/*
+INPUT:
+	- (Sujeito: "O rapaz")
+	- (Predicado (
+		Verbo: "viu",
+		Complemento_Direto: "o homem",
+		Predicativo_Complemento_Direto: "com o telescópio"
+	))
+*/
+
+/*
+INPUT:
+	- (Sujeito: "O rapaz")
+	- (Predicado (
+		Verbo: "viu",
+		Complemento_Direto: "o homem",
+		Modificador_Nome: "com o telescópio"
+	))
+*/
+
+/////////////////////////////////////////////////////////////////////////
+
+INPUT:
+	- (Sujeito: "Los soldados")
+	
+	- (Predicado (
+		Verbo: "dispararam",
+		Complemento_Indireto: "a los sentenciados"
+	))
+	
+	- (Predicado (
+		Verbo: "y cayeron",
+		Modificador_Verbal: "muertos"		
+	))
+
+/////////////////////////////////////////////////////////////////////////

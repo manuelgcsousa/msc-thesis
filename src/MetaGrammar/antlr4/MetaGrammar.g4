@@ -130,11 +130,13 @@ errors[List<RoseTree> struct]
 	: ( blk=('RULES'|'ERRORS') ':' ( 
 		c=condition[struct] {
 			if ($blk.text.equals("RULES"))
-				$c.logical_condition = ("if ( !(" + $c.logical_condition);
+				$c.logical_condition = ("if ( !(" + $c.logical_condition + ")");
 			else
 				$c.logical_condition = ("if (" + $c.logical_condition);
 
-			$c.logical_condition += " ) ) { System.out.println(\"ERROR!\"); }"; /* Rever erro da condição! */
+			$c.logical_condition += 
+				" ) { System.out.println(\"ERROR: Excepted - " + $c.text.replace('\"', '\'') + "\"); System.exit(0); }"
+			;
 			
 			grammar_error_conditions.add($c.logical_condition);
 		} ';' )+ 
@@ -170,17 +172,17 @@ assignment[List<RoseTree> struct]
 returns[String logical_expression]
     : exp1=expression[struct] op=('='|'!=') exp2=expression[struct]
     {
-        String exp1_var = Utils.convertLogical($exp1.components, $exp1.attribute);
-        String exp2_var = Utils.convertLogical($exp2.components, $exp2.attribute);
-        
-        if ($op.text.equals("!="))
+		String exp1_var = Utils.convertLogical($exp1.components, $exp1.attribute);
+		String exp2_var = Utils.convertLogical($exp2.components, $exp2.attribute);        
+
+		if ($op.text.equals("!="))
             $logical_expression = ("!" + exp1_var);
 
         $logical_expression += (".equals(" + exp2_var + ")");
     }
     | exp=expression[struct] op=('='|'!=') '"' val=WORD '"'
     {
-        $logical_expression = Utils.convertLogical($exp.components, $exp.attribute);
+		$logical_expression = Utils.convertLogical($exp.components, $exp.attribute);
 
         if ($op.text.equals("!="))
             $logical_expression = ("!" + $logical_expression);

@@ -1,0 +1,17 @@
+INPUT:
+	- (Sujeito: "O rapaz")
+	- (Predicado (
+		Verbo: "viu",
+		Complemento_Direto: "o homem",
+		Predicativo_Complemento_Direto: "com o telescópio" // Complemento_Obliquo????
+	))
+
+/*
+INPUT:
+	- (Sujeito: "O rapaz")
+	- (Predicado (
+		Verbo: "viu",
+		Complemento_Direto: "o homem",
+		Modificador_Nome: "com o telescópio"
+	))
+*/

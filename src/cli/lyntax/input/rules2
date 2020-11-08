@@ -1,0 +1,12 @@
+STRUCTURE:
+	part(
+		Frase,
+		subparts[
+			(Sujeito)?,
+			(Predicado, subparts[
+				(Verbo),
+				(Complemento_Direto),
+				(Complemento_Indireto)?
+			])
+		]
+	)

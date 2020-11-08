@@ -1,0 +1,8 @@
+INPUT:
+	- (Frase (
+		Predicado (
+			Verbo: "Comprei",
+			Complemento_Direto: "o computador"
+			// Complemento_Indireto: "para o Pedro"
+		)
+	))

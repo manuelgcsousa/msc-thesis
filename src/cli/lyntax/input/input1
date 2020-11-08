@@ -1,0 +1,10 @@
+INPUT:
+	- (Frase (
+		Modificador: "Hoje", 
+		Sujeito: "eu", 
+		Predicado (
+			Verbo: "comi",
+			Complemento_Direto: "uma pizza",
+			Complemento_Circunstancial: "na pizzaria abaixo" [tipo = "lugar"]
+		)
+	))

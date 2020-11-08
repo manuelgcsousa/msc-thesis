@@ -11,5 +11,5 @@ jar:
 	cp MetaGrammar.jar ../gui/lyntax/Release/Lyntax/Resources/lib/
 
 clean:
-	rm MetaGrammar.jar
+	rm -f MetaGrammar.jar
 	rm -rf target/

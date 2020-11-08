@@ -1,0 +1,95 @@
+/*
+STRUCTURE:
+	part(
+		Frase,
+		subparts[
+			(Modificador)?,
+			(Sujeito),
+			(Predicado, subparts[
+				(Verbo),
+				(Complemento_Direto)?,
+				(Complemento_Circunstancial, attributes{tipo})
+			])
+		]
+	)
+
+ERRORS:
+	Frase.Predicado.Complemento_Circunstancial->tipo != "lugar";
+*/
+
+/////////////////////////////////////////////////////////////////////////
+
+/*
+STRUCTURE:
+	part(
+		Frase,
+		subparts[
+			(Sujeito)?,
+			(Predicado, subparts[
+				(Verbo),
+				(Complemento_Direto),
+				(Complemento_Indireto)?
+			])
+		]
+	)
+*/
+
+/////////////////////////////////////////////////////////////////////////
+
+/*
+// CUSTOM
+STRUCTURE:
+	part(
+		Frase,
+		subparts[
+			(Sujeito)?,
+			(Predicado, subparts[
+				(Verbo, attributes{infinitivo}),
+				(Complemento_Direto),
+				(Predicativo_Complemento_Direto)
+			])
+		]
+	)
+
+RULES:
+	Frase.Predicado.Verbo->infinitivo = "achar" OR
+	Frase.Predicado.Verbo->infinitivo = "considerar" OR
+	Frase.Predicado.Verbo->infinitivo = "nomear";
+*/
+
+/////////////////////////////////////////////////////////////////////////
+
+/*
+STRUCTURE:
+	part( Sujeito )
+	part(Predicado, subparts[
+		(Verbo),
+		(Complemento_Direto),
+		(Predicativo_Complemento_Direto)?
+	])
+*/
+
+/*
+STRUCTURE:
+	part( Sujeito )
+	part(Predicado, subparts[
+		(Verbo),
+		(Complemento_Direto),
+		(Modificador_Nome)?
+	])
+*/
+
+/////////////////////////////////////////////////////////////////////////
+
+STRUCTURE:
+	part( Sujeito )
+	part(Predicado, subparts[
+		(Verbo),
+		(Complemento_Indireto)
+	])
+	part(Predicado, subparts[
+		(Verbo),
+		(Modificador_Verbal)
+	])
+
+/////////////////////////////////////////////////////////////////////////

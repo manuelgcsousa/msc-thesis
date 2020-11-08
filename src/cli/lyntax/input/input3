@@ -1,0 +1,9 @@
+// CUSTOM
+INPUT:
+	- (Frase (
+		Predicado (
+			Verbo: "Acho" [infinitivo = "achar"],
+			Complemento_Direto: "a cidade do Porto",
+			Predicativo_Complemento_Direto: "lindíssima"
+		)
+	))

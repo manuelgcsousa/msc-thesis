@@ -13,6 +13,7 @@ public class Grammar
         ParseTree tree = parser.main();
 
         TreeViewer view = new TreeViewer(Arrays.asList(parser.getRuleNames()), tree);
+		view.setUseCurvedEdges(true);
         view.open();
     }
 }

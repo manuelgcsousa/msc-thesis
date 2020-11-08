@@ -1,0 +1,17 @@
+STRUCTURE:
+	part( Sujeito )
+	part(Predicado, subparts[
+		(Verbo),
+		(Complemento_Direto),
+		(Predicativo_Complemento_Direto)?
+	])
+
+/*
+STRUCTURE:
+	part( Sujeito )
+	part(Predicado, subparts[
+		(Verbo),
+		(Complemento_Direto),
+		(Modificador_Nome)?
+	])
+*/

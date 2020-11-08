@@ -1,0 +1,12 @@
+INPUT:
+	- (Sujeito: "Los soldados")
+	
+	- (Predicado (
+		Verbo: "dispararam",
+		Complemento_Indireto: "a los sentenciados"
+	))
+	
+	- (Predicado (
+		Verbo: "y cayeron",
+		Modificador_Verbal: "muertos"		
+	))

@@ -1,0 +1,18 @@
+// CUSTOM
+STRUCTURE:
+	part(
+		Frase,
+		subparts[
+			(Sujeito)?,
+			(Predicado, subparts[
+				(Verbo, attributes{infinitivo}),
+				(Complemento_Direto),
+				(Predicativo_Complemento_Direto)
+			])
+		]
+	)
+
+RULES:
+	Frase.Predicado.Verbo->infinitivo = "achar" OR
+	Frase.Predicado.Verbo->infinitivo = "considerar" OR
+	Frase.Predicado.Verbo->infinitivo = "nomear";
