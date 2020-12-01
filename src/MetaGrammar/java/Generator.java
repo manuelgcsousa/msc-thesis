@@ -64,16 +64,17 @@ public class Generator
 			}
 		} else {
 			for (RoseTree child : children) {
-				if (child.getRequiredState())
-					if (hasOtherProduction)
-						prod.append("| " + child.getValue().toLowerCase() + " ");
+				if (!child.getValue().equals(""))
+					if (child.getRequiredState())
+						if (hasOtherProduction)
+							prod.append("| " + child.getValue().toLowerCase() + " ");
+						else
+							prod.append(child.getValue().toLowerCase() + " ");
 					else
-						prod.append(child.getValue().toLowerCase() + " ");
-				else
-					if (hasOtherProduction)
-						prod.append("| (" + child.getValue().toLowerCase() + ")? ");
-					else 
-						prod.append("(" + child.getValue().toLowerCase() + ")? ");
+						if (hasOtherProduction)
+							prod.append("| (" + child.getValue().toLowerCase() + ")? ");
+						else 
+							prod.append("(" + child.getValue().toLowerCase() + ")? ");
 
 				generateProductions(productions, members, child, phrase);
 			}
@@ -99,10 +100,11 @@ public class Generator
 		
 		for (int i = 0; i < struct.size(); i++) {
 			RoseTree node = struct.get(i);
-
-			main_prod.append(" " + node.getValue().toLowerCase());
 			
-			generateProductions(productions, members, node, phrase);
+			if (!node.getValue().equals("")) {
+				main_prod.append(" " + node.getValue().toLowerCase());
+				generateProductions(productions, members, node, phrase);
+			}
 		}
 
 		members.append("}\n\n");	
@@ -123,15 +125,17 @@ public class Generator
 			String component = entry.getKey();
 			StringBuilder prod = entry.getValue();
 			
-			StringBuilder full_prod = new StringBuilder("");
+			if (!component.equals("")) {	
+				StringBuilder full_prod = new StringBuilder("");
 
-			if (prod.toString().equals("")) {
-				full_prod.append(component.toLowerCase() + " : \n;\n");
-			} else {
-				full_prod.append(component.toLowerCase() + " : " + prod.toString() + "\n;\n");
+				if (prod.toString().equals("")) {
+					full_prod.append(component.toLowerCase() + " : \n;\n");
+				} else {
+					full_prod.append(component.toLowerCase() + " : " + prod.toString() + "\n;\n");
+				}
+				
+				lines.add(full_prod.toString());
 			}
-			
-			lines.add(full_prod.toString());
 		}
 		
 		/* Write LEXER */

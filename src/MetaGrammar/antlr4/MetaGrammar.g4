@@ -20,32 +20,32 @@ grammar MetaGrammar;
 
 @members {
 	/* Data structures that support the grammar creation. */
-	Set<String> grammar_members;
-	List<String> grammar_error_conditions;
-	
+	Set<String> grammarMembers;
+	List<String> grammarErrorConditions;
+		
 	/* Data structure to store mandatory components. */
-	List<Map<String, Integer>> required_components;
+	List<Map<String, Integer>> requiredComponents;
 }
 
 
 processor 
 @init {
 	/* Main data structure. */
-	List<RoseTree> struct = new ArrayList<>();
-
-	grammar_members = new LinkedHashSet<>();
-	grammar_error_conditions = new ArrayList<>();
+	List<RoseTree> struct    = new ArrayList<>();
+	
+	grammarMembers          = new LinkedHashSet<>();
+	grammarErrorConditions = new ArrayList<>();
     
-    required_components = new ArrayList<>();
+	requiredComponents      = new ArrayList<>();
 }
 	: structure[struct] 
 	  errors[struct] 
 	  input[struct] 
 	{
-        /* Class that handles the generation of the specific grammar. */
+		/* Class that handles the generation of the specific grammar. */
 		Generator.generateGrammar(
 			struct,
-			grammar_error_conditions
+			grammarErrorConditions
 		);
 	}
 ;
@@ -58,20 +58,14 @@ processor
 
 structure[List<RoseTree> struct]
 @init { int pointer = 0; }
-	: 'STRUCTURE:' ( 
-        part[struct] {
-            Map<String, Integer> part = new HashMap<>();
-            Utils.getRequiredComponents(struct.get(pointer++), part);
-            required_components.add(part);
-        }
-    )+
+	: 'STRUCTURE:' ( part[struct] )+
 ;
 
 part[List<RoseTree> struct]
 @init {
 	String path = "";
 }
-	: 'part' element[path, struct]
+	: 'part' '[' element[path, struct] ']'
 ;
 
 element[String path, List<RoseTree> struct]
@@ -85,15 +79,20 @@ returns[String comp, boolean state]
 		$comp = $c.text;
 		$state = true;
 		
-		// Creation of a new node.
-		child = new RoseTree($c.text);
-		child.setPath(path);
+		child = new RoseTree();
+		child.addValue($c.text);
 
-		// Add component to total 'path'.
-		path += ($c.text + "__");
+		path += $c.text;
+	} ( '|' w=WORD { 
+		child.addValue($w.text);
+		path += "$" + $w.text;
+	})*
+	{
+		path += "__";
+		child.setPath(path);
 		
-		$struct.add(child);
-	} 
+		$struct.add(child);	
+	}
 	( ',' a=attributes[path, child] )? ( ',' subparts[$c.text, path, child.getChildren()] )? ')'
 	( '?' { child.setRequiredState(false); $state = false; } )?
 ;
@@ -106,12 +105,12 @@ attributes[String path, RoseTree child]
 		a1=WORD {
 			child_attributes.put($a1.text, "");
 			
-			grammar_members.add(path + $a1.text.toUpperCase());
+			grammarMembers.add(path + $a1.text.toUpperCase());
 		} 
 		( ',' a2=WORD {
 			child_attributes.put($a2.text, "");			
 
-			grammar_members.add(path + $a2.text.toUpperCase());
+			grammarMembers.add(path + $a2.text.toUpperCase());
 		} )* 
 	'}'
 ;
@@ -138,14 +137,14 @@ errors[List<RoseTree> struct]
 				" ) { System.out.println(\"ERROR: Excepted - " + $c.text.replace('\"', '\'') + "\"); System.exit(0); }"
 			;
 			
-			grammar_error_conditions.add($c.logical_condition);
+			grammarErrorConditions.add($c.logical_condition);
 		} ';' )+ 
 	)?
 ;
 
 /*
 errors[List<RoseTree> struct]
-	: ( 'ERRORS:' ( c=condition[struct] { grammar_error_conditions.add($c.logical_condition); } ';' )+ )?
+	: ( 'ERRORS:' ( c=condition[struct] { grammarErrorConditions.add($c.logical_condition); } ';' )+ )?
 ;
 */
 
@@ -253,16 +252,24 @@ returns[List<String> components, String attribute]
 
 input[List<RoseTree> struct]
 	: 'INPUT:' phrase[struct]
-	// 'INPUT:' ( 'phrase' '(' phrase[struct] ')' )+
 ;
 
 phrase[List<RoseTree> struct]
 @init {
 	String path = "";
     int pointer = 0;
+	RoseTree child;
 }
 	: ( '-' parts[path, pointer, struct] {
-        for (Map.Entry<String, Integer> entry : required_components.get(pointer).entrySet()) {
+		// get all the required components.	
+		Map<String, Integer> component = new HashMap<>();
+		Utils.getRequiredComponents(struct.get(pointer), component);
+		requiredComponents.add(component);
+
+		// calculate all the times required components appear.	
+		Utils.calculateRequiredComponents(struct.get(pointer), requiredComponents.get(pointer));
+
+		for (Map.Entry<String, Integer> entry : requiredComponents.get(pointer).entrySet()) {
             if (entry.getValue() != 0) {
 				String err = String
 					.format(
@@ -278,8 +285,8 @@ phrase[List<RoseTree> struct]
     } )+
 ;
 
-parts[String path, int pointer, List<RoseTree> struct] 
-	: '(' block[path, pointer, struct] ( ',' block[path, pointer, struct] )* ')'
+parts[String path, int pointer, List<RoseTree> struct]
+	: '(' b1=block[path, pointer, struct] ( ',' b2=block[path, pointer, struct] )* ')' 
 ;
 
 block[String path, int pointer, List<RoseTree> struct]
@@ -288,7 +295,6 @@ block[String path, int pointer, List<RoseTree> struct]
 }
 	: c=WORD {
 		child = Utils.containsValue($struct, $c.text, true);
-
 		if (child == null) {
 			String err = String
 				.format(
@@ -298,13 +304,8 @@ block[String path, int pointer, List<RoseTree> struct]
 			
 			Utils.print_msg(0, "INPUT", err);
 		} else {
-			// If the element is mandatory \
-			// then remove the first occurence of the component in the global list.
-			if (child.getRequiredState()) {
-                required_components.get(pointer).computeIfPresent($c.text, (k, v) -> v - 1);
-			}
-
-			path += ($c.text + "__");
+			// depois de obter child, é necessário atualizar o atributo 'chosenValue' na RoseTree correspondente.		
+			child.setChosenValue($c.text);
 		}
 	} content[$c.text, path, pointer, child]
 ;

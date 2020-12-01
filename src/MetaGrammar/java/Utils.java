@@ -60,8 +60,8 @@ public class Utils
      * Method that verifies the existence of a value within a list of RoseTree's.
      * If the value does not exist, a null pointer is returned, otherwise the object
      * corresponding to the component is returned.
-     * Regarding the visitedState variable, is this variable is null, it means that the method
-     * is only being used to check if a value exists. On the other and, if the value is 'true',
+     * Regarding the visitedState variable, if this variable is null, it means that the method
+     * is only being used to check if a value exists. On the other hand, if the value is 'true',
      * it ensured that said RoseTree has been visited.
      *
      * @param children a list of RoseTree's
@@ -76,7 +76,7 @@ public class Utils
 		for (int i = 0; i < children.size() && flag != true; i++) {
 			RoseTree tree = children.get(i);
 			
-			if (!tree.getVisitedState() && tree.getValue().equals(value)) {
+			if ( !tree.getVisitedState() && tree.hasValue(value) ) {
 				child = tree;
 				
 				if (visitedState != null)
@@ -89,6 +89,30 @@ public class Utils
 		return child;
 	}
 	
+	/** 
+     * Method that verifies the existence of a value within a list of RoseTree's.
+     * If the value does not exist, a null pointer is returned, otherwise the object
+     * corresponding to the component is returned.
+     *
+     * @param children a list of RoseTree's
+     * @param value the value (String) of a component
+     * @return the correspondent RoseTree
+     */
+	public static RoseTree getRoseTree(List<RoseTree> children, String value) {
+		RoseTree child = null;
+		boolean flag = false;
+
+		for (int i = 0; i < children.size() && flag != true; i++) {
+			RoseTree tree = children.get(i);
+			
+			if (tree.hasValue(value)) {
+				child = tree;
+				flag = true;
+			}
+		}
+
+		return child;
+	}	
 
 	/**
      * Method that verifies which components have mandatory declaration.
@@ -128,5 +152,18 @@ public class Utils
                 getRequiredComponents(child, required_components);
             }
         }
+	}
+	
+	/**
+	 *
+	 */
+	public static void calculateRequiredComponents(RoseTree parent, Map<String, Integer> requiredComponents) {
+		if (parent.getRequiredState()) {
+			requiredComponents.computeIfPresent(parent.getValue(), (k, v) -> v - 1);
+
+			for (RoseTree child : parent.getChildren()) {
+				calculateRequiredComponents(child, requiredComponents);	
+			}
+		}
 	}
 } 

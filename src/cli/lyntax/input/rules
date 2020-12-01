@@ -4,8 +4,7 @@ STRUCTURE:
 			(Sujeito)?,
 			(Predicado, subparts[
 				(Verbo),
-				(Complemento_Direto),
-				(Complemento_Indireto)?
+				(Complemento_Direto|Complemento_Indireto)
 			])
 		])
 	]
