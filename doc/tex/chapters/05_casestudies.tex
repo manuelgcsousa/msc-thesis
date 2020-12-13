@@ -1,4 +1,4 @@
-\chapter{Case Study} \label{case_study}
+\chapter{Case Studies} \label{case_study}
 In order to better explain the solution architecture presented in this thesis, some concrete examples will be presented in this section. The main idea is to show the 
 specifications used by the teacher and by the student and how the generator processor verifies the correcteness of the student sentences. The DSL design consists in 
 slicing the sentence into parts, and each part can have subparts.
@@ -273,4 +273,70 @@ verbo : 'come'
 \end{center}
 
 
-This simple example shows that the meta-language created is flexible to the point of writing arbitrary sentences or rules, augmenting the possibilities of syntactic structures.
+This simple example shows that the meta-language created is flexible to the point of writing arbitrary sentences or rules, 
+augmenting the possibilities of syntactic structures.
+
+\section{Further examples and structures}
+
+In order to demonstrate even further the capabilities of the tool, some more examples of simple (but concrete) and complex sentences will be included.
+Some of the previous examples had the intent of demonstrating validations and/or trigger errors and warnings.
+In these next examples, it is intended to explore more common tested structures and to touch on the topic of Complex Sentences,
+showing that it is certainly possible to have them translated into the meta-language.
+
+This first example is, again, composed by a Subject - Predicate structure, with some caracteristics to the Predicate itself.
+
+\begin{center}
+\begin{minipage}{14cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_structure1}, caption=Example of a sentence structure]
+STRUCTURE:
+    part[(Sujeito)]
+    part[(
+        Predicado,
+        subparts[
+            (Verbo),
+            (Complemento_Direto),
+            (Predicativo_Complemento_Direto)?
+        ]
+    )]
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}{14cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_input1}, caption=Example of a sentence structure]
+INPUT:
+    - (Sujeito: ``O rapaz")
+
+    - (Predicado (
+        Verbo: ``viu",
+        Complemento_Direto: ``o homem",
+        Predicativo_Complemento_Direto: ``com o telescopio"
+    ))
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+
+Complex Sentence...
+
+\begin{center}
+\begin{minipage}{14cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_structure2}, caption=Example of a sentence structure]
+INPUT:
+    - (Sujeito: ``Los soldados")
+
+    - (Predicado (
+        Verbo: ``dispararam",
+        Complemento_Indireto: ``a los sentenciados"
+    ))
+
+    - (Conjuncao: ``y")
+
+    - (Predicado (
+        Verbo: ``cayeron",
+        Modificador_Verbal: ``muertos"
+    ))
+\end{lstlisting}
+\end{minipage}
+\end{center}

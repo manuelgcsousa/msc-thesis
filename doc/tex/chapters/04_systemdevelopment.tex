@@ -1,6 +1,8 @@
-\chapter{System Development} \label{system_workflow}
+\chapter{System Development} \label{system_development}
 
-This section will present the development and workflow of the system. As previously mentioned, the next step was to expand the defined DSL, and to use attributes as a form of calculation. Most of the productions were expandable, allowing for certain calculations to be injected over the tree.
+This section will present the development and workflow of the system. 
+As previously mentioned, the next step was to expand the defined DSL, and to use attributes as a form of calculation. 
+Most of the productions were expandable, allowing for certain calculations to be injected over the tree.
 
 With the grammar divided into 3 main parts (STRUCTURE, ERRORS, INPUT), different types of calculations occur at different sections. The STRUCTURE and ERRORS blocks are written in a single file (by the teacher) which is then joined 
 with the INPUT block (written by the student). The process starts with searching for the teacher and student specification, and then compiling the program using a meta-grammar based processor. A new processor is generated to be 
