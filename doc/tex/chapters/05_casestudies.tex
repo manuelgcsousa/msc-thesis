@@ -1,7 +1,13 @@
 \chapter{Case Studies} \label{case_study}
-In order to better explain the solution architecture presented in this thesis, some concrete examples will be presented in this section. The main idea is to show the 
-specifications used by the teacher and by the student and how the generator processor verifies the correcteness of the student sentences. The DSL design consists in 
-slicing the sentence into parts, and each part can have subparts.
+In order to better explain the solution architecture presented in this thesis, some concrete examples will be presented in this section. 
+The main idea is to show the specifications used by the teacher and by the student and how the generator processor verifies the correcteness of the student sentences. 
+The DSL design consists in slicing the sentence into parts, and each part can have subparts.
+
+\textbf{Lyntax}, the word that combines the terms ``Linguistics" and ``Syntax", was the name chosen for a system that combines both the meta-language processor and
+the user interface that makes use of such processor.
+These case studies are also relevant as an example for a possible pedagogical scenario by using the system in a classroom context.
+The purpose of this chapter is to also demonstrate some of the process in which both the Teacher and Student will be involved, and to exhibit some common structures
+and inputs as well as their results.
 
 \section{Attribute Validation}
 This case study intends to demonstrate the validation on sentence components based on their attributes. The example showed in the previous chapter 
@@ -304,7 +310,7 @@ STRUCTURE:
 
 \begin{center}
 \begin{minipage}{14cm}
-\begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_input1}, caption=Example of a sentence structure]
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_input1}, caption=Example of a sentence input]
 INPUT:
     - (Sujeito: ``O rapaz")
 
@@ -323,6 +329,30 @@ Complex Sentence...
 \begin{center}
 \begin{minipage}{14cm}
 \begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_structure2}, caption=Example of a sentence structure]
+STRUCTURE:
+    part[(Sujeito)]
+    part[(
+        Predicado,
+        subparts[
+            (Verbo),
+            (Complemento_Indireto)
+        ])
+    )]
+    part[(Conjuncao)]
+	part[(
+        Predicado,
+        subparts[
+            (Verbo),
+            (Modificador_Verbal)
+        ]
+    )]
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}{14cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_input2}, caption=Example of a sentence input]
 INPUT:
     - (Sujeito: ``Los soldados")
 
