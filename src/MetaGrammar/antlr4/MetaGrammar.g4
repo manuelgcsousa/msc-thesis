@@ -85,7 +85,7 @@ returns[String comp, boolean state]
 		path += $c.text;
 	} ( '|' w=WORD { 
 		child.addValue($w.text);
-		path += "$" + $w.text;
+		path += "__c__" + $w.text;
 	})*
 	{
 		path += "__";

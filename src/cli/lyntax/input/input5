@@ -5,8 +5,10 @@ INPUT:
 		Verbo: "dispararam",
 		Complemento_Indireto: "a los sentenciados"
 	))
+
+	- (Conjuncao: "y")
 	
 	- (Predicado (
-		Verbo: "y cayeron",
-		Modificador_Verbal: "muertos"		
+		Verbo: "cayeron",
+		Modificador_Verbal: "muertos"	
 	))

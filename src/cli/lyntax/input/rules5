@@ -1,10 +1,15 @@
 STRUCTURE:
-	part( Sujeito )
-	part(Predicado, subparts[
-		(Verbo),
-		(Complemento_Indireto)
-	])
-	part(Predicado, subparts[
-		(Verbo),
-		(Modificador_Verbal)
-	])
+	part[ (Sujeito) ]
+	part[ 
+		(Predicado, subparts[
+			(Verbo),
+			(Complemento_Indireto)
+		])
+	]
+	part[ (Conjuncao) ]
+	part[
+		(Predicado, subparts[
+			(Verbo),
+			(Modificador_Verbal)
+		])
+	]

@@ -2,7 +2,7 @@ INPUT:
 	- (Frase (
 		Predicado (
 			Verbo: "Comprei",
-			Complemento_Direto: "uma camisola"
+			Complemento_Direto: "uma camisola" [tipo = "x"]
 			// Complemento_Indireto: "para o Pedro"
 		)
 	))
