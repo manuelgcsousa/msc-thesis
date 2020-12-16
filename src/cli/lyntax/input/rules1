@@ -1,11 +1,13 @@
 // Hoje eu comi uma pizza na pizzaria abaixo.
-INPUT:
-	- (Frase (
-		Modificador: "Hoje", 
-		Sujeito: "eu", 
-		Predicado (
-			Verbo: "comi",
-			Complemento_Direto: "uma pizza",
-			Complemento_Circunstancial: "na pizzaria abaixo" [tipo = "x"]
-		)
-	))
+STRUCTURE:
+	part[(
+		Frase, subparts[
+			(Modificador),
+			(Sujeito),
+			(Predicado, subparts[
+				(Verbo),
+				(Complemento_Direto),
+				(Complemento_Circunstancial, attributes{tipo})
+			])
+		]
+	)]

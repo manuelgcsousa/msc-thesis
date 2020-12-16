@@ -289,6 +289,7 @@ Some of the previous examples had the intent of demonstrating validations and/or
 In these next examples, it is intended to explore more common tested structures and to touch on the topic of Complex Sentences,
 showing that it is certainly possible to have them translated into the meta-language.
 
+
 This first example is, again, composed by a Subject - Predicate structure, with some caracteristics to the Predicate itself.
 
 \begin{center}
@@ -324,11 +325,86 @@ INPUT:
 \end{center}
 
 
+The next example uses an attribute to limit the domain of the a component (\textit{Complemento\_Circunstancial}).
+
+\begin{center}
+\begin{minipage}{15cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_structure3}, caption=Example of a sentence structure]
+STRUCTURE:
+    part[(
+        Frase, subparts[
+            (Modificador),
+            (Sujeito),
+            (Predicado, subparts[
+                (Verbo),
+                (Complemento_Direto),
+                (Complemento_Circunstancial, attributes{tipo})
+            ])
+        ]
+    )]
+
+ERRORS:
+    Frase.Predicado.Complemento_Circunstancial->tipo != ``lugar";
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}{15cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_input3}, caption=Example of a sentence input]
+INPUT:
+    - (Frase (
+        Modificador: ``Hoje",
+        Sujeito: ``eu",
+        Predicado (
+            Verbo: ``comi",
+            Complemento_Direto: ``uma pizza",
+            Complemento_Circunstancial: "na pizzaria abaixo" [tipo = ``lugar"]
+        )
+    ))
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+
+We can also use an ``\emph{\(|\)}" (\textit{or}) operator within the structure rules, giving the student the possibility of defining one or other component,
+but maintaing the main structure of the sentence. 
+Using an operator with this capability, we prevent the need of creating two separate structures only for a single change. 
+
+\begin{center}
+\begin{minipage}{15cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_structure4}, caption=Example of a sentence structure]
+STRUCTURE:
+    part[(
+        Frase, subparts[
+            (Interjeccion | Pronombre),
+            (Verbo),
+            (Nombre)
+        ]
+    )]
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+\begin{center}
+\begin{minipage}{15cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_input4}, caption=Example of a sentence input]
+INPUT:
+    - (Frase (
+        Interjeccion: ``Hola!",
+        Verbo: ``Soy",
+        Nombre: ``Manuel"
+    ))
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
+
 Complex Sentence...
 
 \begin{center}
 \begin{minipage}{14cm}
-\begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_structure2}, caption=Example of a sentence structure]
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_complex_structure}, caption=Example of a complex sentence structure]
 STRUCTURE:
     part[(Sujeito)]
     part[(
@@ -350,9 +426,10 @@ STRUCTURE:
 \end{minipage}
 \end{center}
 
+
 \begin{center}
 \begin{minipage}{14cm}
-\begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_input2}, caption=Example of a sentence input]
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_complex_input}, caption=Example of a complex sentence input]
 INPUT:
     - (Sujeito: ``Los soldados")
 
