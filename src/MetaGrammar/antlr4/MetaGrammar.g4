@@ -31,12 +31,12 @@ grammar MetaGrammar;
 processor 
 @init {
 	/* Main data structure. */
-	List<RoseTree> struct    = new ArrayList<>();
+	List<RoseTree> struct = new ArrayList<>();
 	
-	grammarMembers          = new LinkedHashSet<>();
+	grammarMembers         = new LinkedHashSet<>();
 	grammarErrorConditions = new ArrayList<>();
     
-	requiredComponents      = new ArrayList<>();
+	requiredComponents = new ArrayList<>();
 }
 	: structure[struct] 
 	  errors[struct] 
@@ -232,6 +232,9 @@ returns[List<String> components, String attribute]
 				
 				Utils.print_msg(0, "STRUCTURE", err);
 			}
+
+			System.out.println(aux_node);
+			// Enviar 'aux_node.path' para cima????
 		} else {
 			String err = String
 				.format(

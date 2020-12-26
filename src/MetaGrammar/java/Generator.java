@@ -25,7 +25,7 @@ public class Generator
 			String value = entry.getValue();
 			
 			String variable = 
-				node.getPath() + node.getValue() + "__" + attribute.toUpperCase();
+				node.getPath() /* + node.getValue() + "__" */ + attribute.toUpperCase();
 			
 			/* Junção variáveis em @members. */
 			members.append("\tfinal String " + variable + " = \"" + value + "\";\n");

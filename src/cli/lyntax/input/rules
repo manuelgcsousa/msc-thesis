@@ -8,3 +8,6 @@ STRUCTURE:
 			])
 		])
 	]
+
+ERRORS:
+	Frase.Predicado.Complemento_Direto->tipo = "MANUEL";
