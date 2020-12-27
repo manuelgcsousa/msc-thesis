@@ -134,7 +134,7 @@ errors[List<RoseTree> struct]
 				$c.logical_condition = ("if (" + $c.logical_condition);
 
 			$c.logical_condition += 
-				" ) { System.out.println(\"ERROR: Excepted - " + $c.text.replace('\"', '\'') + "\"); System.exit(0); }"
+				" ) { System.out.println(\"ERROR: Expected - " + $c.text.replace('\"', '\'') + "\"); System.exit(0); }"
 			;
 			
 			grammarErrorConditions.add($c.logical_condition);
@@ -171,33 +171,35 @@ assignment[List<RoseTree> struct]
 returns[String logical_expression]
     : exp1=expression[struct] op=('='|'!=') exp2=expression[struct]
     {
-		String exp1_var = Utils.convertLogical($exp1.components, $exp1.attribute);
-		String exp2_var = Utils.convertLogical($exp2.components, $exp2.attribute);        
-
+		$exp1.path += $exp1.attribute.toUpperCase();
+		$exp2.path += $exp2.attribute.toUpperCase();
+		
 		if ($op.text.equals("!="))
-            $logical_expression = ("!" + exp1_var);
-
-        $logical_expression += (".equals(" + exp2_var + ")");
+			$exp1.path = ("!" + $exp1.path);
+		
+		$logical_expression = ( $exp1.path + (".equals(" + $exp2.path + ")") );
     }
     | exp=expression[struct] op=('='|'!=') '"' val=WORD '"'
     {
-		$logical_expression = Utils.convertLogical($exp.components, $exp.attribute);
+		$exp.path += $exp.attribute.toUpperCase();
+		
+		if ($op.text.equals("!="))
+			$exp.path = ("!" + $exp.path);
 
-        if ($op.text.equals("!="))
-            $logical_expression = ("!" + $logical_expression);
-
-        $logical_expression += (".equals(\"" + $val.text + "\")");
+		$logical_expression = ( $exp.path + (".equals(\"" + $val.text + "\")") );
     }
 ;
 
 expression[List<RoseTree> struct]
-returns[List<String> components, String attribute]
+returns[String path, String attribute]
 @init {
-    $components = new ArrayList<>();
+    List<String> components = new ArrayList<>();
+
+	$path      = "";
     $attribute = "";
 }
-    : c1=WORD { $components.add($c1.text); } 
-    ( '.' c2=WORD { $components.add($c2.text); } )* '->' ( attr=WORD { $attribute = $attr.text; } ) 
+    : c1=WORD { components.add($c1.text); } 
+    ( '.' c2=WORD { components.add($c2.text); } )* '->' ( attr=WORD { $attribute = $attr.text; } ) 
     {
         boolean path = true;
 		String last_eval_comp = null;
@@ -205,8 +207,8 @@ returns[List<String> components, String attribute]
 		List<RoseTree> aux_children = $struct;
 		RoseTree aux_node = null;
 		
-		for (int i = 0; i < $components.size() && path != false; i++) {
-			last_eval_comp = $components.get(i);
+		for (int i = 0; i < components.size() && path != false; i++) {
+			last_eval_comp = components.get(i);
 
 			aux_node = Utils.containsValue(aux_children, last_eval_comp, null);
 
@@ -232,14 +234,14 @@ returns[List<String> components, String attribute]
 				
 				Utils.print_msg(0, "STRUCTURE", err);
 			}
-
-			System.out.println(aux_node);
-			// Enviar 'aux_node.path' para cima????
+			
+			// Send path up the tree.
+			$path = aux_node.getPath();
 		} else {
 			String err = String
 				.format(
                     "- The pattern of components %s is not valid.\n",
-					$components
+					components
 				);
 			
 			Utils.print_msg(0, "STRUCTURE", err);

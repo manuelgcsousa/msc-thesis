@@ -10,4 +10,4 @@ STRUCTURE:
 	]
 
 ERRORS:
-	Frase.Predicado.Complemento_Direto->tipo = "MANUEL";
+	Frase.Predicado.Complemento_Direto->tipo != "MANUEL";

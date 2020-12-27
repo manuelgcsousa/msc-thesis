@@ -15,7 +15,7 @@ NC="\033[0m" # No Color
 # Help message.
 _help() {
     printf "${GREEN}$(basename $0)${NC}\n"
-    printf "Linguistic rules for beginners.\n"
+    printf "Practice linguistic rules.\n"
 
     echo
 
