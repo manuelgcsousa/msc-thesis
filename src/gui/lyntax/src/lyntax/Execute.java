@@ -63,40 +63,30 @@ public class Execute
         return output;
     }
     
-    public static void run() {
-        try {
-            String _OS = System.getProperty("os.name").toLowerCase();
-            String cmd = 
-                _OS.contains("windows") ? ".\\Resources\\exec.bat -r" : "./Resources/exec.sh -r"
-            ;
-            System.out.println(cmd); // DEBUG
-            
-            Process process = Runtime
-                .getRuntime()
-                .exec(cmd);
-           
-            String output = null;
-            
-            BufferedReader stdInput = new BufferedReader(
-                new InputStreamReader(process.getInputStream())
-            );
-            
-            BufferedReader stdError = new BufferedReader(
-                new InputStreamReader(process.getErrorStream())
-            );
-            
-            while ((output = stdInput.readLine()) != null) {
-                System.out.println(output);
-            }
-            
-            while ((output = stdError.readLine()) != null) {
-                System.out.println(output);
-            }
-            
-            stdInput.close();
-            stdError.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static StringBuilder run() throws IOException {
+        String _OS = System.getProperty("os.name").toLowerCase();
+        String cmd = 
+            _OS.contains("windows") ? ".\\Resources\\exec.bat -r" : "./Resources/exec.sh -r"
+        ;
+        System.out.println(cmd); // DEBUG
+
+        Process process = Runtime
+            .getRuntime()
+            .exec(cmd);
+
+        StringBuilder output = new StringBuilder();
+        String outErr;
+
+        BufferedReader stdError = new BufferedReader(
+            new InputStreamReader(process.getErrorStream())
+        );
+
+        while ((outErr = stdError.readLine()) != null) {
+            output.append(outErr).append("\n\n");
         }
+
+        stdError.close();
+        
+        return output;
     }
 }

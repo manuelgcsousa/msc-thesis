@@ -150,8 +150,21 @@ public class Facade
         return msg;
     }
     
-    public void onRun() {
-        Execute.run();
+    public String onRun() {
+        String msg;
+        
+        try {
+            StringBuilder output = Execute.run(); 
+           
+            if (output.length() == 0)
+                msg = "";
+            else
+                msg = output.toString();
+        } catch (IOException e) {
+            msg = "err";
+        }
+        
+        return msg;
     }
     
     public void onExit() {

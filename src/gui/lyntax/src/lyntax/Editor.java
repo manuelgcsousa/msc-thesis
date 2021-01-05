@@ -1,6 +1,7 @@
 package lyntax;
 
 import java.awt.FileDialog;
+import java.awt.Color;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.undo.UndoManager;
 
@@ -28,6 +29,14 @@ public class Editor extends javax.swing.JFrame
         this.areaFocused = 'r';
         
         initComponents();
+        
+        /* Set line numbers for each text area. */
+        TextLineNumber tlmRules = new TextLineNumber(this.RulesArea);
+        tlmRules.setCurrentLineForeground(new Color(234, 0, 255));
+        TextLineNumber tlmInput = new TextLineNumber(this.InputArea);
+        tlmInput.setCurrentLineForeground(new Color(234, 0, 255));
+        this.jScrollPane1.setRowHeaderView(tlmRules);
+        this.jScrollPane2.setRowHeaderView(tlmInput);
         
         /* Rules text area UndoManager. */
         this.umRules = new UndoManager();
@@ -502,9 +511,13 @@ public class Editor extends javax.swing.JFrame
     }//GEN-LAST:event_genBtnActionPerformed
     
     private void runBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runBtnActionPerformed
-        this.setEnabled(false);
-        this.facade.onRun();
-        this.setEnabled(true);
+        String msg = this.facade.onRun();
+        
+        if (!msg.isEmpty())
+            if (msg.equals("err"))
+                javax.swing.JOptionPane.showMessageDialog(this, "Internal error...", "Generate", 0);
+            else
+                this.showOutputDialog(msg);
     }//GEN-LAST:event_runBtnActionPerformed
 
     private void outputDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_outputDialogWindowClosed

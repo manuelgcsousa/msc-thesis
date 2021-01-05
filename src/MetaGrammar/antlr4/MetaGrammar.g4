@@ -134,7 +134,7 @@ errors[List<RoseTree> struct]
 				$c.logical_condition = ("if (" + $c.logical_condition);
 
 			$c.logical_condition += 
-				" ) { System.out.println(\"ERROR: Expected - " + $c.text.replace('\"', '\'') + "\"); System.exit(0); }"
+				" ) { System.err.println(\"ERROR: Expected - " + $c.text.replace('\"', '\'') + "\"); System.exit(0); }"
 			;
 			
 			grammarErrorConditions.add($c.logical_condition);
