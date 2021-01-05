@@ -4,6 +4,7 @@ This section will present the development and workflow of the system.
 As previously mentioned, the next step was to expand the defined DSL, and to use attributes as a form of calculation. 
 Most of the productions were expanded, allowing for certain calculations to be injected over the tree.
 
+
 \section{Meta-Grammar}
 
 With the grammar divided into 3 main parts (STRUCTURE, ERRORS, INPUT), different types of calculations occur at different sections. The STRUCTURE and ERRORS blocks are written in a single file (by the teacher) which is then joined 
@@ -148,6 +149,7 @@ Within this generator, the various \emph{Rose Tree's} are passed as an argument 
 % Furthermore, when parsing attributes and their respective values, if the student defines two attributes with the same name, but with different values, 
 % a warning is raised to inform the user that the value that was considered was the last one to be recognized.
 
+
 \section{Meta-Language Processor}
 
 In order to simplify the usage of the Meta-Grammar, and as the grammar itself made use of auxiliar \emph{Java} classes, all of that was combined into a \emph{JAR} file.
@@ -168,6 +170,7 @@ Using the command line, the instruction:
     \label{fig:system_architecture}
 \end{figure}
 
+
 \section{Sentence Validator}
 
 If no errors occur in the previous step, we should now have a file named ``Grammar.g4" that corresponds to the Specific Natural Language Grammar.
@@ -186,7 +189,7 @@ Using once again the command line, and providing a specific flag to the tool (-g
     \centering
     \includegraphics[width=7cm]{images/system_sentence_validator.png}
     \caption{Excerpt of the system architecture.}
-    \label{fig:system_architecture}
+    \label{fig:systemSentenceValidator}
 \end{figure}
 
 As an example, using \autoref{lst:metaStruct} and \autoref{lst:metaInput}, the generated syntax tree would be:
@@ -194,10 +197,55 @@ As an example, using \autoref{lst:metaStruct} and \autoref{lst:metaInput}, the g
     \centering
     \includegraphics[width=10cm]{images/testrig_gui_example.png}
     \caption{Example of a generated syntax tree within TestRig.}
-    \label{fig:system_architecture}
+    \label{fig:testrigGuiExample}
 \end{figure}
 
 
+\section{User Interface}
+
+As stated in the introduction of this document, after the creation of a system capable of testing various sentences, the goal was to build an user interface
+that allowed for a more easy and simple use of said system, without the need of directly using the command line for providing inputs or manual runtime compilations.
+The interface was built using \emph{\textbf{Swing}}, a GUI widget toolkit for \emph{Java}.
+\emph{Swing} has a lot of sophisticated GUI components available for use, allowing the developer to focus on pure functionality.
+Furthermore, using the \emph{NetBeans} IDE for \emph{Java}, it was possible to use a GUI builder for manipulating \emph{Swing} components, 
+by dragging and dropping them to a canvas - this would generate the specific \emph{Java} code for each component.
+
+Objectively, the front-end part of the system would consist on a single window composed by two main text areas, corresponding to the rules and input blocks,
+one button to generate the specific sentence validator and one last button to inject the sentence into the validator and giving the user their sentence syntax tree.
+The window would also have a top menu bar that would allow the user of opening text files if desired.
+In any case, the user could write the STRUCTURE, ERRORS and INPUT blocks directly into the respective text areas without opening any file. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=14cm]{images/lyntax-gui.png}
+    \caption{Lyntax user interface.}
+    \label{fig:lyntaxGui}
+\end{figure}
+
+After the specification of the rules and input, the user can generate the Specific Natural Language Grammar to be able to create the Sentence Validator,
+using the ``Generator" button.
+The text within the two text boxes is concatenated, and given as input for the MetaGrammar processor.
+All these operations are done in background, following the same order as the instructions showed above.
+If all goes well, the user should have prompted a message saying that the Grammar was successfully generated - it is now possible to test the sentence.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=6cm]{images/grammar_gen_success.png}
+    \caption{Grammar generation success message.}
+    \label{fig:grammarGenSuccess}
+\end{figure}
+
+\newpage
+At last, by clicking the ``Run" button, the validator is created, and the sentence passed as input.
+If no errors occur during this process, the user should know see the sentence syntax tree as the one used in \autoref{fig:testrigGuiExample}.
+On the other hand, if errors or warnings occur, they are displayed textually for the user in a small window.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=8cm]{images/lyntax_error_window.png}
+    \caption{Example of an error message.}
+    \label{fig:lyntaxErrorWindow}
+\end{figure}
 
 % Having parsed the meta-language file, a generator is called by the main rule - the \emph{Rose Tree} is passed as an argument and then traversed in order to generate all 
 % the rules for the Specific Natural Language Grammar.
