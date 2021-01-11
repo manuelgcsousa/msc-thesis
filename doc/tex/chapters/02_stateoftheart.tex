@@ -15,7 +15,7 @@ so the commitment of using \textsc{DSL}s as a solution for a software problem if
 Nevertheless, as \textsc{DSL}s trade generality, they gain expressiveness (in a limited domain) - this results in the ease of repetitive tasks and smoother data
 description \cite{mernik_2005} and representation.
 
-As discussed in \cite{barisic_2012}, usability should be embedded in the \textsc{DSL} development process itself, and considered from the beginning of its developmen.
+As discussed in \cite{barisic_2012}, usability should be embedded in the \textsc{DSL} development process itself, and considered from the beginning of its development.
 The new created \textsc{DSL} needs to identify the problems within the domain, trying to overcome them while maintaining the expected expressivity.
 
 
@@ -62,11 +62,11 @@ CONSTRUCTOR \cite{alexin_1990} is a Natural Langugage Interface that accepts and
 using them as instructions for plane geometry constructing.
 Those instructions are then transformed into the respective graphical representation.
 The idea is that these sentences are issued as commands which represent steps for the creation of a geometrical construction.
-CONSTRUCTOR analyses the issued inpu, translates it into a semantic representation and, baed on that semantic representation, builds a visual construction.
+CONSTRUCTOR analyses the issued inpu, translates it into a semantic representation and, based on that semantic representation, builds a visual construction.
 Furthermore, CONSTRUCTOR keeps track of the sequence of inputs issued by the user, which results in a more controlled construction process,
 while giving the user feedback within each step.
 
-CONSTRUCTOR is composed by the following parts:
+\noindent CONSTRUCTOR is composed by the following parts:
 
 \begin{itemize}
 	\item \textbf{Lexical Analyser} - consists in a machine dictionary of more than 300 items that are usually necessary for issuing commands.
@@ -165,6 +165,18 @@ The main effect of the tool is not directly related to the problem that is tryin
 terminal or non-terminal.
 This can cause some confusion when working with all the icons provided by the platform in order to create the intended atttribute grammar.
 Nevertheless, all the visual components that are associated could give some insights of interesting visual components to include/build when creating the proposed user interface to interact with the system.
+
+
+\section{Chapter Summary} % TALVEZ ACRESCENTAR PEQUENA DESCRIÇÃO DE CADA SISTEMA????
+
+In the previous sections, some tools were presented and major concepts discussed.
+Some of the tools may not have a direct impact on the proposal of this thesis, but their research and inclusion on this document were crucial.
+Each of the sections, despite their various differences, share the use of attribute grammars as a basis for a particular system,
+or even to simplify their use thorugh various techniques.
+
+The solution proposed is an approach that, despite using attribute grammars, 
+it is based on a new textual \textsc{DSL} using \textsc{ANTLR} and the automated generation of processors in order to validate sentences.
+In the next chapter, the proposal for this particular system will be discussed further.
 
 
 % what is useful are all the visual components that are associated with it, 
