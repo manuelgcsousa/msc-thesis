@@ -3,19 +3,31 @@ include _layout.pug
 title Lyntax - Download
 
 div(id='page_content' class='content')
-    h2(style='margin-top: 20px;')
-        | Download
+	h2(style='margin-top: 20px;')
+		| Download
 
-    div(class='w3-container')
-        ul
-            li
-                a(href="/lyntax/download/cli", style="color: rgb(140, 187, 251);") Command Line Interface
+	div(class='w-container')
+		p
+			| Lyntax is compatible with 
+			strong Windows 
+			| and 
+			strong Unix 
+			| systems.
+		
+		ul
+			li
+				a(href="/lyntax/download/cli", style="color: rgb(140, 187, 251);") Command Line Interface
+				span(style="font-size: 13px; color: rgb(156, 156, 156);")  (*nix systems)
+				span(style="font-size: 10px;")  :: (December 2021)
+				br
+				span(style="font-size: 14px; color: rgb(235, 79, 67);") Notes: 
+				span(style="font-size: 13px; color: rgb(156, 156, 156);") Includes sources;
+			
+			pre
 
-            pre
+			li
+				a(href="/lyntax/download/gui", style="color: rgb(140, 187, 251);") Graphical User Interface
+				span(style="font-size: 10px;")  :: (December 2021)
 
-            li
-                a(href="/lyntax/download/gui", style="color: rgb(140, 187, 251);") Graphical User Interface
-                strong  [Beta Version]
-
-    script.
-        $('#menu_tool').addClass('active');
+	script.
+		$('#menu_tool').addClass('active');
