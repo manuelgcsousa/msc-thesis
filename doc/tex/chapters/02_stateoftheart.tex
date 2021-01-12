@@ -23,11 +23,12 @@ The new created \textsc{DSL} needs to identify the problems within the domain, t
 Attribute Grammars were proposed by Donald Knuth in order to specify static and dynamic semantics of a programming language in a syntax-directed manner \cite{thirunarayan_2009}. 
 The process consists in constructing the syntax tree and then computing the values of attributes by visiting every single node. 
 For each attribute it is possible to associate a domain of values, such as integers, strings or even complex structures. 
-Formally an attribute grammar (AG) is a tuple \cite{pereira_2016}
 
-AG = \textless CFG, A, CR, CC, TR\textgreater
+\noindent Formally an attribute grammar (AG) is a tuple \cite{pereira_2016}
 
-\noindent that is composed by a context-free grammar (CFG), which has been extended to provide context by using a set of attributes; 
+\[ AG = (CFG, A, CR, CC, TR) \]
+
+\noindent composed by a context-free grammar (CFG), which has been extended to provide context by using a set of attributes; 
 The set of attributes (A), which exist in each production of a grammar, are divided into two groups, \emph{Synthezized Attributes}, which allow values to be passed from one node to its parent, 
 and \emph{Inherited Attributes}, which allow values to be passed from the current node to a child \cite{slonneger_1995}; 
 rules for calculating attributes (CR) in all productions of the grammar; 
@@ -141,7 +142,8 @@ specify computation rules that were previously declared.
     \label{fig:visuallisa_window}
 \end{figure}
     
-As an example, it was included a textual specification (\autoref{fig:textual_students_grammar}) and the respective graphical specification (\autoref{fig:graphical_students_grammar}), extracted from the paper \cite{oliveira_2009}.
+As an example, it was included a textual specification (\autoref{fig:textual_students_grammar}) 
+and the respective graphical specification (\autoref{fig:graphical_students_grammar}), extracted from the paper \cite{oliveira_2009}.
     
 % Students Grammar
 \begin{figure}[h]

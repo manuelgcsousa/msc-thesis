@@ -303,7 +303,6 @@ eval : WORD '=' '``' WORD '"'
 Inside the \textbf{slice} production, a list of words can be written. These are the words that will then be used to build the lexical part of the generated grammar. Also, when specifying attributes, the student must assign a value for each attribute that will then be used to validate each component of the sentence.
 
 For a better understanding of the three main categories (structure, errors and input), bellow there is an example that is based on the first case study, and shows what the specification of the teacher should look like.
-\newpage
 
 \begin{center}
 \begin{minipage}{13cm}
@@ -400,3 +399,14 @@ INPUT:
 %    \caption{Example of the students parsing.}
 %    \label{fig:meta_grammar_student}
 %\end{figure}
+
+
+\section{Chapter Summary}
+
+In this chapter, it was discussed the different phases of the proposes system architecture and what the output of a system like this should be.
+The principle is to create a new Domain Specific (Meta) Language that allows for the specification of sentence structures as well as proper input.
+Within this system, a processor for this Meta-Language is created by using \textsc{ANTLR},
+which evaluates the specification written and is tasked with the generation of a specific natural language grammar.
+Combining the newly generated grammar with \textsc{ANTLR}, the result is a student's sentence validator
+that when given a sentence as input, performs all the necessary validations and, if correct, presents the user the respective syntax tree.
+The process of the implementarion of this system will be discussed next.
