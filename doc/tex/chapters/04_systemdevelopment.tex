@@ -210,6 +210,9 @@ The interface was built using \emph{\textbf{Swing}}, a GUI widget toolkit for \e
 Furthermore, using the \emph{NetBeans} IDE for \emph{Java}, it was possible to use a GUI builder for manipulating \emph{Swing} components, 
 by dragging and dropping them to a canvas - this would generate the specific \emph{Java} code for each component.
 
+\textbf{Lyntax}, the word that combines the terms ``Linguistics" and ``Syntax", was the name chosen for a system that combines both the meta-language processor and
+the user interface that makes use of such processor.
+
 Objectively, the front-end part of the system would consist on a single window composed by two main text areas, corresponding to the rules and input blocks,
 one button to generate the specific sentence validator and one last button to inject the sentence into the validator and giving the user their sentence syntax tree.
 The window would also have a top menu bar that would allow the user of opening text files if desired.
@@ -230,7 +233,7 @@ If all goes well, the user should have prompted a message saying that the Gramma
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=6cm]{images/grammar_gen_success.png}
+    \includegraphics[width=5cm]{images/grammar_gen_success.png}
     \caption{Grammar generation success message.}
     \label{fig:grammarGenSuccess}
 \end{figure}
@@ -242,10 +245,22 @@ On the other hand, if errors or warnings occur, they are displayed textually for
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=8cm]{images/lyntax_error_window.png}
+    \includegraphics[width=7cm]{images/lyntax_error_window.png}
     \caption{Example of an error message.}
     \label{fig:lyntaxErrorWindow}
 \end{figure}
+
+
+\section{Chapter Summary}
+
+At this stage, the development of the system is concluded.
+The result was, firstly, a DSL that allows for the specification of sentence structures and rules, as well as a respective input for those same structures.
+Secondly, the core system which processed the Meta-Language specification, generated a specific grammar, 
+and then used that grammar to create a validator for the analysis and evaluation of a specified sentence.
+At last, and as a way of abstracting the complexity of the core system, 
+the front-end intends to deliver a more flexible and straight forward use of the tool,
+allowing the user to focus on the description of the rules and testing of sentences.
+Within the next chapter, some case studies will be explored in order to prove the correct functioning of the system.
 
 % Having parsed the meta-language file, a generator is called by the main rule - the \emph{Rose Tree} is passed as an argument and then traversed in order to generate all 
 % the rules for the Specific Natural Language Grammar.
