@@ -11,7 +11,7 @@ With the grammar divided into 3 main parts (STRUCTURE, ERRORS, INPUT), different
 with the INPUT block (written by the student). The process starts with searching for the teacher and student specification, and then compiling the program using a meta-grammar based processor. A new processor is generated to be 
 used by the student to verify if his sentences are correctly following the structure defined by the teacher.
 
-Within the grammar itself, the first rule
+Within the grammar itself, the first rule, 
 \newpage
 
 %\begin{center}
@@ -107,7 +107,7 @@ The principle of having a tree as the main data structure falls into the need of
 
 Some backtracking was made to come up with an ideal solution. The prerequisites were that order needed to be maintained and each node (component) had an arbitrary number
 of \emph{\textbf{N}} children. The previously created Component class would store all its values and a list of new components (children), creating a path between 
-the parent component and said children. This type of structure is denominated as Rose Tree, which is a prevelant structure in the functional programming community. 
+the parent component and said children. This type of structure is denominated as Rose Tree, which is a prevelant structure within the functional programming community. 
 It is a multi-way tree, with an unbounded number of branches per node. This way, all the prerequisites would be matched, and all the information correctly stored. 
 
 \begin{center}
@@ -133,7 +133,7 @@ The main task is to simply validate the syntax and extract data to be stored in 
 For each node, it is stored the name of the component, if it is required to be declared or not, a group of attributes (could be non-existent), 
 a lexical part (if it is the case), and finally a list of nodes, referred as the children.
 
-After the parsing of the structure, there are a list of conditions named ERRORS that need to be validated and converted into \emph{Java} syntax - this conversion would then be injected on the main rule of the generated grammar. These logical expressions are based on the attributes of each component and their relations. For example, if the teacher says that a component \emph{\textbf{A}} has an attribute named \emph{\textbf{a}}, and this attribute is required to have value \emph{\textbf{x}}, if the student assigns it a value of \emph{\textbf{z}}, then an error should appear. All these conditions can be combined with the logical operands ``AND'' or ``OR''. The way that is parsed is based on the path specified by the teacher when accessing the attribute. Using the example before, a component \emph{\textbf{A}} with a child \emph{\textbf{B}}, with \emph{\textbf{B}} having a attribute \emph{\textbf{x}}, in order to access it the syntax should be
+After the parsing of the structure, there are a list of conditions named ERRORS that need to be validated and converted into \emph{Java} syntax - this conversion would then be injected on the main rule of the generated grammar. These logical expressions are based on the attributes of each component and their relations. For example, if the teacher says that a component \emph{\textbf{A}} has an attribute named \emph{\textbf{a}}, and this attribute is required to have value \emph{\textbf{x}}, if the student assigns it a value of \emph{\textbf{z}}, then an error should appear. All these conditions can be combined with the logical operands ``AND'' or ``OR''. The way that is parsed is based on the path specified by the teacher when accessing the attribute. Using the example before, a component \emph{\textbf{A}} with a child \emph{\textbf{B}}, with \emph{\textbf{B}} having a attribute \emph{\textbf{x}}, in order to access it, the syntax should be
 
 \[ A.B -\textgreater x \]
 
@@ -260,6 +260,15 @@ and then used that grammar to create a validator for the analysis and evaluation
 At last, and as a way of abstracting the complexity of the core system, 
 the front-end intends to deliver a more flexible and straight forward use of the tool,
 allowing the user to focus on the description of the rules and testing of sentences.
+
+The main challenges faced over the development period were, firstly,
+to choose the most appropriate data structure which would then be used to manipulate and process input data.
+As previously discussed, this structure demanded for a set of specified requirements to be met in order to product correct results, 
+so this task took quite a few tries and experiments to get right and accurate.
+Lastly, the error handling of the tool may cause some confusion at first, as it is handled and processed within the Meta-Grammar processor.
+This error message is than passed onto the specific natural language grammar, and printed to the user into a formatted windoe to ease the process.
+Nevertheless, the rules errors are precise and easy to understand.
+
 Within the next chapter, some case studies will be explored in order to prove the correct functioning of the system.
 
 % Having parsed the meta-language file, a generator is called by the main rule - the \emph{Rose Tree} is passed as an argument and then traversed in order to generate all 

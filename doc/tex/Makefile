@@ -5,6 +5,7 @@ all: report
 .PHONY: clean
 
 report:
+	killall zathura || true 
 	pdflatex $(DOCNAME).tex
 	bibtex $(DOCNAME).aux
 	pdflatex $(DOCNAME).tex
