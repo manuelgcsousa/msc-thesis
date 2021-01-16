@@ -172,7 +172,22 @@ providing as input the Meta-Language Specification.
 
 \section{Specific Sentence Grammar Generator}
 
+As previously mencioned, the role of this generator is to produce the grammar that intends to recognize the students input.
+This grammar is specific to the sentence, and contains the conditions previously defined by the teacher ready to be evaluated.
+The generator is an auxiliar \emph{Java} class, which contains the methods necessary to traverse the RoseTree given as argument,
+and create the strings of text for the grammar, which will then be appended to a file.
 
+The principle of this generator is to create the independent strings first, and then recursively traverse the tree in order to create the productions themselves.
+This task was done using an auxiliar data structure,
+\begin{Verbatim}
+	Map<String, StringBuilder> productions 
+		= LinkedHashMap<>();
+\end{Verbatim}
+\noindent with each \underline{key} representing the name of a production, and each \underline{value} representing the various words that composed the rule of said production.
+The chosen structure would be a \emph{Linked Hash Map}, as the insertion order was important to maintain.
+While traversing the tree, the information would be processed and also stored within the auxiliar Map.
+Lastly, all strings containing the productions, and also a lexer, are printed into a file of type ``.g4". 
+This is the file containing the grammar which will then be use to create the sentence validator.
 
 \newpage
 \section{Sentence Validator}
