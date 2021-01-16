@@ -88,7 +88,7 @@ public class Generator
 		StringBuilder phrase = new StringBuilder();
 
 		/* Estrutura auxiliar que guardará as produções ao longo da árvore. */
-		Map<String, StringBuilder> productions = new HashMap<>(); 
+		Map<String, StringBuilder> productions = new LinkedHashMap<>(); 
 		
 		/* Linhas a serem escritas no ficheiro final. */
 		List<String> lines = 
