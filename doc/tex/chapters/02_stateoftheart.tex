@@ -3,20 +3,27 @@
 In this chapter is of the utmost importance to define some concepts that were used as a basis for this thesis. 
 In addition, it will be discussed possible tools that already answer some of the questions that this thesis is trying to answer, and for that matter are important to be studied and referenced.
 	
-\section{Domain Specific Languages}
-A domain specific language is an ``executable specification language, through appropriate notations and abstractions'', usually restricted to a particular problem domain. 
-Its objective is to improve productivity, and to allow solutions to be expressed in a more intuitive way and at the level of abstraction of the problem domain \cite{van_2000}.
-These types of languages provide a natural vocabulary for concepts that are fundamental to the problem scope \cite{bruce_1997}, something that may lack when using a general-purpose language. 
-\textsc{DSLs} are usually small and declarative, with very specific goals \cite{van_2000}.
-Refered as ``little languages'' \cite{bentley_1986}, they are intended to solve problems within a specific domain, and not outside it.
 
-One of the disadvantages of building a new \textsc{DSL} is the cost of their development, as it requires both domain and language development expertise \cite{kosar_2008},
-so the commitment of using \textsc{DSL}s as a solution for a software problem if often postponed or not even comtemplated.
-Nevertheless, as \textsc{DSL}s trade generality, they gain expressiveness (in a limited domain) - this results in the ease of repetitive tasks and smoother data
-description \cite{mernik_2005} and representation.
+\section{Context-free Grammar}
 
-As discussed in \cite{barisic_2012}, usability should be embedded in the \textsc{DSL} development process itself, and considered from the beginning of its development.
-The new created \textsc{DSL} needs to identify the problems within the domain, trying to overcome them while maintaining the expected expressivity.
+A Grammar can be defined by the study and learning of the way sentences of a language are assembled.
+The word ``grammar'' is extracted from the Greek \emph{Tékhnē grammatikē}), which has the meaning of ``art of letters'' \cite{britannica_2020}.
+This can be interpreted has the art of combining letters in order to produce a system which determines the correct way of constructing phrases.
+A grammar does not assign any meaning for these phrases (semantic), it only structures their form.
+
+A Context-free Grammar (\textsc{CFG}) is defined by a tuple of 4 elements \cite{henriques_2011}
+
+\[ G = (T, N, S, P) \]
+
+\noindent where \textbf{T} is the set of terminal symbols of a language;
+\textbf{N} is the set of non-terminal symbols;
+\textbf{S} is the start symbol of the grammar;
+\textbf{P} is the set of productions that compose this grammar.
+The productions within the grammar are rules of form
+
+\[ N \rightarrow (N \cup T)^* \]
+
+\noindent where the left side, composed of a non-terminal symbol, may derive in a set of non-terminal and terminal symbols.
 
 
 \section{Attribute Grammars}
@@ -34,6 +41,22 @@ and \emph{Inherited Attributes}, which allow values to be passed from the curren
 rules for calculating attributes (CR) in all productions of the grammar; 
 a set of contextual conditions (CC); 
 and the transformation rules (TR) in all productions of the grammar.
+
+
+\section{Domain Specific Languages}
+A domain specific language is an ``executable specification language, through appropriate notations and abstractions'', usually restricted to a particular problem domain. 
+Its objective is to improve productivity, and to allow solutions to be expressed in a more intuitive way and at the level of abstraction of the problem domain \cite{van_2000}.
+These types of languages provide a natural vocabulary for concepts that are fundamental to the problem scope \cite{bruce_1997}, something that may lack when using a general-purpose language. 
+\textsc{DSLs} are usually small and declarative, with very specific goals \cite{van_2000}.
+Refered as ``little languages'' \cite{bentley_1986}, they are intended to solve problems within a specific domain, and not outside it.
+
+One of the disadvantages of building a new \textsc{DSL} is the cost of their development, as it requires both domain and language development expertise \cite{kosar_2008},
+so the commitment of using \textsc{DSL}s as a solution for a software problem if often postponed or not even comtemplated.
+Nevertheless, as \textsc{DSL}s trade generality, they gain expressiveness (in a limited domain) - this results in the ease of repetitive tasks and smoother data
+description \cite{mernik_2005} and representation.
+
+As discussed in \cite{barisic_2012}, usability should be embedded in the \textsc{DSL} development process itself, and considered from the beginning of its development.
+The new created \textsc{DSL} needs to identify the problems within the domain, trying to overcome them while maintaining the expected expressivity.
 
 
 \section{PAG (Prototyping with Attribute Grammars)}

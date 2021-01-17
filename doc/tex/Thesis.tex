@@ -25,7 +25,7 @@
     literate={``}{\textquotedblleft}1
 }
 \usepackage{multirow}
-
+\usepackage{url}
 \usepackage[dvipsnames,svgnames,x11names]{xcolor}
 \usepackage[markup=underlined]{changes}
 \definechangesauthor[color=BrickRed]{PRH}
@@ -184,6 +184,11 @@
 \setlength{\parskip}{1.5ex plus 0.5ex minus 0.2ex}
 \onehalfspacing
 
+\input{chapters/_acknowledgements}
+\setlength{\parindent}{1.5pt}
+\setlength{\parskip}{0pt}
+\singlespacing
+
 \pagenumbering{roman}
 %\input{chapters/0_resumo}
 %\cleardoublepage
@@ -234,15 +239,14 @@
 \input{chapters/03_proposal}
 \input{chapters/04_systemdevelopment}
 \input{chapters/05_casestudies}
-%\input{chapters/06_pedagogical}
-\input{chapters/0X_conclusion}
+\input{chapters/06_conclusion}
 %\chapter*{Bibliography}       
 
 % % BIBLIOGRAPHY
 
 %\newpage
 \addcontentsline{toc}{chapter}{Bibliography}
-\bibliographystyle{apalike}
+\bibliographystyle{abbrv}
 \bibliography{lib}
 
 \end{document}
