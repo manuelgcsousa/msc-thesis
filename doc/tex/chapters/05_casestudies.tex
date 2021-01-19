@@ -373,7 +373,8 @@ INPUT:
         Predicado (
             Verbo: ``comi",
             Complemento_Direto: ``uma pizza",
-            Complemento_Circunstancial: "na pizzaria abaixo" [tipo = ``lugar"]
+            Complemento_Circunstancial: 
+                ``na pizzaria abaixo" [tipo = ``lugar"]
         )
     ))
 \end{lstlisting}
@@ -381,19 +382,22 @@ INPUT:
 \end{center}
 
 
-We can also use an ``\emph{\(|\)}" (\textit{or}) operator within the structure rules, giving the student the possibility of defining one or other component,
+We can also use an \textbf{\(|\)} (\textit{or}) operator within the structure rules, giving the student the possibility of defining one or other component,
 but maintaing the main structure of the sentence. 
 Using an operator with this capability, we prevent the need of creating two separate structures only for a single change. 
 
 \begin{center}
-\begin{minipage}{10cm}
+\begin{minipage}{14cm}
 \begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_structure4}, caption=Example of a sentence structure]
 STRUCTURE:
     part[(
         Frase, subparts[
-            (Interjeccion | Pronombre),
-            (Verbo),
-            (Nombre)
+            (Sujeito)?,
+            (Predicado, subparts[
+                (Verbo),
+                (Complemento_Circunstancial_Modo | 
+                 Complemento_Circunstancial_Lugar)
+            ])
         ]
     )]
 \end{lstlisting}
@@ -401,13 +405,15 @@ STRUCTURE:
 \end{center}
 
 \begin{center}
-\begin{minipage}{10cm}
+\begin{minipage}{14cm}
 \begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_input4}, caption=Example of a sentence input]
 INPUT:
     - (Frase (
-        Interjeccion: ``Hola!",
-        Verbo: ``Soy",
-        Nombre: ``Manuel"
+        Sujeito: ``Eu",
+        Predicado (
+            Verbo: ``estive",
+            Complemento_Circunstancial_Lugar: ``no Porto"
+        )
     ))
 \end{lstlisting}
 \end{minipage}

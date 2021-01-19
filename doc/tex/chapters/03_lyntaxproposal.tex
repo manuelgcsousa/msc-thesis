@@ -1,4 +1,4 @@
-\chapter{Proposal} \label{proposal}
+\chapter{Lyntax: Proposal} \label{lyntax_proposal}
 
 The main purpose of this proposal is the definition of a \textsc{DSL} that allows the specification of all different kinds of sentences, and afterwards, the possibility of testing given sentences as input and check if they are written accordingly to the rules previously specified. One obstacle that was encountered was how to extract the lexical part of the sentence, and in what way would each component be classified. In fact, this task is quite subjective, as different components may have various definitions in one context. % for example: (...). % Introduzir exemplo da professora!!!! 
 Having known this, the decision was made that the student would beforehand identify the lexical part of the sentence.
@@ -225,4 +225,6 @@ Within this system, a processor for this Meta-Language is created by using \text
 which evaluates the specification written and is tasked with the generation of a specific natural language grammar.
 Combining the newly generated grammar with \textsc{ANTLR}, the result is a student's sentence validator
 that when given a sentence as input, performs all the necessary validations and, if correct, presents the user the respective syntax tree.
-The process of the implementarion of this system will be discussed next.
+
+\textbf{Lyntax}, the word that combines the terms ``Linguistics" and ``Syntax", was the name chosen for a system that combines both the meta-language processor and
+the user interface that makes use of such processor. The process of the implementation of this system will be discussed next.
