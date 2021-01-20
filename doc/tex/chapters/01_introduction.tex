@@ -14,7 +14,7 @@ The main objective of this master thesis is to produce a pedagogical tool to sup
 
 \begin{itemize}
     \item Definition of simple and concise \textsc{DSL}, suitable for common users, to specify linguistic rules based in an attribute grammar.
-    \item Construction of that pedagogical tool, with a friendly user interface, based on the reffered attribute grammar using \textsc{ANTLR} \footnote{https://www.antlr.org/} (ANother Tool for Language Recognition).
+	\item Construction of a tool that will have a friendly user interface and converts the \textsc{DSL} programs into attribute grammars using \textsc{ANTLR} (ANother Tool for Language Recognition) \footnote{https://www.antlr.org/}. \textsc{ANTLR} will also be used in a second phase in order to take the generated attribute grammars and create the natural language sentence processor that will be used by the student.
 \end{itemize}
     
 \section{Methodology}
@@ -22,9 +22,10 @@ The research work will be performed at different stages. The methodology that wi
 
 \begin{itemize}
     \item Do a comprehensive research about attribute grammars in linguistics: what has been done, how has it been done, and ways to improve the previous work.
-    \item Research the principles of linguistic rules in different languages.
+    % \item Research the principles of linguistic rules in different languages.
     \item Design a \textsc{DSL} that allows a straightforward specification of an array of rules.
-    \item Develop a language translator that can translate programs written in the new language to \textsc{ANTLR}.
+	\item Develop a language translator that can translate programs written in the new language to \textsc{ANTLR} using \textsc{ANTLR}.
+	\item Create a processor (using the generated attribute grammars of the last step) that will allow to receive sentences and check its correctness.
     \item Create an user interface that allows for a visual analysis of the generated syntax-tree.
     \item Experiment with some case studies, and test the tool with real linguistic students.
 \end{itemize}

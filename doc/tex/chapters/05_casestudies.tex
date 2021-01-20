@@ -15,7 +15,7 @@ The subject is then subdivided into a possible determiner (\underline{Determinan
 (the lexical part identified by the student). The predicate is composed by a verb and a complement that is directly related to the verb. This complement 
 (\underline{Complemento\_Direto}) is then composed by a possible determiner (\underline{Determinante}) and a mandatory noun (\underline{Nome}).
 
-In this particular example, both the subject and the verb from the predicate have an attribute named ‘tipo’ which purpose is to check evaluate if each of the components
+In this particular example, both the subject and the verb from the predicate have an attribute named ‘tipo’ which purpose is to check if each of the components
 are \underline{animated} or \underline{inanimated}. By analysing the logic in the ERRORS block \autoref{lst:metaStruct}, we can see that if the value of the attribute ‘tipo’ is different 
 between the two components, than an error should be pointed. In this case, the sentence parsed by the student is
 
@@ -302,7 +302,7 @@ augmenting the possibilities of syntactic structures.
 
 In order to demonstrate even further the capabilities of the tool, some more examples of sentences with growing complexity will be included.
 Some of the previous examples had the intent of demonstrating validations and/or trigger errors and warnings.
-These next examples intend to explore more common tested structures and also structures a bit more intense.
+These next examples intend to explore structures with a bit more complexity.
 
 This first example is, again, composed by a Subject - Predicate structure, with some caracteristics to the Predicate itself.
 
@@ -427,7 +427,7 @@ The principal remains the same, it all depends on the rules defined by the teach
 
 \begin{center}
 \begin{minipage}{10cm}
-\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:example_complex_structure}, caption=Example of a complex sentence structure]
+\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:example_complex_structure}, caption=Example of a more complex structure]
 STRUCTURE:
     part[(Sujeito)]
     part[(
@@ -452,7 +452,7 @@ STRUCTURE:
 
 \begin{center}
 \begin{minipage}{10cm}
-\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:example_complex_input}, caption=Example of a complex sentence input]
+\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:example_complex_input}, caption=Example of a more complex sentence input]
 INPUT:
     - (Sujeito: ``Los soldados")
 
@@ -472,7 +472,7 @@ INPUT:
 \end{center}
 
 As an example, it it also possible to have two identical structures, which both support the same kind of sentences,
-joined by a connector to create some kind of meaning between the two.
+joined by a connector to create some kind of meaning as can be seen in \autoref{lst:example_complex_structure2} and \autoref{lst:example_complex_input2}.
 
 \begin{center}
 \begin{minipage}{11cm}

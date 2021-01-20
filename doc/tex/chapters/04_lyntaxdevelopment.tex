@@ -9,10 +9,7 @@ Most of the productions were expanded, allowing for certain calculations to be i
 
 With the grammar divided into 3 main parts (STRUCTURE, ERRORS, INPUT), different types of calculations occur at different sections. The STRUCTURE and ERRORS blocks are written in a single file (by the teacher) which is then joined 
 with the INPUT block (written by the student). The process starts with searching for the teacher and student specification, and then compiling the program using a meta-grammar based processor. A new processor is generated to be 
-used by the student to verify if his sentences are correctly following the structure defined by the teacher.
-
-Within the grammar itself, the first rule, 
-\newpage
+used by the student to verify if his sentences are correctly following the structure defined by the teacher. Within the grammar itself, the first rule, 
 
 %\begin{center}
 %\begin{minipage}{11cm}
@@ -81,8 +78,8 @@ within a List.
 \end{minipage}
 \end{center}
 
-The problem with this solution is that it does not follow any particular order (in this case, the STRUCTURE order), which can be very useful when validating the students
-input, checking if it obeys to the structure previously defined.
+The problem with this solution is that it does not follow any particular order (in this case, the STRUCTURE order), which can be very useful when validating the students.
+The sequence of components stored within a List would not be equal to the sequence of components that were defined in the structure previously defined.
 
 The structure of the sentence takes a form of a tree, so that would be the correct way to store the information and maintain order. As each node could have less or more 
 than two children, a binary tree was not the way to go. The idea was to build a Graph structure that used a mapped each node to a list of nodes.
@@ -111,12 +108,15 @@ the parent component and said children. This type of structure is denominated as
 It is a multi-way tree, with an unbounded number of branches per node. This way, all the prerequisites would be matched, and all the information correctly stored. 
 
 \begin{center}
-\begin{minipage}{9cm}
+\begin{minipage}{10cm}
 \begin{lstlisting}[language=java, basicstyle=\small, label={lst:rosetree_class}, caption=RoseTree class]
 class RoseTree {
-    String value;
+    String chosenValue;
+    String path;
+    boolean visited;
     boolean required;
     Map<String, String> attributes;
+    Set<String> optionValues;
     List<String> lexical_part;
     List<RoseTree> children;
 
@@ -157,18 +157,20 @@ Having this type of package would allow for a more flexible integration with any
 The Meta-Language Processor, which was created by providing the Meta-Grammar file to ANTLR, could now be used with the \emph{JAR} file, 
 providing as input the Meta-Language Specification. 
 
-\noindent Using the command line, the instruction:
-\begin{Verbatim}
-	java -jar lib/MetaGrammar.jar input/meta-lang
-\end{Verbatim}
-\noindent tries to generate the Specific Natural Language Grammar, based on the input provided. In case of any error, the grammar would not be generated.
-
 \begin{figure}[h]
     \centering
     \includegraphics[width=9cm]{images/system_meta_processor.png}
     \caption{Excerpt of the system architecture - Meta Processor.}
     \label{fig:system_architecture}
 \end{figure}
+
+\newpage
+\noindent Using the command line, the instruction:
+\begin{Verbatim}
+	java -jar lib/MetaGrammar.jar input/meta-lang
+\end{Verbatim}
+\noindent tries to generate the Specific Natural Language Grammar, based on the input provided. In case of any error, the grammar would not be generated.
+
 
 \section{Specific Sentence Grammar Generator}
 
@@ -226,13 +228,13 @@ As stated in the introduction of this document, after the creation of a system c
 that allowed for a more easy and simple use of said system, without the need of directly using the command line for providing inputs or manual runtime compilations.
 The interface was built using \emph{\textbf{Swing}}, a GUI widget toolkit for \emph{Java}.
 \emph{Swing} has a lot of sophisticated GUI components available for use, allowing the developer to focus on pure functionality.
-Furthermore, using the \emph{NetBeans} IDE for \emph{Java}, it was possible to use a GUI builder for manipulating \emph{Swing} components, 
+Furthermore, using the \emph{NetBeans} \footnote{https://netbeans.org/} IDE (Integrated Development Environment) for \emph{Java}, it was possible to use a GUI builder for manipulating \emph{Swing} components, 
 by dragging and dropping them to a canvas - this would generate the specific \emph{Java} code for each component.
 
 Objectively, the front-end part of the system would consist on a single window composed by two main text areas, corresponding to the rules and input blocks,
 one button to generate the specific sentence validator and one last button to inject the sentence into the validator and giving the user their sentence syntax tree.
 The window would also have a top menu bar that would allow the user of opening text files if desired.
-In any case, the user could write the STRUCTURE, ERRORS and INPUT blocks directly into the respective text areas without opening any file. 
+In any case, the user could write the STRUCTURE, ERRORS/RULES and INPUT blocks directly into the respective text areas without opening any file. 
 
 \begin{figure}[h]
     \centering
@@ -241,7 +243,7 @@ In any case, the user could write the STRUCTURE, ERRORS and INPUT blocks directl
     \label{fig:lyntaxGui}
 \end{figure}
 
-After the specification of the rules and input, the user can generate the Specific Natural Language Grammar to be able to create the Sentence Validator,
+After the specification of the rules (in the left side) and input (in the right side), the user can generate the Specific Natural Language Grammar to be able to create the Sentence Validator,
 using the ``Generator" button.
 The text within the two text boxes is concatenated, and given as input for the MetaGrammar processor.
 All these operations are done in background, following the same order as the instructions showed above.
@@ -256,7 +258,7 @@ If all goes well, the user should have prompted a message saying that the Gramma
 
 \newpage
 At last, by clicking the ``Run" button, the validator is created, and the sentence passed as input.
-If no errors occur during this process, the user should know see the sentence syntax tree as the one used in \autoref{fig:testrigGuiExample}.
+If no errors occur during this process, the user should see the sentence syntax tree as the one used in \autoref{fig:testrigGuiExample}.
 On the other hand, if errors or warnings occur, they are displayed textually for the user in a small window.
 
 \begin{figure}[h]
@@ -283,10 +285,10 @@ allowing the user to focus on the description of the rules and testing of senten
 
 The main challenges faced over the development period were, firstly,
 to choose the most appropriate data structure which would then be used to manipulate and process input data.
-As previously discussed, this structure demanded for a set of specified requirements to be met in order to product correct results, 
+As previously discussed, this structure demanded for a set of specified requirements to be met in order to produce correct results, 
 so this task took quite a few tries and experiments to get right and accurate.
 Lastly, the error handling of the tool may cause some confusion at first, as it is handled and processed within the Meta-Grammar processor.
-This error message is than passed onto the specific natural language grammar, and printed to the user into a formatted window to ease the process.
+This error message is then passed onto the specific natural language grammar, and printed to the user into a formatted window to ease the process.
 Nevertheless, the rules errors are precise and easy to understand.
 
 Within the next chapter, some case studies will be explored in order to prove the correct functioning of the system.

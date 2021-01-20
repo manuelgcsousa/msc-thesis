@@ -1,6 +1,6 @@
 \chapter{Lyntax: Proposal} \label{lyntax_proposal}
 
-The main purpose of this proposal is the definition of a \textsc{DSL} that allows the specification of all different kinds of sentences, and afterwards, the possibility of testing given sentences as input and check if they are written accordingly to the rules previously specified. One obstacle that was encountered was how to extract the lexical part of the sentence, and in what way would each component be classified. In fact, this task is quite subjective, as different components may have various definitions in one context. % for example: (...). % Introduzir exemplo da professora!!!! 
+The main purpose of this proposal is the definition of a \textsc{DSL} that allows the specification of all different kinds of sentences (done by the linguistic teacher), and afterwards, the possibility of the student to test his own sentences and check if they are written accordingly to the rules also previously specified by the linguistic teacher. One obstacle that was encountered was how to extract the lexical part of the sentence, and in what way would each component be classified. In fact, this task is quite subjective, as different components may have various definitions in one context. % for example: (...). % Introduzir exemplo da professora!!!! 
 Having known this, the decision was made that the student would beforehand identify the lexical part of the sentence.
 % FALAR DO QUE VOU FAZER DE DIFERENTE (DICA DO LÁZARO!)
 
@@ -12,14 +12,12 @@ These rules will be written (in a single file) according to the following struct
 \begin{enumerate}
     \item \textbf{STRUCTURE} - the block where the teacher will write how is the sentence supposed to be written, and what components will it have.
     
-    \item \textbf{ERRORS} - list of conditions that the teacher could write in order to be analysed afterwards, for example, certain values for different attributes. If one of the conditions is matched, an error will appear.
+    \item \textbf{ERRORS/RULES} - list of conditions that the teacher could write in order to be analysed afterwards, for example, certain values for different attributes. 
+In the case of using ERRORS, if the conditions are matched, an error will appear. 
+On the other hand, using RULES, the conditions need to be matched in order to have a valid input.
     
     \item \textbf{INPUT} - this block corresponds to the ``parsing'' of the sentence (the lexical part) that the student wants to test. This will be written by the student and then automatically joined with the teachers information.
 \end{enumerate}
-
-This file will then be processed by an \textsc{ANTLR} processor that will work on the information that was written, and then generate a grammar (also specified in \textsc{ANTLR}). This grammar corresponds to the translation of the
-``meta-language'' into \textsc{ANTLR} instructions. Afterwards, the generated grammar will be used to create a validator of sentences, where the student can write his sentence/sentences and obtain results. 
-These results would be the validation of the given sentence/sentences and a tree for a better visualization of the input structure.
 
 % Imagem da arquitetura do sistema.
 \begin{figure}[h]
@@ -28,6 +26,13 @@ These results would be the validation of the given sentence/sentences and a tree
     \caption{System architecture.}
     \label{fig:system_architecture}
 \end{figure}
+
+This file will then be processed by an \textsc{ANTLR} processor that will work on the information that was written, and then generate a grammar (also specified in \textsc{ANTLR}). 
+This grammar corresponds to the translation of the ``meta-language'' into \textsc{ANTLR} instructions. 
+Afterwards, the generated grammar will be used to create a validator of sentences, where the student can write his sentence/sentences and obtain results.
+A new processor will be generated for each sentence the student wants to test.
+The results would be the validation of the given sentence/sentences and a tree for a better visualization of the input structure.
+
 
 \section{Meta-Language}
 As it was stated in the beginning of this document, the main goal was to create a \textsc{DSL} that should be easy to learn and to rapidly understand and grasp. With this in mind, the structure mencioned before on the first section
@@ -219,7 +224,7 @@ INPUT:
 
 \section{Chapter Summary}
 
-In this chapter, it was discussed the different phases of the proposes system architecture and what the output of a system like this should be.
+In this chapter, it was discussed the different phases of the proposed system architecture and what the output of a system like this should be.
 The principle is to create a new Domain Specific (Meta) Language that allows for the specification of sentence structures as well as proper input.
 Within this system, a processor for this Meta-Language is created by using \textsc{ANTLR},
 which evaluates the specification written and is tasked with the generation of a specific natural language grammar.
@@ -227,4 +232,5 @@ Combining the newly generated grammar with \textsc{ANTLR}, the result is a stude
 that when given a sentence as input, performs all the necessary validations and, if correct, presents the user the respective syntax tree.
 
 \textbf{Lyntax}, the word that combines the terms ``Linguistics" and ``Syntax", was the name chosen for a system that combines both the meta-language processor and
-the user interface that makes use of such processor. The process of the implementation of this system will be discussed next.
+the user interface that makes use of such processor.
+The implementation of this system will be discussed in the next section.
