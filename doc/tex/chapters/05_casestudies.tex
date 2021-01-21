@@ -79,24 +79,6 @@ allowing for the visualization of the syntax tree.
 
 % INSERIR PRINT DO TESTRIG????
 
-%To conclude, if we use as an input a sentence like
-%
-%``O Carlos teme a sinceridade.''
-%
-%\noindent the sentence is accepted because, firstly, the structure is correct, and every component is in the right place, and secondly, all the attributes obey to the rules. As another example, if we use as an input other sentence for example
-%
-%``O acidente teme a sinceridade.''
-%
-%\noindent we get an error which indicates that the verb ``teme'' requires an animated subject, and ``acidente'' belongs to the subject that has an inanimated property.
-%
-%\begin{center}
-%\begin{minipage}{10cm}
-%\begin{lstlisting}[language=java, basicstyle=\small, label={lst:error_message_dsl}, caption=Example of an error message]
-%ERRO:
-%- O verbo 'teme' requer um sujeito ANIMADO.
-%\end{lstlisting}
-%\end{minipage}
-%\end{center}
 
 \section{Missing components \& Warnings}
 Still based on the previous defined structure \autoref{lst:metaStruct}, the student's specification can still be missing some components that are mandatory. 
@@ -294,6 +276,40 @@ verbo : 'come'
 \end{minipage}
 \end{center}
 
+As an example, we can also write the previous rules (\autoref{lst:arbitrary_structure}) using the keyword 'RULES' instead of 'ERRORS'.
+Using this keyword, the conditions would be interpreted in a different manner - all of them need to be true in order to considered the input as valid.
+Changing the keyword would result in a slightly different specific generated grammar, because the conditions within the ‘main’ production need to be evaluated differently.
+
+\begin{center}
+\begin{minipage}{10cm}
+\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:case_study_sentence2}, caption=Different conditions from RULES block]
+(...)
+
+main : frase
+{
+    if ( !( Frase__Determinante__GENERO.equals(``masculino") &&
+            Frase__Nome__GENERO.equals(``feminino") ) )
+       { System.out.println(``ERROR!"); }
+
+    if ( !( Frase__Determinante__GENERO.equals(``feminino") &&
+            Frase__Nome__GENERO.equals(``masculino") ) )
+       { System.out.println(``ERROR!"); }
+
+    if ( !( !Frase__Determinante__GENERO.equals(``masculino") &&
+            !Frase__Determinante__GENERO.equals(``feminino") ) )
+       { System.out.println(``ERROR!"); }
+
+    if ( !( !Frase__Nome__GENERO.equals(``masculino") &&
+            !Frase__Nome__GENERO.equals(``feminino") ) )
+       { System.out.println(``ERROR!"); }
+}
+;
+
+(...)
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
 
 This simple example shows that the meta-language created is flexible to the point of writing arbitrary sentences or rules, 
 augmenting the possibilities of syntactic structures.
@@ -457,7 +473,7 @@ INPUT:
     - (Sujeito: ``Los soldados")
 
     - (Predicado (
-        Verbo: ``dispararam",
+        Verbo: ``dispararon",
         Complemento_Indireto: ``a los sentenciados"
     ))
 
