@@ -1,5 +1,26 @@
 INPUT:
+  - (Frase (
+      Sujeito: "Los soldados",
+
+      Predicado1 (
+          Verbo: "dispararon",
+          Complemento_Indireto: "a los sentenciados"
+      ),
+
+      Conjuncao: "y",
+
+      Predicado2 (
+          Verbo: "cayeron",
+          Modificador_Verbal: "muertos"
+      )
+  ))
+
+/*
+INPUT:
     - (Frase: "A Olinda lê"
         (Determinante: "A" [genero = "masculino"],
          Nome: "Olinda" [genero = "feminino"],
-         Verbo: "lê"))
+         Verbo: "lê",
+		 Nome: "boas")
+	  )
+*/

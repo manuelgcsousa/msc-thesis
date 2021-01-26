@@ -453,7 +453,7 @@ WORD : (CHAR)+
 WS : ([ \t\r\n]|COMMENT) -> skip
 ;
 
-fragment CHAR : [a-zA-ZáéíóúÁÉÍÓÚâêîôûÂÊÎÔÛãõÃÕàèìòùÀÈÌÒÙçÇ_] 
+fragment CHAR : [a-zA-ZáéíóúÁÉÍÓÚâêîôûÂÊÎÔÛãõÃÕàèìòùÀÈÌÒÙçÇ_1234567890] 
 ;
 
 fragment COMMENT

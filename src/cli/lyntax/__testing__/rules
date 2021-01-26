@@ -1,14 +1,48 @@
 STRUCTURE:
-    part(
+    part[(
+        Frase, subparts[
+            (Sujeito),
+            (Predicado1, subparts[
+                (Verbo),
+                (Complemento_Indireto)
+            ]),
+            (Conjuncao),
+            (Predicado2, subparts[
+                (Verbo),
+                (Modificador_Verbal)
+            ])
+        ]
+    )]
+
+
+/*
+STRUCTURE:
+    part[(
+        Frase,
+        subparts[
+            (Sujeito, attributes{genero}),
+            (Nome, attributes{genero}),
+            (Verbo),
+			(Nome)
+        ]
+    )]
+	part[(Frase, subparts[ (Verbo)? ] )]
+*/
+
+/*
+STRUCTURE:
+    part[(
         Frase,
         subparts[
             (Determinante, attributes{genero}),
             (Nome, attributes{genero}),
-            (Verbo)
+            (Verbo),
+			(Nome)
         ]
-    )
-	part( Frase, subparts[ (Verbo)? ] )
-
+    )]
+	part[(Frase, subparts[ (Verbo)? ] )]
+*/
+/*
 // ERRORS:
 RULES:
     Frase.Determinante->genero = "masculino" AND Frase.Nome->genero = "feminino";
@@ -16,7 +50,7 @@ RULES:
     
     Frase.Determinante->genero != "masculino" AND Frase.Determinante->genero != "feminino";
     Frase.Nome->genero != "masculino" AND Frase.Nome->genero != "feminino";
-
+*/
 /*
 STRUCTURE:
 	part(

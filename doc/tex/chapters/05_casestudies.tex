@@ -276,7 +276,7 @@ verbo : 'come'
 \end{minipage}
 \end{center}
 
-As an example, we can also write the previous rules (\autoref{lst:arbitrary_structure}) using the keyword 'RULES' instead of 'ERRORS'.
+As an example, we can also write the previous rules (\autoref{lst:arbitrary_structure}) using the keyword `RULES' instead of `ERRORS'.
 Using this keyword, the conditions would be interpreted in a different manner - all of them need to be true in order to considered the input as valid.
 Changing the keyword would result in a slightly different specific generated grammar, because the conditions within the ‘main’ production need to be evaluated differently.
 
@@ -445,43 +445,42 @@ The principal remains the same, it all depends on the rules defined by the teach
 \begin{minipage}{10cm}
 \begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:example_complex_structure}, caption=Example of a more complex structure]
 STRUCTURE:
-    part[(Sujeito)]
     part[(
-        Predicado,
-        subparts[
-            (Verbo),
-            (Complemento_Indireto)
-        ])
-    )]
-    part[(Conjuncao)]
-	part[(
-        Predicado,
-        subparts[
-            (Verbo),
-            (Modificador_Verbal)
+        Frase, subparts[
+            (Sujeito),
+            (Predicado1, subparts[
+                (Verbo),
+                (Complemento_Indireto)
+            ]),
+            (Conjuncao),
+            (Predicado2, subparts[
+                (Verbo),
+                (Modificador_Verbal)
+            ])
         ]
     )]
 \end{lstlisting}
 \end{minipage}
 \end{center}
 
-
 \begin{center}
 \begin{minipage}{10cm}
 \begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:example_complex_input}, caption=Example of a more complex sentence input]
 INPUT:
-    - (Sujeito: ``Los soldados")
+    - (Frase (
+        Sujeito: ``Los soldados",
+		
+        Predicado1 (
+            Verbo: ``dispararon",
+            Complemento_Indireto: ``a los sentenciados"
+        ),
 
-    - (Predicado (
-        Verbo: ``dispararon",
-        Complemento_Indireto: ``a los sentenciados"
-    ))
+        Conjuncao: ``y",
 
-    - (Conjuncao: ``y")
-
-    - (Predicado (
-        Verbo: ``cayeron",
-        Modificador_Verbal: ``muertos"
+        Predicado2 (
+            Verbo: ``cayeron",
+            Modificador_Verbal: ``muertos"
+        )
     ))
 \end{lstlisting}
 \end{minipage}
@@ -491,53 +490,100 @@ As an example, it it also possible to have two identical structures, which both 
 joined by a connector to create some kind of meaning as can be seen in \autoref{lst:example_complex_structure2} and \autoref{lst:example_complex_input2}.
 
 \begin{center}
-\begin{minipage}{11cm}
-\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:example_complex_structure2}, caption=Example of a complex sentence structure]
+\begin{minipage}{12cm}
+\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:example_complex_structure2}, caption=Example of a another more complex structure]
 STRUCTURE:
-    part[(Sujeito)]
     part[(
-        Predicado,
-        subparts[
-            (Verbo),
-            (Complemento_Circunstancial_Lugar)
-        ])
-    )]
-    part[(Conjuncao)]
-    part[(Sujeito)]
-	part[(
-        Predicado,
-        subparts[
-            (Verbo),
-            (Complemento_Circunstancial_Lugar)
+        Frase, subparts[
+            (Sujeito1),
+            (Predicado1, subparts[
+                (Verbo),
+                (Complemento_Circunstancial_Lugar)
+            ]),
+            (Conjuncao),
+            (Sujeito2),
+            (Predicado2, subparts[
+                (Verbo),
+                (Complemento_Circunstancial_Lugar)
+            ])
         ]
     )]
 \end{lstlisting}
 \end{minipage}
 \end{center}
 
+%\begin{center}
+%\begin{minipage}{11cm}
+%\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:example_complex_structure2}, caption=Example of a complex sentence structure]
+%STRUCTURE:
+%    part[(Sujeito)]
+%    part[(
+%        Predicado,
+%        subparts[
+%            (Verbo),
+%            (Complemento_Circunstancial_Lugar)
+%        ])
+%    )]
+%    part[(Conjuncao)]
+%    part[(Sujeito)]
+%	part[(
+%        Predicado,
+%        subparts[
+%            (Verbo),
+%            (Complemento_Circunstancial_Lugar)
+%        ]
+%    )]
+%\end{lstlisting}
+%\end{minipage}
+%\end{center}
 
 \begin{center}
-\begin{minipage}{11cm}
-\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:example_complex_input2}, caption=Example of a complex sentence input]
+\begin{minipage}{12cm}
+\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:example_complex_input2}, caption=Example of another more complex sentence input]
 INPUT:
-    - (Sujeito: ``Juan")
+    - (Frase (
+        Sujeito1: ``Juan",
+		
+        Predicado1 (
+            Verbo: ``vive",
+            Complemento_Indireto: ``en el edificio blanco"
+        ),
 
-    - (Predicado (
-        Verbo: ``vive",
-        Complemento_Circunstancial_Lugar: ``en el edificio blanco"
-    ))
+        Conjuncao: ``y",
 
-    - (Conjuncao: ``y")
+        Sujeito2: ``Maria",
 
-    - (Sujeito: ``Maria")
-
-    - (Predicado (
-        Verbo: ``trabaja",
-        Complemento_Circunstancial_Lugar: ``aqui"
+        Predicado2 (
+            Verbo: ``trabaja",
+            Modificador_Verbal: ``aqui"
+        )
     ))
 \end{lstlisting}
 \end{minipage}
 \end{center}
+
+%\begin{center}
+%\begin{minipage}{11cm}
+%\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:example_complex_input2}, caption=Example of another complex sentence input]
+%INPUT:
+%    - (Sujeito: ``Juan")
+%
+%    - (Predicado (
+%        Verbo: ``vive",
+%        Complemento_Circunstancial_Lugar: ``en el edificio blanco"
+%    ))
+%
+%    - (Conjuncao: ``y")
+%
+%    - (Sujeito: ``Maria")
+%
+%    - (Predicado (
+%        Verbo: ``trabaja",
+%        Complemento_Circunstancial_Lugar: ``aqui"
+%    ))
+%\end{lstlisting}
+%\end{minipage}
+%\end{center}
 
 \section{Chapter Summary}
 
