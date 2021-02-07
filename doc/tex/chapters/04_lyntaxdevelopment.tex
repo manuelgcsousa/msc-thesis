@@ -4,7 +4,14 @@ This chapter will present the development and workflow of the system.
 As previously mentioned, the next step was to expand the defined DSL, and to use attributes as a form of calculation. 
 Most of the productions were expanded, allowing for certain calculations to be injected over the tree.
 
-
+It is important to identify the tools used to develop this system, as well as their respective versions.
+Firstly, \emph{Java} was the language in which the system is based on. 
+\emph{OpenJDK} (Open Java Development Kit) is a free implementation of the \emph{Java} platform, and a dependency for all the auxiliar tools. 
+Within the development phase, version \textbf{11.0.9.1} of \emph{OpenJDK} was used.
+Secondly, in order to process, execute or translate structured text (such as the DSL written), \emph{ANTLR} was used for generating a parser from a previously written grammar. 
+The system used version \textbf{4.8} of \emph{ANTLR}.
+Lastly, using the \emph{Apache NetBeans} \footnote{https://netbeans.apache.org/} (version \textbf{10}) IDE (Integrated Development Environment), 
+it was possible to build the user interface that composes the system.
 \section{Meta-Grammar}
 
 With the grammar divided into 3 main parts (STRUCTURE, ERRORS, INPUT), different types of calculations occur at different sections. The STRUCTURE and ERRORS blocks are written in a single file (by the teacher) which is then joined 
@@ -159,7 +166,7 @@ providing as input the Meta-Language Specification.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=9cm]{images/system_meta_processor.png}
+    \includegraphics[width=12cm]{images/system_meta_processor.png}
     \caption{Excerpt of the system architecture - Meta Processor.}
     \label{fig:system_architecture}
 \end{figure}
@@ -228,7 +235,7 @@ As stated in the introduction of this document, after the creation of a system c
 that allowed for a more easy and simple use of said system, without the need of directly using the command line for providing inputs or manual runtime compilations.
 The interface was built using \emph{\textbf{Swing}}, a GUI widget toolkit for \emph{Java}.
 \emph{Swing} has a lot of sophisticated GUI components available for use, allowing the developer to focus on pure functionality.
-Furthermore, using the \emph{NetBeans} \footnote{https://netbeans.org/} IDE (Integrated Development Environment) for \emph{Java}, it was possible to use a GUI builder for manipulating \emph{Swing} components, 
+Furthermore, using the \emph{Apache NetBeans} IDE for \emph{Java}, it was possible to use a GUI builder for manipulating \emph{Swing} components, 
 by dragging and dropping them to a canvas - this would generate the specific \emph{Java} code for each component.
 
 Objectively, the front-end part of the system would consist on a single window composed by two main text areas, corresponding to the rules and input blocks,
