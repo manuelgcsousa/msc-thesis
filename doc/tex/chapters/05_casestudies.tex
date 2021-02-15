@@ -278,7 +278,43 @@ verbo : 'come'
 
 As an example, we can also write the previous rules (\autoref{lst:arbitrary_structure}) using the keyword `RULES' instead of `ERRORS'.
 Using this keyword, the conditions would be interpreted in a different manner - all of them need to be true in order to considered the input as valid.
+
+\begin{center}
+\begin{minipage}{10cm}
+\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:arbitrary_structure_rules}, caption=Example of an arbitrary sentence structure with rules]
+STRUCTURE:
+    part(
+        Frase,
+        subparts[
+            (Determinante, attributes{genero}),
+            (Nome, attributes{genero}),
+            (Verbo)
+        ]
+    )
+
+RULES:
+    Frase.Determinante->genero = ``masculino" 
+    AND
+    Frase.Nome->genero = ``feminino";
+
+    Frase.Determinante->genero = ``feminino" 
+    AND
+    Frase.Nome->genero = ``masculino";
+    
+    Frase.Determinante->genero != ``masculino"
+    AND 
+    Frase.Determinante->genero != ``feminino";
+    
+    Frase.Nome->genero != ``masculino" 
+    AND 
+    Frase.Nome->genero != ``feminino";
+\end{lstlisting}
+\end{minipage}
+\end{center}
+
 Changing the keyword would result in a slightly different specific generated grammar, because the conditions within the ‘main’ production need to be evaluated differently.
+When generating the grammar, if `RULES' was the keyword chosen, we negate all conditions - if the condition is not true, it should cause an error, as the conditions,
+this time, need to be obeyed.
 
 \begin{center}
 \begin{minipage}{10cm}
@@ -311,7 +347,7 @@ main : frase
 \end{center}
 
 
-This simple example shows that the meta-language created is flexible to the point of writing arbitrary sentences or rules, 
+This example shows that the meta-language created is flexible to the point of writing arbitrary sentences or rules, 
 augmenting the possibilities of syntactic structures.
 
 \section{Further examples and structures}
@@ -321,6 +357,8 @@ Some of the previous examples had the intent of demonstrating validations and/or
 These next examples intend to explore structures with a bit more complexity.
 
 This first example is, again, composed by a Subject - Predicate structure, with some caracteristics to the Predicate itself.
+Within this Predicate, we defined a Direct Complement (\textit{Complemento\_Direto}) and a Predicative to this Complement. 
+This Predicative (\textit{Predicativo\_Complemento\_Direto}) intends to give a specific caracteristic to the Complement itself.
 
 \begin{center}
 \begin{minipage}{14cm}
@@ -356,6 +394,9 @@ INPUT:
 
 
 The next example uses an attribute to limit the domain of a component (\textit{Complemento\_Circunstancial}).
+The attribute intends to enhance the meaning of the component by giving it a type (\textit{tipo}).
+In this particular case, within the `ERRORS' block, the attribute needs to have the value ``lugar", in order to represent a certain \textit{place}, 
+and to augment the context of the sentence.
 
 \begin{center}
 \begin{minipage}{15cm}
