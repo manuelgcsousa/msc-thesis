@@ -143,10 +143,16 @@ public class Utils
     public static void getRequiredComponents(RoseTree parent, Map<String, Integer> required_components) {
         if (parent.getRequiredState()) {
             Integer occur = required_components.get(parent.getValue());
-            if (occur != null)
-                required_components.put(parent.getValue(), ++occur);
-            else
-                required_components.put(parent.getValue(), 1);
+            
+            if (parent.getValue().equals("")) {
+                String backupValue = parent.getOptionValues().iterator().next();
+                required_components.put(backupValue, -1);
+            } else {
+                if (occur != null)
+                    required_components.put(parent.getValue(), ++occur);
+                else
+                    required_components.put(parent.getValue(), 1);
+            }
             
             for (RoseTree child : parent.getChildren()) {
                 getRequiredComponents(child, required_components);

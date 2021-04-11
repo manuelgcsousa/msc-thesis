@@ -52,6 +52,10 @@ public class RoseTree
 		return this.attributes;
 	}
 
+    public Set<String> getOptionValues() {
+        return this.optionValues;
+    }
+
 	public List<String> getLexicalPart() {
 		return this.lexical_part;
 	}

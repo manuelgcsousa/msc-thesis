@@ -38,7 +38,7 @@ processor
     
 	requiredComponents = new ArrayList<>();
 }
-	: structure[struct] 
+	: structure[struct]
 	  errors[struct] 
 	  input[struct] 
 	{
@@ -299,7 +299,7 @@ block[String path, int pointer, List<RoseTree> struct]
 	RoseTree child;
 }
 	: c=WORD {
-		child = Utils.containsValue($struct, $c.text, true);
+        child = Utils.containsValue($struct, $c.text, true);
 		if (child == null) {
 			String err = String
 				.format(
