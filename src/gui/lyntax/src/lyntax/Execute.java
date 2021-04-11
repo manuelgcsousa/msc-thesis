@@ -31,7 +31,7 @@ public class Execute
     public static StringBuilder generate(String meta_lang) throws IOException {
         String _OS = System.getProperty("os.name").toLowerCase();
         String cmd = 
-            _OS.contains("windows") ? "cmd /c \\Resources\\exec.bat -g" : "./Resources/exec.sh -g"
+            _OS.contains("windows") ? "cmd /c .\\Resources\\exec.bat -g" : "./Resources/exec.sh -g"
         ;
         System.out.println(cmd); // DEBUG
         System.out.println(System.getProperty("user.dir")); // DEBUG
