@@ -1,0 +1,11 @@
+# Build the image (with Dockerfile).
+sudo docker build -t a78869_msc_site:latest .
+
+# Run the build in the given ports.
+sudo docker run -d -p 10401:10401 a78869_msc_site:latest
+
+# Stop a container.
+sudo docker stop <container_name> 
+
+# DELETE ALL!
+sudo docker system prune -a

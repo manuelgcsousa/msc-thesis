@@ -1,0 +1,31 @@
+{% include "_layout.html" %}
+
+<title>Lyntax - Feedback</title>
+
+<div class="content" id="page_content">
+	<h2 style="margin-top: 20px;">Feedback</h2>
+	<br />
+    
+	<div class="w3-container w3-card-4 w3-light-grey">
+        <form method="POST" action="/feedback">
+            <p>
+				<label>Email:</label>
+				<input class="w3-input w3-border w3-round-large" name="email" type="text" required="required" />
+			</p>
+            
+			<p>
+				<label>Comment:</label>
+				<textarea class="w3-input w3-border w3-round-large" name="comment" type="text" rows="5" maxlength="500" required="required"></textarea>
+			</p>
+            
+			<p>
+				<br />
+				<input class="w3-btn" type="submit" value="Send" style="background-color: rgb(140, 187, 251); color: white;" />
+			</p>
+        </form>
+    </div>
+
+    <script>
+        $('#menu_feedback').addClass('active');
+    </script>
+</div>

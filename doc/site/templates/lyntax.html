@@ -1,0 +1,91 @@
+{% include "_layout.html" %}
+
+<style>
+    hr {
+        height: 3px;
+        background-color: rgb(140, 187, 251);
+    }
+</style>
+<div class="content" id="page_content">
+    <h2 id="information" style="margin-top: 20px;">Lyntax </h2>
+    <div class="w3-container">
+        <p>The main purpose of this tool is to generate ANTLR instructions based on a previously created specification.
+		This specification is written in a Domain Specific Language (Meta-Grammar) that allows the definition of possible sentence structures.
+		When processed, a file called <em>Grammar.g4 </em>is generated, which corresponds to the ANTLR instructions for the recognition of a sentence.
+		Then, by processing the new generated file and by giving input accordingly, a visual syntax parse tree allows for a better analysis of the input.
+		</p><br/>
+        
+		<h3 id="folder-structure">Versions</h3>
+        <ul>
+            <li>
+                <p><strong>CLI</strong> - command line version of the tool.</p>
+                <ul>
+                    <li>
+						<p>Allows for a quick and easy usage of the tool (only works on UNIX).</p>
+                    </li>
+                    <li>
+                        <p>Source code of the Meta-Grammar as well as a Makefile for recompilation.</p>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <p><strong>GUI</strong> - graphical user interface that acts like a wrapper.</p>
+                <ul>
+                    <li>
+                        <p>Composed of two main text areas that correspond to the Rules and Input blocks.</p>
+                    </li>
+                    <li>
+                        <p>Allows for the generation of the specific grammar and analysis of the input.</p>
+                    </li>
+                    <li>
+                        <p>Can be used as an editor for the specification.</p>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <hr />
+
+    <h2 id="usage" style="margin-top: 20px;">Usage</h2>
+    <div class="w3-container">
+        <p>The CLI version has an included help message to explain which options are available, and how to use them.</p>
+        <pre>$ ./lyntax -h
+lyntax
+Practice linguistic rules.
+
+USAGE:
+    | lyntax [-h | help]
+    | lyntax [-g | generate] &lt;RULES&gt; &lt;INPUT&gt;
+    | lyntax [-r | run]
+    | lyntax [-c | clean]
+
+OPTIONS:
+    -h, help              Help message.
+    -c, generate          Generates Grammar sources.
+    -r, run               Compiles Grammar sources, running it given the sentence as input.
+    -c, clean             Cleans files.
+
+ARGS:
+    &lt;RULES&gt;               Sentence rules (STRUCTURE + ERRORS blocks).
+    &lt;INPUT&gt;               Parsed input (INPUT block).
+</pre><br />
+        <p>As for the GUI version (compiled as a JAR file), the interaction is pretty straight forward.</p>
+    </div>
+    <hr />
+    
+	<h2 id="dependencies">Dependencies</h2>
+    <div class="w3-container">
+        <ul>
+            <li>
+                <p><strong>JDK</strong> (Java Development Kit)</p>
+            </li>
+            <li>
+                <p><strong>ANTLR</strong> (ANother Tool for Language Recognition)</p>
+            </li>
+        </ul><br />
+    </div>
+    
+	<script>
+        $('#menu_tool').addClass('active');
+    </script>
+</div>

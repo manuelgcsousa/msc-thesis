@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Lyntax - Home</title>
+		
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/static/css/style.css">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="/static/js/slides.js"></script>	
+	</head>
+
+	<body>
+		<div class="sidenav">
+			<a id="menu_home" href="/">Home</a>
+			
+			<button class="dropdown-btn" id="menu_tool">Lyntax
+				<i class="fa fa-caret-down"></i>
+			</button>
+
+			<div class="dropdown-container">
+				<a href="/lyntax/information">Information</a>
+				<a href="/lyntax/download">Download</a>
+			</div>
+			
+			<a id="menu_dsl" href="/dsl">DSL</a>
+			
+			<a id="menu_feedback" href="/feedback">Feedback</a>
+			
+			<a id="menu_about" href="/about">About</a>
+		</div>
+		
+		<script>
+			var dropdown = document.getElementsByClassName('dropdown-btn');
+
+            for (let i = 0; i < dropdown.length; i++) {
+                dropdown[i].addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    var dropdownContent = this.nextElementSibling;
+
+                    if (dropdownContent.style.display === 'block')
+                        dropdownContent.style.display = 'none';
+                    else
+                        dropdownContent.style.display = 'block';
+                });
+            }
+		</script>
+	</body>
+</html>
