@@ -1,0 +1,21 @@
+STRUCTURE:
+	part[(
+        Sujeito, 
+        attributes{tipo}, 
+        subparts[
+            (Determinante)?, 
+            (Nome)
+        ]
+	)]
+    
+	part[(
+        Predicado,
+        subparts[
+            (Verbo, attributes{tipo}),
+            (Complemento_Direto, subparts[(Determinante)?, (Nome)]),
+        ]
+	)]
+
+ERRORS:
+    Sujeito->tipo = "animado" AND Predicado.Verbo->tipo = "inanimado";
+    Sujeito->tipo = "inanimado" AND Predicado.Verbo->tipo = "animado";

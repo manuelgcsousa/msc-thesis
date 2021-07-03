@@ -1,8 +1,6 @@
-\chapter{State of the Art} \label{state_of_the_art}
-
 In this chapter is of the utmost importance to define some concepts that were used as a basis for this thesis. 
 In addition, it will be discussed possible tools that already answer some of the questions that this thesis is trying to answer, and for that matter are important to be studied and referenced.
-	
+
 
 \section{Context-free Grammar}
 
@@ -67,7 +65,7 @@ and noticed that it wasn't good enough for the students to master all the concep
 with great apititude to produce solutions, but leaving aside the respective specifications, which lead to poor and innacurate formal specifications, but on the other hand, 
 linguistic students produced good formal specifications, as they are proficient with the natural language,
 but lack computer science skills to well transpose all the knowledge into computacional models \cite{sierra_2006}.
-	
+
 The result was an environment based in attribute grammars that allows the specification of those same grammars using a language close to Prolog. 
 The main goal was to embed Prolog into the language and maintain all the familiar basic notation, 
 the reason being both groups of students were already familiar with the Prolog and attribute grammar syntax and notation. 
@@ -93,38 +91,37 @@ while giving the user feedback within each step.
 \noindent CONSTRUCTOR is composed by the following parts:
 
 \begin{itemize}
-	\item \textbf{Lexical Analyser} - consists in a machine dictionary of more than 300 items that are usually necessary for issuing commands.
-		It also stores synonyms of the various items, as different people (based on age or level of training) may use different (but similar) words.
-		This module is also extended by a morphological analyser, which analyses words that are not present in the dictionary,
-		extracting its canonical lexeme an then perform an evaluation.
-	
-	\newpage
-	\item \textbf{Syntactic Parser} - a string of tokens and terminals is used as input for the syntactic parser.
-		This string is then processed into a sentence (or list of) with some structure assigned to it.
-		All sentences must only describe one step and one step only, but nested sentences are possible.
-		Below there is a table, extracted for the article (\cite{alexin_1990}) that shows various sentences examples.
-		\begin{figure}[h]
-			\centering
-			\includegraphics[width=10cm]{images/constructor_sentence_struct.png}
-			\caption{Example of structured input sentences for CONSTRUCTOR.}
-			\label{fig:constructorSentenceStruct}
-		\end{figure}
+\item \textbf{Lexical Analyser} - consists in a machine dictionary of more than 300 items that are usually necessary for issuing commands.
+It also stores synonyms of the various items, as different people (based on age or level of training) may use different (but similar) words.
+This module is also extended by a morphological analyser, which analyses words that are not present in the dictionary,
+extracting its canonical lexeme an then perform an evaluation.
 
-	\item \textbf{Attribute Evaluation} - computes the basic features of grammatical structures, such as synthesized attributes.
-		This computation will mostly involve synthesized attribute evaluation.
+\item \textbf{Syntactic Parser} - a string of tokens and terminals is used as input for the syntactic parser.
+This string is then processed into a sentence (or list of) with some structure assigned to it.
+All sentences must only describe one step and one step only, but nested sentences are possible.
+Below there is a table, extracted for the article (\cite{alexin_1990}) that shows various sentences examples.
+\begin{figure}[h]
+\centering
+\includegraphics[width=10cm]{images/constructor_sentence_struct.png}
+\caption{Example of structured input sentences for CONSTRUCTOR.}
+\label{fig:constructorSentenceStruct}
+\end{figure}
 
-	\newpage
-	\item \textbf{Semmantic Interpretation} - the semantic interpreter takes the results of all evaluations done before as input.
-		The goal is to transform the English sentences into a \textit{metalevel} description intended for building complex noun phrases.
-		\begin{figure}[h]
-			\centering
-			\includegraphics[width=12cm]{images/constructor_metalevel_desc.png}
-			\caption{Example of a \textit{metalevel} description of CONSTRUCTOR.}
-			\label{fig:constructorMetalevelDesc}
-		\end{figure}
-	
-	\item \textbf{Construction Creator} - final component which takes a formal specification of an object, defining all the procedures to be executed.
-		The results is a drawn geometric figure.
+\item \textbf{Attribute Evaluation} - computes the basic features of grammatical structures, such as synthesized attributes.
+This computation will mostly involve synthesized attribute evaluation.
+
+\newpage
+\item \textbf{Semmantic Interpretation} - the semantic interpreter takes the results of all evaluations done before as input.
+The goal is to transform the English sentences into a \textit{metalevel} description intended for building complex noun phrases.
+\begin{figure}[h]
+\centering
+\includegraphics[width=12cm]{images/constructor_metalevel_desc.png}
+\caption{Example of a \textit{metalevel} description of CONSTRUCTOR.}
+\label{fig:constructorMetalevelDesc}
+\end{figure}
+
+\item \textbf{Construction Creator} - final component which takes a formal specification of an object, defining all the procedures to be executed.
+The results is a drawn geometric figure.
 \end{itemize}
 
 The purpose of exploring a tool of this type is not directly related to linguistics nor linguistic rules training.
@@ -135,55 +132,54 @@ The relevance of this reference is related to the use of attribute grammars with
 VisualLISA is a visual programming environment created by Nuno Oliveira in the year of 2009 \cite{oliveira_2009} for the specification of attribute grammars. 
 Classified as a ``Domain Specific  Visual Language'', its main goal was to enhance the front-end of one other tool named LISA \footnote{https://labraj.feri.um.si/lisa/}, 
 a compiler generator based in AG's that creates different visual tools based on the textual specification of the grammars.
-    
+
 The aim of this tool was to decrease the difficulty which is involved with specifying attribute grammars, not only for the LISA environment, but also regarding other types of systems, 
 making specifications more visual and graphical.
-    
+
 Specifying grammars in a visual manner can be done using a set of icons (\autoref{fig:visuallisa_icons}) that must be combined to obtain the wanted result. 
 Each icon or symbol has a unique function, and it is the users task to make the connections in a correct way.
-    
+
 % Imagem dos icons do VisualLISA
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=10cm]{images/visuallisa_icons.png}
-    \caption{VisualLISA set of icons.}
-    \label{fig:visuallisa_icons}
+\centering
+\includegraphics[width=10cm]{images/visuallisa_icons.png}
+\caption{VisualLISA set of icons.}
+\label{fig:visuallisa_icons}
 \end{figure}
 
-\newpage
 The environment (\autoref{fig:visuallisa_window}) consists in 4 windows, each one with an individual task: 
 declare the productions of the grammar in a textual manner; 
 declare functions, data-types, etc.; 
 draw the grammar productions; 
 specify computation rules that were previously declared.
-    
+
 % Imagem da janela do VisualLISA
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=10cm]{images/visuallisa_window.png}
-    \caption{VisualLISA main window.}
-    \label{fig:visuallisa_window}
+\centering
+\includegraphics[width=10cm]{images/visuallisa_window.png}
+\caption{VisualLISA main window.}
+\label{fig:visuallisa_window}
 \end{figure}
-    
+
 As an example, it was included a textual specification (\autoref{fig:textual_students_grammar}) 
-and the respective graphical specification (\autoref{fig:graphical_students_grammar}), extracted from the paper \cite{oliveira_2009}.
-    
+and the respective graphical specification (\autoref{fig:graphical_students_grammar}), extracted from \cite{oliveira_2009}.
+
 % Students Grammar
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=15cm]{images/textual_students_grammar.png}
-    \caption{Students textual grammar.}
-    \label{fig:textual_students_grammar}
+\centering
+\includegraphics[width=15cm]{images/textual_students_grammar.png}
+\caption{Students textual grammar.}
+\label{fig:textual_students_grammar}
 \end{figure}
 
 \newpage
 
 % VisualLISA Conception
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=8cm]{images/graphical_students_grammar.png}
-    \caption{Students graphical grammar.}
-    \label{fig:graphical_students_grammar}
+\centering
+\includegraphics[width=8cm]{images/graphical_students_grammar.png}
+\caption{Students graphical grammar.}
+\label{fig:graphical_students_grammar}
 \end{figure}
 
 The main effect of the tool is not directly related to the problem that is trying to be solved, as the target users (linguists) may not be familiar with attribute grammars concepts such as 
@@ -196,11 +192,10 @@ Nevertheless, all the visual components that are associated could give some insi
 
 In the previous sections, some tools were presented and major concepts discussed.
 Some of the tools may not have a direct impact on the proposal of this thesis, but their research and inclusion on this document were crucial.
-Each of the sections, despite their various differences, share the use of attribute grammars as a basis for a particular system,
-or even to simplify their use thorugh various techniques.
+Each of the sections, despite their various differences, share the use of attribute grammars as a basis for a particular system, or even to simplify their use through various techniques.
 
 The solution proposed is an approach that, despite using attribute grammars, 
-it is based on a new textual \textsc{DSL} using \textsc{ANTLR} and the automated generation of processors in order to validate sentences.
+is based on a new textual \textsc{DSL} using \textsc{ANTLR} and the automated generation of processors in order to validate sentences.
 In the next chapter, the proposal for this particular system will be discussed further.
 
 

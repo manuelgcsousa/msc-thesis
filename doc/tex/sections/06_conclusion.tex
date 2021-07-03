@@ -1,43 +1,42 @@
-\chapter{Conclusion} \label{conclusion}
-
 Following the objectives mencioned at the beginning of the document, it is possible to understand that all of them were reached and addressed.
 Despite different challenges along the path, each of the bullet points have their respective solution and approach documented.
 
-The definition of a new well-rounded DSL was done in order to allow common users to define various kinds of sentence structures and rules.
+The definition of a new well-rounded DSL was done in order to allow a linguistic teacher to define various kinds of sentence structures and rules.
 Using AG's, the processing and recognition of said DSL enabled for various types of calculations to occur.
-Using ANTLR, we were able to generate a parser to this DSL that would perform many validations of the input and generate a specific grammar for the sentence that was
-intended to be tested.
-Once again, using ANTLR, we would generate a parser from one newly obtained grammar, allowing for the verification of the sentence and the visualization and analysis
+Using ANTLR, it is possible to generate a parser for this DSL that would perform many validations of the input and generate a specific grammar for the sentence to be tested.
+Once again, using ANTLR, it is possible to generate a parser from the previously mentioned grammar, allowing for the verification of the sentence and the visualization and analysis
 of the syntax tree.
 
 The tool designed to support these functionalities was named Lyntax. Lyntax is the name of the tool that merges the Meta-Language processor and validator with an
 user interface that allows for the specification of the language, such as an editor.
 This interface grants the user the possibility of generating the specific grammar and their respective parser at a high-level, with just the click of a button.
-The abstraction of complexity behind the covers allows the user to focus only on the main part, which is the definition and testing of linguistic rules.
+The abstraction of complexity behind the interface allows the user to focus only on the main part, which is the definition and testing of linguistic rules.
 
-During the development of the tool, one of the main challenges faced was the validation of the input for a specific structure (previously discussed on \textbf{Chapter 4}).
-More than validating the components, the processor needed to analyse the order of said components to verify the obedience to the structure.
+During the development of the tool, one of the main challenges faced was the validation of the input for a specific structure (discussed in \textbf{Chapter 4}).
+More than validating the components, the processor needed to analyse the order of said components to verify the compliance with the structure.
 This trial and error process was based on trying different types of data structures to store the information and their respective traversals.
 The solution implemented was a multi-way tree, or rose tree, that is composed by an unbounded number of branches per node.
 This way, we would preserve order to help with the evaluation, but also support multiple components per node.
 The process for the validation of the input relies significantly in the traversal and comparision of the components in the rose tree, 
 which contains the teacher's pre-defined structure. 
 
+Additionally, a scientific article was developed side by side with this document. 
+This was accepted by the \textit{10th Symposium on Languages, Applications and Technologies (SLATE 2021)} and soon to be published \cite{SPH:2021b}.
 
-\section{Future Work}
+\section{Future Work} % iteratividade de componentes.
 
 It is with no surprise that the COVID-19 pandemic would affect some aspects of the work that was supposed to be done, and of course delay some of the activities planned.
 One very important task that is still to be done is the conduction of tests with the final users - this could be both students from secondary schools or university.
-The main objective would be to see how the students would react and embrace the tool and its functionalities, and well as the analysis of their user experience.
-Lastly, the users would be given a survey with various questions that would try to represent their experience,
+The main objective would be to see how the students would react and embrace the tool and its functionalities, as well as the analysis of their user experience.
+Lastly, the users would be given a survey with various questions to collect their experience,
 but also query them about the usefulness of the tool and how it could help or enhance their study process within the classroom.
 
-Following a more technical approach, an enhancement that could possibly be implemented is the iteractivity in components within the specification of the language.
-What it means is the possibility of the teacher to define 0 or more parts only with a single line, for example:
+From a more technical point of view, an enhancement that should be implemented is the iterative operator that allows to express the repetition of components within the specification of the language.
+What it means is the possibility of the teacher to define 1 or more occurrences of a component without the need of recursion, for example:
 
 \begin{center}
 \begin{minipage}{8cm}
-\begin{lstlisting}[language=java, basicstyle=\small, label={lst:possible_component_it}, caption=Example of a possible component iteractivity syntax.]
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:possible_component_it}, caption=Example of a possible use for the iterative operator.]
 part[
     (Sujeito)+
 ]
@@ -45,12 +44,12 @@ part[
 \end{minipage}
 \end{center}
 
-The result of a phrase like the one above would mean that the component ``Sujeito" could be defined multiple times.
-At the moment, such functionality is not possible due to the fact that the way the students input is validated depends on the paths within the tree data structure.
+The specification in \autoref{lst:possible_component_it} means that the component ``Sujeito" could be defined multiple times.
+At the moment, such functionality is not available due to the fact that the way the students input is validated depends on the paths within the tree data structure.
 As a result of adding a component with an arbitrary number of occurences, the paths would not match up.
-One other thing to keep in mind, is the replication of attributes.
-Following \autoref{lst:possible_component_it} structure, every ``Sujeito" component would have the same attributes, 
-so this functionality could only be used to some specific tests.
+% One other thing to keep in mind, is the replication of attributes.
+% Following \autoref{lst:possible_component_it} structure, every ``Sujeito" component would have the same attributes, 
+% so this functionality could only be used to some specific tests.
 
 
 %With this document, the main objective was to conduct a study and analysis about what this problem involves and what could, in any way, help create an adequate solution. Furthermore, the first approach to the problem was documented, giving special attention to the case studies and a first sketch of what will become a new language for linguists.

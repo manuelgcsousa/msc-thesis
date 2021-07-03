@@ -1,8 +1,8 @@
-\chapter{Lyntax: Development} \label{lyntax_development}
-
 This chapter will present the development and workflow of the system. 
-As previously mentioned, the next step was to expand the defined DSL, and to use attributes as a form of calculation. 
-Most of the productions were expanded, allowing for certain calculations to be injected over the tree.
+As previously mentioned, the next step was to expand the defined DSL,
+and to use attributes as a form of calculation. 
+Most of the productions were expanded, allowing for certain evaluations to be injected 
+over the tree.
 
 It is important to identify the tools used to develop this system, as well as their respective versions.
 Firstly, \emph{Java} was the language in which the system is based on. 
@@ -66,7 +66,6 @@ place - this created the need for a Component class.
 
 The Component class would store the name of the component, a possible value and a Map that associated each attribute with some value. The components would all be stored
 within a List.
-\newpage
 
 \begin{center}
 \begin{minipage}{10cm}
@@ -142,9 +141,9 @@ a lexical part (if it is the case), and finally a list of nodes, referred as the
 
 After the parsing of the structure, there are a list of conditions named ERRORS that need to be validated and converted into \emph{Java} syntax - this conversion would then be injected on the main rule of the generated grammar. These logical expressions are based on the attributes of each component and their relations. For example, if the teacher says that a component \emph{\textbf{A}} has an attribute named \emph{\textbf{a}}, and this attribute is required to have value \emph{\textbf{x}}, if the student assigns it a value of \emph{\textbf{z}}, then an error should appear. All these conditions can be combined with the logical operands ``AND'' or ``OR''. The way that is parsed is based on the path specified by the teacher when accessing the attribute. Using the example before, a component \emph{\textbf{A}} with a child \emph{\textbf{B}}, with \emph{\textbf{B}} having a attribute \emph{\textbf{x}}, in order to access it, the syntax should be
 
-\[ A.B -\textgreater x \]
+\[ A.B -> x \]
 
-\noindent as the full path is required. This is done in order to calculate the correct path and avoid ambiguity between attributes. Over the parsing of these rules, the path is being validated, and in case of any error, the user is notified.
+\noindent as the full path is required. This is done in order to calculate the correct path and avoid ambiguity between attributes. While parsing these rules, the path is being validated, and in case of any error, the user is notified.
 
 Finally, the last block corresponds to the input that was written by the student. 
 The goal is to validate the components that were defined, and match them with the structure created by the teacher. 
@@ -168,10 +167,9 @@ providing as input the Meta-Language Specification.
     \centering
     \includegraphics[width=12cm]{images/system_meta_processor.png}
     \caption{Excerpt of the system architecture - Meta Processor.}
-    \label{fig:system_architecture}
+    \label{fig:excerpt_system_architecture}
 \end{figure}
 
-\newpage
 \noindent Using the command line, the instruction:
 \begin{Verbatim}
 	java -jar lib/MetaGrammar.jar input/meta-lang
@@ -188,17 +186,16 @@ and create the strings of text for the grammar, which will then be appended to a
 
 The principle of this generator is to create the independent strings first, and then recursively traverse the tree in order to create the productions themselves.
 This task was done using an auxiliar data structure,
-\begin{Verbatim}
-	Map<String, StringBuilder> productions 
-		= LinkedHashMap<>();
-\end{Verbatim}
+\begin{verbatim}
+        Map<String, StringBuilder> productions = LinkedHashMap<>();
+\end{verbatim}
 \noindent with each \underline{key} representing the name of a production, and each \underline{value} representing the various words that composed the rule of said production.
 The chosen structure would be a \emph{Linked Hash Map}, as the insertion order was important to maintain.
 While traversing the tree, the information would be processed and also stored within the auxiliar Map.
 Lastly, all strings containing the productions, and also a lexer, are printed into a file of type ``.g4". 
 This is the file containing the grammar which will then be use to create the sentence validator.
 
-\newpage
+
 \section{Sentence Validator}
 
 If no errors occur in the previous step, we should now have a file named ``Grammar.g4" that corresponds to the Specific Natural Language Grammar.
@@ -206,11 +203,8 @@ This grammar contains all the tokens extracted from the Meta-Language specificat
 When providing the student's sentence to the Sentence Validator, and if all goes well, a Syntax Tree should be generated using a tool called \emph{TestRig}.
 Using the command line once again, and providing a specific flag to the tool (\emph{-gui}), we obtain the final syntax tree for the sentence provided: 
 \begin{Verbatim}
-	java -cp \ 
-		"lib/antlr-4.8-complete.jar:$CLASSPATH" \ 
-		org.antlr.v4.gui.TestRig \ 
-			Grammar main input/sentence \ 
-		-gui
+	java -cp "lib/antlr-4.8-complete.jar:$CLASSPATH" \
+	    org.antlr.v4.gui.TestRig Grammar main input/sentence -gui
 \end{Verbatim}
 
 \begin{figure}[h]
@@ -220,6 +214,7 @@ Using the command line once again, and providing a specific flag to the tool (\e
     \label{fig:systemSentenceValidator}
 \end{figure}
 
+\newpage
 \noindent As an example, using \autoref{lst:metaStruct} and \autoref{lst:metaInput}, the generated syntax tree would be:
 \begin{figure}[h]
     \centering
@@ -228,7 +223,6 @@ Using the command line once again, and providing a specific flag to the tool (\e
     \label{fig:testrigGuiExample}
 \end{figure}
 
-\newpage
 \section{Lyntax: Interface}
 
 As stated in the introduction of this document, after the creation of a system capable of testing various sentences, the goal was to build an user interface
@@ -310,14 +304,15 @@ It was also included a tab for the visualization of the \textsc{DSL} created, fo
     \label{fig:lyntaxWebsiteDSL}
 \end{figure}
 
+\newpage
 \section{Chapter Summary}
 
 At this stage, the development of the system is concluded.
-The result was, firstly, a DSL that allows for the specification of sentence structures and rules, as well as a respective input for those same structures.
-Secondly, the core system which processed the Meta-Language specification, generated a specific grammar, 
-and then used that grammar to create a validator for the analysis and evaluation of a specified sentence.
-At last, and as a way of abstracting the complexity of the core system, 
-the front-end intends to deliver a more flexible and straight forward use of the tool,
+The result was, firstly, a DSL that allows for the specification of sentence structures and rules, as well as a respective input for the structures provided.
+Secondly, the core system which processes the Meta-Language specification, generates a specific grammar, 
+and then uses that grammar to create a validator for the analysis and evaluation of a specified sentence.
+At last, and as a way of hiding the complexity of the core system, 
+the front-end provides a more flexible and straight forward use of the tool,
 allowing the user to focus on the description of the rules and testing of sentences.
 
 The main challenges faced over the development period were, firstly,
@@ -326,7 +321,7 @@ As previously discussed, this structure demanded for a set of specified requirem
 so this task took quite a few tries and experiments to get right and accurate.
 Lastly, the error handling of the tool may cause some confusion at first, as it is handled and processed within the Meta-Grammar processor.
 This error message is then passed onto the specific natural language grammar, and printed to the user into a formatted window to ease the process.
-Nevertheless, the rules errors are precise and easy to understand.
+Nevertheless, the errors are precise and easy to understand.
 
 Within the next chapter, some case studies will be explored in order to prove the correct functioning of the system.
 

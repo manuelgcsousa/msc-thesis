@@ -1,5 +1,3 @@
-\chapter{Lyntax: Proposal} \label{lyntax_proposal}
-
 The main purpose of this proposal is the definition of a \textsc{DSL} that allows the specification of all different kinds of sentences (done by the linguistic teacher), and afterwards, the possibility of the student to test his own sentences and check if they are written accordingly to the rules also previously specified by the linguistic teacher. One obstacle that was encountered was how to extract the lexical part of the sentence, and in what way would each component be classified. In fact, this task is quite subjective, as different components may have various definitions in one context. % for example: (...). % Introduzir exemplo da professora!!!! 
 Having known this, the decision was made that the student would beforehand identify the lexical part of the sentence.
 % FALAR DO QUE VOU FAZER DE DIFERENTE (DICA DO LÁZARO!)
@@ -54,14 +52,14 @@ Firstly, the teacher specification will be discussed - meaning the \textbf{struc
 The \textbf{structure} block is divided into \textbf{parts}, or main parts. These main parts correspond to the main components of the sentence. Each of these parts have an \textbf{element} within, containing the information about a certain component.
 
 \begin{center}
-\begin{minipage}{14cm}
+\begin{minipage}{13cm}
 \begin{lstlisting}[language=java, basicstyle=\small, label={lst:dsl_struct_prod}, caption=DSL structure/part/element productions]
 structure : 'STRUCTURE:' (part)+ ;
 
 part : 'part' '[' element ']' ;
 
-element : '(' WORD ( '|' WORD )* ( ',' attributes )? ( ',' subparts )? ')' 
-    ('?')? ;
+element : '(' WORD ( '|' WORD )* ( ',' attributes )? 
+           ( ',' subparts )? ')' ('?')? ;
 \end{lstlisting}
 \end{minipage}
 \end{center}
@@ -69,7 +67,7 @@ element : '(' WORD ( '|' WORD )* ( ',' attributes )? ( ',' subparts )? ')'
 The \textbf{element} is composed by the name of the component, a possible set of \textbf{attributes} and possible \textbf{subparts}.
 
 \begin{center}
-\begin{minipage}{13cm}
+\begin{minipage}{12cm}
 \begin{lstlisting}[language=java, basicstyle=\small, label={lst:dsl_attrs_prod}, caption=DSL attributes/subparts productions]
 attributes : 'attributes' '{' WORD ( ',' WORD )* '}'
 ;
@@ -122,7 +120,7 @@ Thirdly, and finally, the \textbf{input} block, which corresponds to the student
 by the student, allowing for a correct and non-subjective parsing of each word in the sentence.
 
 \begin{center}
-\begin{minipage}{8cm}
+\begin{minipage}{6cm}
 \begin{lstlisting}[language=java, basicstyle=\small, label={lst:dsl_input_prod}, caption=DSL input production]
 input : 'INPUT:' phrase 
 ;
@@ -140,7 +138,7 @@ It is also important to notice that a correct path must be specified by the stud
 If the student specifies a component that is not declared in the structure defined previously by the teacher, then an error should be thrown.
 
 \begin{center}
-\begin{minipage}{10cm}
+\begin{minipage}{9cm}
 \begin{lstlisting}[language=java, basicstyle=\small, label={lst:dsl_parts_prod}, caption=DSL parts/component/content productions]
 parts : '(' block ( ',' block )* ')'
 ;
@@ -157,9 +155,10 @@ content : (slice)? (attrs)? (parts)?
 The student can specify the \textbf{slice} of the sentence that corresponds to the component that is being declared, and a set of attributes (\textbf{attrs}) that composes said component. Furthermore, it is possible to continue to define more \textbf{parts} within one part, just like the teacher's \textsc{DSL} \textbf{subparts}.
 
 \begin{center}
-\begin{minipage}{11cm}
-\begin{lstlisting}[language=java, basicstyle=\small, label={lst:dsl_slice_prod}, caption=DSL slice/attrs/evaluations/eval productions]
-slice : ':' '``' (WORD)+ '"'
+\begin{minipage}{8cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:dsl_slice_prod},
+caption=DSL slice/attrs/evaluations/eval productions]
+slice : ':' '"' (WORD)+ '"'
 ;
 
 attrs : '[' evaluations ']'
@@ -168,7 +167,7 @@ attrs : '[' evaluations ']'
 evaluations : eval ( ',' eval )*
 ;
 
-eval : WORD '=' '``' WORD '"'
+eval : WORD '=' '"' WORD '"'
 ;
 \end{lstlisting}
 \end{minipage}
@@ -179,8 +178,8 @@ Inside the \textbf{slice} production, a list of words can be written. These are 
 For a better understanding of the three main categories (structure, errors and input), bellow there is an example that is based on the first case study, and shows what the specification of the teacher should look like.
 
 \begin{center}
-\begin{minipage}{13cm}
-\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:metaStruct}, caption=Example of a possible sentence structure]
+\begin{minipage}{16cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:metaStruct}, caption=Example of a possible sentence structure]
 STRUCTURE:
 	part[(
         Sujeito, 
@@ -200,8 +199,8 @@ STRUCTURE:
 	)]
 
 ERRORS:
-    Sujeito->tipo = ``animado" AND Predicado.Verbo->tipo = ``inanimado";
-    Sujeito->tipo = ``inanimado" AND Predicado.Verbo->tipo = ``animado";
+    Sujeito->tipo = "animado" AND Predicado.Verbo->tipo = "inanimado";
+    Sujeito->tipo = "inanimado" AND Predicado.Verbo->tipo = "animado";
 \end{lstlisting}
 \end{minipage}
 \end{center}
@@ -210,13 +209,14 @@ In the case of the student, this is the specification that should be used and on
 
 \begin{center}
 \begin{minipage}{13cm}
-\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:metaInput}, caption=Example of the students parsing]
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:metaInput}, caption=Example of the students parsing]
 INPUT:
-    - (Sujeito: ``O Carlos" [tipo = ``animado"]
-        (Determinante: ``O", Nome: ``Carlos"))
-    - (Predicado: ``teme a sinceridade" 
-        (Verbo: ``teme" [tipo = ``animado"], Complemento_Direto: ``a sinceridade" 
-            (Determinante: ``a", Nome: ``sinceridade")))
+    - (Sujeito: "O Carlos" [tipo = "animado"]
+        (Determinante: "O", Nome: "Carlos"))
+    - (Predicado: "teme a sinceridade" 
+        (Verbo: "teme" [tipo = "animado"], 
+         Complemento_Direto: "a sinceridade" 
+            (Determinante: "a", Nome: "sinceridade")))
 \end{lstlisting}
 \end{minipage}
 \end{center}
@@ -224,7 +224,7 @@ INPUT:
 
 \section{Chapter Summary}
 
-In this chapter, it was discussed the different phases of the proposed system architecture and what the output of a system like this should be.
+In this chapter, it was discussed the different components of the proposed system architecture and what the output of a system like this should be.
 The principle is to create a new Domain Specific (Meta) Language that allows for the specification of sentence structures as well as proper input.
 Within this system, a processor for this Meta-Language is created by using \textsc{ANTLR},
 which evaluates the specification written and is tasked with the generation of a specific natural language grammar.

@@ -1,16 +1,15 @@
-\chapter{Case Studies} \label{case_study}
-In order to better explain the solution architecture presented in this thesis, and also validate the work previous presented, 
-some concrete examples will be presented in this section. 
+In order to better explain the architecture proposed in this Masters' work, 
+some concrete examples will be discussed in this section. 
 The main idea is to show the specifications used by the teacher and by the student and how the generator processor verifies the correcteness of the student sentences. 
-The DSL design consists in slicing the sentence into parts, and each part can have subparts.
+The DSL specification consists in slicing the sentence into parts, and each part can have subparts.
 
-These case studies are also relevant as an example for a possible pedagogical scenario by using the system in a classroom context.
+The case studies chosen to be presented in this chapter are also relevant as an example for a possible pedagogical scenario by using the system in a classroom context.
 The purpose of this chapter is to also demonstrate some of the process in which both the Teacher and Student will be involved, and to exhibit some common structures
 and inputs as well as their results.
 
 \section{Attribute Validation}
 This case study intends to demonstrate the validation on sentence components based on their attributes. The example showed in the previous chapter 
-(\autoref{lst:metaStruct}) contains a structure that is composed by two main parts: a subject (\underline{Sujeito}) and a predicate (\underline{Predicado}). 
+(\autoref{lst:metaStruct}) contains a structure that is composed of two main parts: a subject (\underline{Sujeito}) and a predicate (\underline{Predicado}). 
 The subject is then subdivided into a possible determiner (\underline{Determinante}) and a noun (\underline{Nome}), which are then matched with a word 
 (the lexical part identified by the student). The predicate is composed by a verb and a complement that is directly related to the verb. This complement 
 (\underline{Complemento\_Direto}) is then composed by a possible determiner (\underline{Determinante}) and a mandatory noun (\underline{Nome}).
@@ -27,45 +26,39 @@ When running the example above (\autoref{lst:metaStruct} plus \autoref{lst:metaI
 in then generated. For this specific case, this is the generated grammar.
 
 \begin{center}
-\begin{minipage}{10cm}
-\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:case_study_sentence}, caption=Example of a specific generated grammar.]
+\begin{minipage}{13cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:case_study_sentence}, caption=Example of a specific generated grammar.]
 grammar Grammar;
 
 @members {
-    final String Sujeito__TIPO = ``animado";
-    final String Predicado__Verbo__TIPO = ``animado";
+    final String Sujeito__TIPO = "animado";
+    final String Predicado__Verbo__TIPO = "animado";
 }
 
 
 main : sujeito predicado
 {
-    if ( Sujeito__TIPO.equals(``animado") &&
-         Predicado__Verbo__TIPO.equals(``inanimado") ) 
-       { System.out.println(``ERROR!"); }
+    if ( Sujeito__TIPO.equals("animado") &&
+         Predicado__Verbo__TIPO.equals("inanimado") ) 
+       { System.out.println("ERROR!"); }
 
-    if ( Sujeito__TIPO.equals(``inanimado") &&
-         Predicado__Verbo__TIPO.equals(``animado") ) 
-       { System.out.println(``ERROR!"); }
+    if ( Sujeito__TIPO.equals("inanimado") &&
+         Predicado__Verbo__TIPO.equals("animado") ) 
+       { System.out.println("ERROR!"); }
 }
 ;
 
-sujeito : (determinante)? nome 
-;
+sujeito : (determinante)? nome ;
 
-determinante : 'O' | 'a'
-;
+determinante : 'O' | 'a' ;
 
-nome : 'Carlos' | 'sinceridade'
-;
+nome : 'Carlos' | 'sinceridade' ;
 
-predicado : verbo complemento_direto 
-;
+predicado : verbo complemento_direto  ;
 
-complemento_direto : (determinante)? nome 
-;
+complemento_direto : (determinante)? nome ;
 
-verbo : 'teme'
-;
+verbo : 'teme' ;
 
 
 /* LEXER */
@@ -74,7 +67,7 @@ verbo : 'teme'
 \end{minipage}
 \end{center}
 
-Within the ‘main’ production, we can see the logical conditions that are ready to be evaluated when running this grammar. As the conditions are false, no errors should occur,
+Within the ‘main’ production, we can see the logical conditions that should be evaluated when running this grammar. As the conditions are false, no errors should occur,
 allowing for the visualization of the syntax tree.
 
 % INSERIR PRINT DO TESTRIG????
@@ -87,15 +80,15 @@ This case study just intends to show the way that errors or warnings are notifie
 In order to demonstrate this, the input block defined above (\autoref{lst:metaInput}) is going to suffer some modifications in order to trigger errors or warnings.
 
 \begin{center}
-\begin{minipage}{13cm}
+\begin{minipage}{12cm}
 \begin{lstlisting}[language=java, basicstyle=\small, label={lst:meta_input_missing_comp}, caption=Example of the students parsing with missing component]
 INPUT:
-    - (Sujeito: ``O Carlos" [tipo = ``animado"]
-        (Determinante: ``O"))
-    - (Predicado: ``teme a sinceridade" 
-        (Verbo: ``teme" [tipo = ``animado"], 
-         Complemento_Direto: ``a sinceridade" 
-            (Determinante: ``a", Nome: ``sinceridade")))
+    - (Sujeito: "O Carlos" [tipo = "animado"]
+        (Determinante: "O"))
+    - (Predicado: "teme a sinceridade" 
+        (Verbo: "teme" [tipo = "animado"], 
+         Complemento_Direto: "a sinceridade" 
+            (Determinante: "a", Nome: "sinceridade")))
 \end{lstlisting}
 \end{minipage}
 \end{center}
@@ -105,7 +98,7 @@ This particular case would cause an error as the noun component is mandatory (ba
 The error message identifies the missing component.
 
 \begin{center}
-\begin{minipage}{13cm}
+\begin{minipage}{12cm}
 \begin{lstlisting}[language=java, basicstyle=\small, label={lst:err_msg_missing_comp}, caption=Example error message of missing component]
 ERROR: (INPUT) 
 - The mandatory component 'Nome' has not been defined.
@@ -116,15 +109,15 @@ Another possible error would be to not define attributes, and to not give those 
 component (\underline{Sujeito}),
 
 \begin{center}
-\begin{minipage}{13cm}
+\begin{minipage}{12cm}
 \begin{lstlisting}[language=java, basicstyle=\small, label={lst:meta_input_missing_attr}, caption=Example of the students parsing with missing attribute]
 INPUT:
-    - (Sujeito: ``O Carlos"
-        (Determinante: ``O", Nome: ``Carlos"))
-    - (Predicado: ``teme a sinceridade" 
-        (Verbo: ``teme" [tipo = ``animado"], 
-         Complemento_Direto: ``a sinceridade" 
-            (Determinante: ``a", Nome: ``sinceridade")))
+    - (Sujeito: "O Carlos"
+        (Determinante: "O", Nome: "Carlos"))
+    - (Predicado: "teme a sinceridade" 
+        (Verbo: "teme" [tipo = "animado"], 
+         Complemento_Direto: "a sinceridade" 
+            (Determinante: "a", Nome: "sinceridade")))
 \end{lstlisting}
 \end{minipage}
 \end{center}
@@ -145,21 +138,21 @@ When it comes to warnings, there is only one case that raises them. This happens
 will be considered for the final evaluation. If, for example, we use the same attribute twice on the subject component,
 
 \begin{center}
-\begin{minipage}{14cm}
+\begin{minipage}{12cm}
 \begin{lstlisting}[language=java, basicstyle=\small, label={lst:meta_input_attr_twice}, caption=Example of the students parsing with the same attribute in a single component]
 INPUT:
-    - (Sujeito: ``O Carlos" 
-        [tipo = ``animado", tipo = ``inanimado"]
-        (Determinante: ``O", Nome: ``Carlos"))
-    - (Predicado: ``teme a sinceridade" 
-        (Verbo: ``teme" [tipo = ``animado"], 
-         Complemento_Direto: ``a sinceridade" 
-            (Determinante: ``a", Nome: ``sinceridade")))
+    - (Sujeito: "O Carlos" 
+        [tipo = "animado", tipo = "inanimado"]
+        (Determinante: "O", Nome: "Carlos"))
+    - (Predicado: "teme a sinceridade" 
+        (Verbo: "teme" [tipo = "animado"], 
+         Complemento_Direto: "a sinceridade" 
+            (Determinante: "a", Nome: "sinceridade")))
 \end{lstlisting}
 \end{minipage}
 \end{center}
 
-\noindent a warning is raised to notify the user that only the last value was considered as final (\emph{tipo = ``inanimado''}).
+\noindent a warning is raised to notify the user that only the last value was considered as final (\emph{tipo = "inanimado''}).
 
 \begin{center}
 \begin{minipage}{14cm}
@@ -177,8 +170,8 @@ different attributes despite of the components of a sentence, a simple structure
 with very simple sentences.
 
 \begin{center}
-\begin{minipage}{10cm}
-\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:arbitrary_structure}, caption=Example of an arbitrary sentence structure]
+\begin{minipage}{11cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:arbitrary_structure}, caption=Example of an arbitrary sentence structure]
 STRUCTURE:
     part(
         Frase,
@@ -190,21 +183,21 @@ STRUCTURE:
     )
 
 ERRORS:
-    Frase.Determinante->genero = ``masculino" 
+    Frase.Determinante->genero = "masculino" 
     AND
-    Frase.Nome->genero = ``feminino";
+    Frase.Nome->genero = "feminino";
 
-    Frase.Determinante->genero = ``feminino" 
+    Frase.Determinante->genero = "feminino" 
     AND
-    Frase.Nome->genero = ``masculino";
+    Frase.Nome->genero = "masculino";
     
-    Frase.Determinante->genero != ``masculino"
+    Frase.Determinante->genero != "masculino"
     AND 
-    Frase.Determinante->genero != ``feminino";
+    Frase.Determinante->genero != "feminino";
     
-    Frase.Nome->genero != ``masculino" 
+    Frase.Nome->genero != "masculino" 
     AND 
-    Frase.Nome->genero != ``feminino";
+    Frase.Nome->genero != "feminino";
 \end{lstlisting}
 \end{minipage}
 \end{center}
@@ -213,13 +206,13 @@ Based on the rules written, we can see that the gender must be equal, or the sen
 to be a valid sentence.
 
 \begin{center}
-\begin{minipage}{10cm}
-\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:arbitrary_structure_input}, caption=Example of an arbitrary sentence input]
+\begin{minipage}{11cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:arbitrary_structure_input}, caption=Example of an arbitrary sentence input]
 INPUT:
-    - (Frase: ``A Olinda come"
-        (Determinante: ``A" [genero = ``feminino"],
-         Nome: ``Olinda" [genero = ``feminino"],
-         Verbo: ``come"))
+    - (Frase: "A Olinda come"
+        (Determinante: "A" [genero = "feminino"],
+         Nome: "Olinda" [genero = "feminino"],
+         Verbo: "come"))
 \end{lstlisting}
 \end{minipage}
 \end{center}
@@ -227,51 +220,38 @@ INPUT:
 Combining all the information in the processor, we generate a specific grammar for this arbitrary structure.
 
 \begin{center}
-\begin{minipage}{10cm}
-\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:case_study_sentence}, caption=Example of a specific generated grammar.]
+\begin{minipage}{13cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:case_study_sentence2}, caption=Example of another specific generated grammar.]
 grammar Grammar;
-
 @members {
-    final String Frase__Determinante__GENERO = ``feminino";
-    final String Frase__Nome__GENERO = ``feminino";
+    final String Frase__Determinante__GENERO = "feminino";
+    final String Frase__Nome__GENERO = "feminino";
 }
 
-
-main : frase
-{
-    if ( Frase__Determinante__GENERO.equals(``masculino") &&
-         Frase__Nome__GENERO.equals(``feminino") ) 
-       { System.out.println(``ERROR!"); }
+main : frase {
+    if ( Frase__Determinante__GENERO.equals("masculino") &&
+         Frase__Nome__GENERO.equals("feminino") ) 
+       { System.out.println("ERROR!"); }
 	
-    if ( Frase__Determinante__GENERO.equals(``feminino") &&
-         Frase__Nome__GENERO.equals(``masculino") ) 
-       { System.out.println(``ERROR!"); }
+    if ( Frase__Determinante__GENERO.equals("feminino") &&
+         Frase__Nome__GENERO.equals("masculino") ) 
+       { System.out.println("ERROR!"); }
 	
-    if ( !Frase__Determinante__GENERO.equals(``masculino") &&
-         !Frase__Determinante__GENERO.equals(``feminino") ) 
-       { System.out.println(``ERROR!"); }
+    if ( !Frase__Determinante__GENERO.equals("masculino") &&
+         !Frase__Determinante__GENERO.equals("feminino") ) 
+       { System.out.println("ERROR!"); }
 	
-    if ( !Frase__Nome__GENERO.equals(``masculino") &&
-         !Frase__Nome__GENERO.equals(``feminino") )
-       { System.out.println(``ERROR!"); }
-}
-;
+    if ( !Frase__Nome__GENERO.equals("masculino") &&
+         !Frase__Nome__GENERO.equals("feminino") )
+       { System.out.println("ERROR!"); }
+} ;
 
-frase : determinante nome verbo 
-;
+frase : determinante nome verbo ;
+determinante : 'A' ;
+nome : 'Olinda' ;
+verbo : 'come' ;
 
-determinante : 'A'
-;
-
-nome : 'Olinda'
-;
-
-verbo : 'come'
-;
-
-
-/* LEXER */
-(...)
+/* LEXER */ (...)
 \end{lstlisting}
 \end{minipage}
 \end{center}
@@ -280,8 +260,8 @@ As an example, we can also write the previous rules (\autoref{lst:arbitrary_stru
 Using this keyword, the conditions would be interpreted in a different manner - all of them need to be true in order to considered the input as valid.
 
 \begin{center}
-\begin{minipage}{10cm}
-\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:arbitrary_structure_rules}, caption=Example of an arbitrary sentence structure with rules]
+\begin{minipage}{11cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:arbitrary_structure_rules}, caption=Example of an arbitrary sentence structure with rules]
 STRUCTURE:
     part(
         Frase,
@@ -293,21 +273,21 @@ STRUCTURE:
     )
 
 RULES:
-    Frase.Determinante->genero = ``masculino" 
+    Frase.Determinante->genero = "masculino" 
     AND
-    Frase.Nome->genero = ``feminino";
+    Frase.Nome->genero = "feminino";
 
-    Frase.Determinante->genero = ``feminino" 
+    Frase.Determinante->genero = "feminino" 
     AND
-    Frase.Nome->genero = ``masculino";
+    Frase.Nome->genero = "masculino";
     
-    Frase.Determinante->genero != ``masculino"
+    Frase.Determinante->genero != "masculino"
     AND 
-    Frase.Determinante->genero != ``feminino";
+    Frase.Determinante->genero != "feminino";
     
-    Frase.Nome->genero != ``masculino" 
+    Frase.Nome->genero != "masculino" 
     AND 
-    Frase.Nome->genero != ``feminino";
+    Frase.Nome->genero != "feminino";
 \end{lstlisting}
 \end{minipage}
 \end{center}
@@ -317,27 +297,27 @@ When generating the grammar, if `RULES' was the keyword chosen, we negate all co
 this time, need to be obeyed.
 
 \begin{center}
-\begin{minipage}{10cm}
-\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:case_study_sentence2}, caption=Different conditions from RULES block]
+\begin{minipage}{14cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:different_conditions_rules}, caption=Different conditions from RULES block]
 (...)
 
 main : frase
 {
-    if ( !( Frase__Determinante__GENERO.equals(``masculino") &&
-            Frase__Nome__GENERO.equals(``feminino") ) )
-       { System.out.println(``ERROR!"); }
+    if ( !( Frase__Determinante__GENERO.equals("masculino") &&
+            Frase__Nome__GENERO.equals("feminino") ) )
+       { System.out.println("ERROR!"); }
 
-    if ( !( Frase__Determinante__GENERO.equals(``feminino") &&
-            Frase__Nome__GENERO.equals(``masculino") ) )
-       { System.out.println(``ERROR!"); }
+    if ( !( Frase__Determinante__GENERO.equals("feminino") &&
+            Frase__Nome__GENERO.equals("masculino") ) )
+       { System.out.println("ERROR!"); }
 
-    if ( !( !Frase__Determinante__GENERO.equals(``masculino") &&
-            !Frase__Determinante__GENERO.equals(``feminino") ) )
-       { System.out.println(``ERROR!"); }
+    if ( !( !Frase__Determinante__GENERO.equals("masculino") &&
+            !Frase__Determinante__GENERO.equals("feminino") ) )
+       { System.out.println("ERROR!"); }
 
-    if ( !( !Frase__Nome__GENERO.equals(``masculino") &&
-            !Frase__Nome__GENERO.equals(``feminino") ) )
-       { System.out.println(``ERROR!"); }
+    if ( !( !Frase__Nome__GENERO.equals("masculino") &&
+            !Frase__Nome__GENERO.equals("feminino") ) )
+       { System.out.println("ERROR!"); }
 }
 ;
 
@@ -381,12 +361,12 @@ STRUCTURE:
 \begin{minipage}{14cm}
 \begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_input1}, caption=Example of a sentence input]
 INPUT:
-    - (Sujeito: ``O rapaz")
+    - (Sujeito: "O rapaz")
 
     - (Predicado (
-        Verbo: ``viu",
-        Complemento_Direto: ``o homem",
-        Predicativo_Complemento_Direto: ``com o telescopio"
+        Verbo: "viu",
+        Complemento_Direto: "o homem",
+        Predicativo_Complemento_Direto: "com o telescopio"
     ))
 \end{lstlisting}
 \end{minipage}
@@ -415,7 +395,7 @@ STRUCTURE:
     )]
 
 ERRORS:
-    Frase.Predicado.Complemento_Circunstancial->tipo != ``lugar";
+    Frase.Predicado.Complemento_Circunstancial->tipo != "lugar";
 \end{lstlisting}
 \end{minipage}
 \end{center}
@@ -425,13 +405,13 @@ ERRORS:
 \begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_input3}, caption=Example of a sentence input]
 INPUT:
     - (Frase (
-        Modificador: ``Hoje",
-        Sujeito: ``eu",
+        Modificador: "Hoje",
+        Sujeito: "eu",
         Predicado (
-            Verbo: ``comi",
-            Complemento_Direto: ``uma pizza",
+            Verbo: "comi",
+            Complemento_Direto: "uma pizza",
             Complemento_Circunstancial: 
-                ``na pizzaria abaixo" [tipo = ``lugar"]
+                "na pizzaria abaixo" [tipo = "lugar"]
         )
     ))
 \end{lstlisting}
@@ -466,10 +446,10 @@ STRUCTURE:
 \begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_input4}, caption=Example of a sentence input]
 INPUT:
     - (Frase (
-        Sujeito: ``Eu",
+        Sujeito: "Eu",
         Predicado (
-            Verbo: ``estive",
-            Complemento_Circunstancial_Lugar: ``no Porto"
+            Verbo: "estive",
+            Complemento_Circunstancial_Lugar: "no Porto"
         )
     ))
 \end{lstlisting}
@@ -483,21 +463,15 @@ This example intends to demonstrate the capability of the tool when it comes to 
 The principal remains the same, it all depends on the rules defined by the teacher.
 
 \begin{center}
-\begin{minipage}{10cm}
-\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:example_complex_structure}, caption=Example of a more complex structure]
+\begin{minipage}{15cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_complex_structure}, caption=Example of a more complex structure]
 STRUCTURE:
     part[(
         Frase, subparts[
             (Sujeito),
-            (Predicado1, subparts[
-                (Verbo),
-                (Complemento_Indireto)
-            ]),
+            (Predicado1, subparts[(Verbo), (Complemento_Indireto)]),
             (Conjuncao),
-            (Predicado2, subparts[
-                (Verbo),
-                (Modificador_Verbal)
-            ])
+            (Predicado2, subparts[(Verbo), (Modificador_Verbal)])
         ]
     )]
 \end{lstlisting}
@@ -505,22 +479,22 @@ STRUCTURE:
 \end{center}
 
 \begin{center}
-\begin{minipage}{10cm}
-\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:example_complex_input}, caption=Example of a more complex sentence input]
+\begin{minipage}{12cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_complex_input}, caption=Example of a more complex sentence input]
 INPUT:
     - (Frase (
-        Sujeito: ``Los soldados",
+        Sujeito: "Los soldados",
 		
         Predicado1 (
-            Verbo: ``dispararon",
-            Complemento_Indireto: ``a los sentenciados"
+            Verbo: "dispararon",
+            Complemento_Indireto: "a los sentenciados"
         ),
 
-        Conjuncao: ``y",
+        Conjuncao: "y",
 
         Predicado2 (
-            Verbo: ``cayeron",
-            Modificador_Verbal: ``muertos"
+            Verbo: "cayeron",
+            Modificador_Verbal: "muertos"
         )
     ))
 \end{lstlisting}
@@ -532,7 +506,7 @@ joined by a connector to create some kind of meaning as can be seen in \autoref{
 
 \begin{center}
 \begin{minipage}{12cm}
-\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:example_complex_structure2}, caption=Example of a another more complex structure]
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_complex_structure2}, caption=Example of a another more complex structure]
 STRUCTURE:
     part[(
         Frase, subparts[
@@ -553,50 +527,25 @@ STRUCTURE:
 \end{minipage}
 \end{center}
 
-%\begin{center}
-%\begin{minipage}{11cm}
-%\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:example_complex_structure2}, caption=Example of a complex sentence structure]
-%STRUCTURE:
-%    part[(Sujeito)]
-%    part[(
-%        Predicado,
-%        subparts[
-%            (Verbo),
-%            (Complemento_Circunstancial_Lugar)
-%        ])
-%    )]
-%    part[(Conjuncao)]
-%    part[(Sujeito)]
-%	part[(
-%        Predicado,
-%        subparts[
-%            (Verbo),
-%            (Complemento_Circunstancial_Lugar)
-%        ]
-%    )]
-%\end{lstlisting}
-%\end{minipage}
-%\end{center}
-
 \begin{center}
-\begin{minipage}{12cm}
-\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:example_complex_input2}, caption=Example of another more complex sentence input]
+\begin{minipage}{13cm}
+\begin{lstlisting}[language=java, basicstyle=\small, label={lst:example_complex_input2}, caption=Example of another more complex sentence input]
 INPUT:
     - (Frase (
-        Sujeito1: ``Juan",
+        Sujeito1: "Juan",
 		
         Predicado1 (
-            Verbo: ``vive",
-            Complemento_Indireto: ``en el edificio blanco"
+            Verbo: "vive",
+            Complemento_Indireto: "en el edificio blanco"
         ),
 
-        Conjuncao: ``y",
+        Conjuncao: "y",
 
-        Sujeito2: ``Maria",
+        Sujeito2: "Maria",
 
         Predicado2 (
-            Verbo: ``trabaja",
-            Modificador_Verbal: ``aqui"
+            Verbo: "trabaja",
+            Modificador_Verbal: "aqui"
         )
     ))
 \end{lstlisting}
@@ -607,20 +556,20 @@ INPUT:
 %\begin{minipage}{11cm}
 %\begin{lstlisting}[language=java, basicstyle=\tiny, label={lst:example_complex_input2}, caption=Example of another complex sentence input]
 %INPUT:
-%    - (Sujeito: ``Juan")
+%    - (Sujeito: "Juan")
 %
 %    - (Predicado (
-%        Verbo: ``vive",
-%        Complemento_Circunstancial_Lugar: ``en el edificio blanco"
+%        Verbo: "vive",
+%        Complemento_Circunstancial_Lugar: "en el edificio blanco"
 %    ))
 %
-%    - (Conjuncao: ``y")
+%    - (Conjuncao: "y")
 %
-%    - (Sujeito: ``Maria")
+%    - (Sujeito: "Maria")
 %
 %    - (Predicado (
-%        Verbo: ``trabaja",
-%        Complemento_Circunstancial_Lugar: ``aqui"
+%        Verbo: "trabaja",
+%        Complemento_Circunstancial_Lugar: "aqui"
 %    ))
 %\end{lstlisting}
 %\end{minipage}
@@ -634,5 +583,5 @@ Through various examples and use cases, it was possible to exhibit how the tool 
 The most relevant aspect of the case studies are how they ilustrate the different scenarios in which they will be used.
 The target user are both the teacher, who is responsible for creating and implementing structures in which he/she would like to use for testing within a classroom context;
 the student, whose task is to create sentences that match with the rules defined, therefore practicing different linguistic aspects.
-The system as a whole can be considered functional for the use cases that intends to solve.
+The system as a whole can be considered functional for the use cases that intends to deal with.
 

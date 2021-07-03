@@ -1,0 +1,7 @@
+INPUT:
+    - (Sujeito: "O Carlos" [tipo = "animado"]
+        (Determinante: "O", Nome: "Carlos"))
+    - (Predicado: "teme a sinceridade" 
+        (Verbo: "teme" [tipo = "animado"], 
+         Complemento_Direto: "a sinceridade" 
+            (Determinante: "a", Nome: "sinceridade")))
