@@ -1,4 +1,4 @@
-# msc-thesis
+# Lyntax 
 
 Applying Attribute Grammars to teach Linguistic Rules
 
@@ -28,26 +28,27 @@ The main purpose of this tool is to generate ANTLR instructions based on a previ
 The CLI version has an included help message to explain which options are available, and how to use them.
 
 ```bash
-$ tool -h
+$ lyntax -h
 
-tool
-Linguistic rules for beginners.
+lyntax
+Practice linguistic rules.
 
 USAGE:
-    | tool [-h | help]
-    | tool [-g | generate] <RULES> <INPUT>
-    | tool [-r | run]
-    | tool [-c | clean]
+    | lyntax [-h | help]
+    | lyntax [-g | generate] <RULES> <INPUT>
+    | lyntax [-r | run]
+    | lyntax [-c | clean]
 
 OPTIONS:
     -h, help              Help message.
-    -c, generate          Generates Grammar sources.
+    -g, generate          Generates Grammar sources.
     -r, run               Compiles Grammar sources, running it given the sentence as input.
     -c, clean             Cleans files.
 
 ARGS:
     <RULES>               Sentence rules (STRUCTURE + ERRORS blocks).
     <INPUT>               Parsed input (INPUT block).
+
 ```
 
 As for the GUI version (compiled as a JAR file), the interaction is pretty straight forward.
